@@ -1,5 +1,5 @@
 class_name status_effect
-extends Node
+extends Resource
 
 var duration: int
 var magnitude: int

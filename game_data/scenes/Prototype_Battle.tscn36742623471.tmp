@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://rml0uowto1u1"]
+
+[ext_resource type="Script" uid="uid://ce0bib1kd6yoj" path="res://game_data/scripts/battle_controller.gd" id="1_p588q"]
+[ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/cards/card_locations/skill_card_discard.gd" id="2_72g67"]
+[ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
+[ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/cards/card_locations/skill_card_library.gd" id="4_h35sd"]
+[ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/cards/skill_card.gd" id="6_wxjty"]
+[ext_resource type="Texture2D" uid="uid://bn02txys37m5h" path="res://game_data/objects/Prototype_Battle/Blank_Card.png" id="7_h35sd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4n2p"]
+size = Vector2(362, 482)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wxjty"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.7607843, 0.32941177, 0.24313726, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1dyx"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aonjl"]
+font_size = 42
+font_color = Color(0, 0, 0, 1)
+
+[node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
+script = ExtResource("1_p588q")
+
+[node name="discard" type="Node" parent="." unique_id=1387633910]
+script = ExtResource("2_72g67")
+
+[node name="hand" type="Node" parent="." unique_id=1762119547]
+script = ExtResource("3_wxjty")
+
+[node name="library" type="Node" parent="." unique_id=889627745]
+script = ExtResource("4_h35sd")
+
+[node name="skill_card" type="Area2D" parent="." unique_id=1871708570]
+position = Vector2(500, 500)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("6_wxjty")
+
+[node name="Sprite2D" type="Sprite2D" parent="skill_card" unique_id=1746162831]
+texture = ExtResource("7_h35sd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="skill_card" unique_id=786524825]
+position = Vector2(-17, -35)
+shape = SubResource("RectangleShape2D_l4n2p")
+
+[node name="card_name" type="Label" parent="skill_card" unique_id=2038515389]
+offset_left = -92.0
+offset_top = -256.0
+offset_right = 60.0
+offset_bottom = -214.0
+label_settings = SubResource("LabelSettings_wxjty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="card_ability" type="Label" parent="skill_card" unique_id=681648373]
+offset_left = -154.0
+offset_top = 34.0
+offset_right = 122.0
+offset_bottom = 122.0
+label_settings = SubResource("LabelSettings_c1dyx")
+
+[node name="mana_cost" type="Label" parent="skill_card" unique_id=1961231286]
+offset_left = 42.0
+offset_top = 144.0
+offset_right = 90.0
+offset_bottom = 202.0
+label_settings = SubResource("LabelSettings_aonjl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina_cost" type="Label" parent="skill_card" unique_id=712983201]
+offset_left = -132.0
+offset_top = 142.0
+offset_right = -72.0
+offset_bottom = 200.0
+label_settings = SubResource("LabelSettings_aonjl")
+horizontal_alignment = 1
+vertical_alignment = 1

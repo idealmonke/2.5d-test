@@ -1,5 +1,5 @@
 class_name Party
-extends Node
+extends Resource
 
 var card_ids: Array[int]
 var character_ids: Array

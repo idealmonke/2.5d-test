@@ -1,5 +1,5 @@
 class_name battle_player_data
-extends Node
+extends RefCounted
 
 var hit_points: int
 var mana: int

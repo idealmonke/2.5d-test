@@ -1,5 +1,5 @@
 class_name battle_data
-extends Node
+extends RefCounted
 
 var enemies: Array
 var hand: skill_card_hand
