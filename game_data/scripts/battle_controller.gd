@@ -20,9 +20,16 @@ func _ready() -> void:
 	current_discard_card = _default_discard_card
 	
 	# TEMPORARY TESTING CODE
-	data.library.push_to_top($skill_card)
-	data.library.push_to_top($skill_card2)
-	$skill_card2/card_name.text = "Chungus"
+	data.library.push_to_top($card_storage/skill_card)
+	data.library.push_to_top($card_storage/skill_card2)
+	data.library.push_to_top($card_storage/skill_card3)
+	data.library.push_to_top($card_storage/skill_card4)
+	data.library.push_to_top($card_storage/skill_card5)
+	$card_storage/skill_card/card_name.text = "Gooby"
+	$card_storage/skill_card2/card_name.text = "Chungus"
+	$card_storage/skill_card3/card_name.text = "Bingus"
+	$card_storage/skill_card4/card_name.text = "Wakka Wakka"
+	$card_storage/skill_card5/card_name.text = "Looney"
 	# TEMPORARY TESTING CODE
 	
 # Main Loop
@@ -39,9 +46,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_E:
 			replenish_discard()
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_R:
+			discard_front()
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
+	if data.library.is_empty():
+		return
 	# Some Stuff
 	current_draw_card.call()
 	# Some More Stuff
@@ -72,6 +84,13 @@ func replenish_single(card: skill_card) -> void:
 	data.library.push_to_top(temp)
 	temp.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
 	data.library.shuffle()
+	
+func discard_front() -> void:
+	var temp = data.hand.pop_front()
+	if temp == null:
+		return
+	data.discard.add_card(temp)
+	temp.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 
 # Mutable Game Actions (Default lambda functions, sometimes replaced by perks)
 func _default_draw_card() -> void:

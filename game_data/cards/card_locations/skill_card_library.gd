@@ -1,5 +1,5 @@
 class_name skill_card_library
-extends Node
+extends Node2D
 
 var library: Array[skill_card] = []
 var shuffle_func: Callable

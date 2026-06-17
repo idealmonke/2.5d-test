@@ -1,5 +1,5 @@
 class_name skill_card_discard
-extends Node
+extends Node2D
 
 var discard: Array[skill_card] = []
 	
@@ -17,6 +17,9 @@ func pop_card(card: skill_card) -> skill_card:
 
 func add_card(card: skill_card) -> void:
 	discard.push_front(card)
+	
+func add_many(cards: Array) -> void:
+	discard.append_array(cards)
 
 func is_empty() -> bool:
 	return discard.is_empty()
