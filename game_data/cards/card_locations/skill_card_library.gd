@@ -35,5 +35,3 @@ func is_empty() -> bool:
 func _unweighted_shuffle() -> void:
 	library.shuffle()
 	
-func _weighted_shuffle() -> void:
-	pass

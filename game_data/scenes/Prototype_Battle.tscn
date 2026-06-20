@@ -4,8 +4,17 @@
 [ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/cards/card_locations/skill_card_discard.gd" id="2_72g67"]
 [ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
 [ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/cards/card_locations/skill_card_library.gd" id="4_h35sd"]
+[ext_resource type="Texture2D" uid="uid://dq27uwoxutmax" path="res://game_data/cards/card_art/Blank_Card.png" id="6_h35sd"]
+[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/cards/card_art/exhausted_card.gdshader" id="6_l4n2p"]
 [ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/cards/skill_card.gd" id="6_wxjty"]
-[ext_resource type="Texture2D" uid="uid://bn02txys37m5h" path="res://game_data/objects/Prototype_Battle/Blank_Card.png" id="7_h35sd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
+shader = ExtResource("6_l4n2p")
+shader_parameter/is_exhausted = false
+shader_parameter/transition_start_time = 0.0
+shader_parameter/fade_duration = 0.4
+shader_parameter/darken_amount = 0.800000038
+shader_parameter/desaturate_amount = 0.30000001425
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4n2p"]
 size = Vector2(362, 482)
@@ -24,6 +33,8 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_aonjl"]
 font_size = 42
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_p588q")
@@ -45,7 +56,8 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("6_wxjty")
 
 [node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card" unique_id=1746162831]
-texture = ExtResource("7_h35sd")
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("6_h35sd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card" unique_id=786524825]
 position = Vector2(-17, -35)
@@ -91,25 +103,26 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="skill_card2" type="Area2D" parent="card_storage" unique_id=722236726]
+[node name="skill_card2" type="Area2D" parent="card_storage" unique_id=1517108361]
 position = Vector2(500, 500)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("6_wxjty")
 
-[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card2" unique_id=381400665]
-texture = ExtResource("7_h35sd")
+[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card2" unique_id=1329385862]
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("6_h35sd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card2" unique_id=1605593437]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card2" unique_id=177251869]
 position = Vector2(-17, -35)
 shape = SubResource("RectangleShape2D_l4n2p")
 
-[node name="hover_area" type="Area2D" parent="card_storage/skill_card2" unique_id=296682801]
+[node name="hover_area" type="Area2D" parent="card_storage/skill_card2" unique_id=1997789707]
 
-[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card2/hover_area" unique_id=1644485189]
+[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card2/hover_area" unique_id=1168037399]
 position = Vector2(-18, -61)
 shape = SubResource("RectangleShape2D_72g67")
 
-[node name="card_name" type="Label" parent="card_storage/skill_card2" unique_id=1398607151]
+[node name="card_name" type="Label" parent="card_storage/skill_card2" unique_id=8364464]
 offset_left = -92.0
 offset_top = -256.0
 offset_right = 60.0
@@ -118,14 +131,14 @@ label_settings = SubResource("LabelSettings_wxjty")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="card_ability" type="Label" parent="card_storage/skill_card2" unique_id=289046385]
+[node name="card_ability" type="Label" parent="card_storage/skill_card2" unique_id=53282140]
 offset_left = -154.0
 offset_top = 34.0
 offset_right = 122.0
 offset_bottom = 122.0
 label_settings = SubResource("LabelSettings_c1dyx")
 
-[node name="mana_cost" type="Label" parent="card_storage/skill_card2" unique_id=2034949473]
+[node name="mana_cost" type="Label" parent="card_storage/skill_card2" unique_id=1971224639]
 offset_left = 42.0
 offset_top = 144.0
 offset_right = 90.0
@@ -134,7 +147,7 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="stamina_cost" type="Label" parent="card_storage/skill_card2" unique_id=1096750664]
+[node name="stamina_cost" type="Label" parent="card_storage/skill_card2" unique_id=612701343]
 offset_left = -132.0
 offset_top = 142.0
 offset_right = -72.0
@@ -143,25 +156,26 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="skill_card3" type="Area2D" parent="card_storage" unique_id=643248047]
+[node name="skill_card3" type="Area2D" parent="card_storage" unique_id=1305254307]
 position = Vector2(500, 500)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("6_wxjty")
 
-[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card3" unique_id=2031028765]
-texture = ExtResource("7_h35sd")
+[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card3" unique_id=958045837]
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("6_h35sd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card3" unique_id=1480143577]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card3" unique_id=594681009]
 position = Vector2(-17, -35)
 shape = SubResource("RectangleShape2D_l4n2p")
 
-[node name="hover_area" type="Area2D" parent="card_storage/skill_card3" unique_id=1275919726]
+[node name="hover_area" type="Area2D" parent="card_storage/skill_card3" unique_id=2091155179]
 
-[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card3/hover_area" unique_id=640888945]
+[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card3/hover_area" unique_id=247280634]
 position = Vector2(-18, -61)
 shape = SubResource("RectangleShape2D_72g67")
 
-[node name="card_name" type="Label" parent="card_storage/skill_card3" unique_id=388434864]
+[node name="card_name" type="Label" parent="card_storage/skill_card3" unique_id=334726782]
 offset_left = -92.0
 offset_top = -256.0
 offset_right = 60.0
@@ -170,14 +184,14 @@ label_settings = SubResource("LabelSettings_wxjty")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="card_ability" type="Label" parent="card_storage/skill_card3" unique_id=1973074039]
+[node name="card_ability" type="Label" parent="card_storage/skill_card3" unique_id=666235022]
 offset_left = -154.0
 offset_top = 34.0
 offset_right = 122.0
 offset_bottom = 122.0
 label_settings = SubResource("LabelSettings_c1dyx")
 
-[node name="mana_cost" type="Label" parent="card_storage/skill_card3" unique_id=1727245827]
+[node name="mana_cost" type="Label" parent="card_storage/skill_card3" unique_id=326391414]
 offset_left = 42.0
 offset_top = 144.0
 offset_right = 90.0
@@ -186,7 +200,7 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="stamina_cost" type="Label" parent="card_storage/skill_card3" unique_id=148267446]
+[node name="stamina_cost" type="Label" parent="card_storage/skill_card3" unique_id=1088034718]
 offset_left = -132.0
 offset_top = 142.0
 offset_right = -72.0
@@ -195,25 +209,26 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="skill_card4" type="Area2D" parent="card_storage" unique_id=1748765515]
+[node name="skill_card4" type="Area2D" parent="card_storage" unique_id=1824727100]
 position = Vector2(500, 500)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("6_wxjty")
 
-[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card4" unique_id=395710112]
-texture = ExtResource("7_h35sd")
+[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card4" unique_id=1603358139]
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("6_h35sd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card4" unique_id=333110413]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card4" unique_id=473503475]
 position = Vector2(-17, -35)
 shape = SubResource("RectangleShape2D_l4n2p")
 
-[node name="hover_area" type="Area2D" parent="card_storage/skill_card4" unique_id=634845402]
+[node name="hover_area" type="Area2D" parent="card_storage/skill_card4" unique_id=186079940]
 
-[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card4/hover_area" unique_id=1264002640]
+[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card4/hover_area" unique_id=870336991]
 position = Vector2(-18, -61)
 shape = SubResource("RectangleShape2D_72g67")
 
-[node name="card_name" type="Label" parent="card_storage/skill_card4" unique_id=475563988]
+[node name="card_name" type="Label" parent="card_storage/skill_card4" unique_id=71244036]
 offset_left = -92.0
 offset_top = -256.0
 offset_right = 60.0
@@ -222,14 +237,14 @@ label_settings = SubResource("LabelSettings_wxjty")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="card_ability" type="Label" parent="card_storage/skill_card4" unique_id=1426115773]
+[node name="card_ability" type="Label" parent="card_storage/skill_card4" unique_id=465105162]
 offset_left = -154.0
 offset_top = 34.0
 offset_right = 122.0
 offset_bottom = 122.0
 label_settings = SubResource("LabelSettings_c1dyx")
 
-[node name="mana_cost" type="Label" parent="card_storage/skill_card4" unique_id=881907097]
+[node name="mana_cost" type="Label" parent="card_storage/skill_card4" unique_id=1565580027]
 offset_left = 42.0
 offset_top = 144.0
 offset_right = 90.0
@@ -238,7 +253,7 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="stamina_cost" type="Label" parent="card_storage/skill_card4" unique_id=43810085]
+[node name="stamina_cost" type="Label" parent="card_storage/skill_card4" unique_id=1858818832]
 offset_left = -132.0
 offset_top = 142.0
 offset_right = -72.0
@@ -247,25 +262,26 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="skill_card5" type="Area2D" parent="card_storage" unique_id=1487548909]
+[node name="skill_card5" type="Area2D" parent="card_storage" unique_id=403675941]
 position = Vector2(500, 500)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("6_wxjty")
 
-[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card5" unique_id=641318400]
-texture = ExtResource("7_h35sd")
+[node name="Sprite2D" type="Sprite2D" parent="card_storage/skill_card5" unique_id=55798982]
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("6_h35sd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card5" unique_id=753602870]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="card_storage/skill_card5" unique_id=1558336639]
 position = Vector2(-17, -35)
 shape = SubResource("RectangleShape2D_l4n2p")
 
-[node name="hover_area" type="Area2D" parent="card_storage/skill_card5" unique_id=315947654]
+[node name="hover_area" type="Area2D" parent="card_storage/skill_card5" unique_id=1314905506]
 
-[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card5/hover_area" unique_id=781461124]
+[node name="hover_area_collision" type="CollisionShape2D" parent="card_storage/skill_card5/hover_area" unique_id=1050155776]
 position = Vector2(-18, -61)
 shape = SubResource("RectangleShape2D_72g67")
 
-[node name="card_name" type="Label" parent="card_storage/skill_card5" unique_id=58763503]
+[node name="card_name" type="Label" parent="card_storage/skill_card5" unique_id=2099553826]
 offset_left = -92.0
 offset_top = -256.0
 offset_right = 60.0
@@ -274,14 +290,14 @@ label_settings = SubResource("LabelSettings_wxjty")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="card_ability" type="Label" parent="card_storage/skill_card5" unique_id=1778359838]
+[node name="card_ability" type="Label" parent="card_storage/skill_card5" unique_id=145317380]
 offset_left = -154.0
 offset_top = 34.0
 offset_right = 122.0
 offset_bottom = 122.0
 label_settings = SubResource("LabelSettings_c1dyx")
 
-[node name="mana_cost" type="Label" parent="card_storage/skill_card5" unique_id=1801222660]
+[node name="mana_cost" type="Label" parent="card_storage/skill_card5" unique_id=1903822028]
 offset_left = 42.0
 offset_top = 144.0
 offset_right = 90.0
@@ -290,7 +306,7 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="stamina_cost" type="Label" parent="card_storage/skill_card5" unique_id=1814650263]
+[node name="stamina_cost" type="Label" parent="card_storage/skill_card5" unique_id=498434257]
 offset_left = -132.0
 offset_top = 142.0
 offset_right = -72.0
@@ -309,3 +325,4 @@ q = draw card
 w = dredge card
 e = replenish discard
 r = discard front card"
+label_settings = SubResource("LabelSettings_h35sd")

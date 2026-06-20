@@ -30,6 +30,8 @@ func _ready() -> void:
 	$card_storage/skill_card3/card_name.text = "Bingus"
 	$card_storage/skill_card4/card_name.text = "Wakka Wakka"
 	$card_storage/skill_card5/card_name.text = "Looney"
+	for card in data.library.library:
+		card.set_back()
 	# TEMPORARY TESTING CODE
 	
 # Main Loop
@@ -69,12 +71,14 @@ func dredge_card() -> void:
 		return
 	data.discard.add_card(card)
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
+	card.set_front()
 
 func replenish_discard() -> void:
 	while data.discard.is_empty() == false:
 		var card = data.discard.pop_front_card()
 		data.library.push_to_top(card)
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
+		card.set_back()
 	data.library.shuffle()
 	
 func replenish_single(card: skill_card) -> void:
@@ -83,6 +87,7 @@ func replenish_single(card: skill_card) -> void:
 		return
 	data.library.push_to_top(temp)
 	temp.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
+	temp.set_back()
 	data.library.shuffle()
 	
 func discard_front() -> void:
@@ -99,6 +104,7 @@ func _default_draw_card() -> void:
 		return
 	data.hand.add_card(card)
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.HAND
+	card.set_front()
 
 func _default_discard_card(card: skill_card) -> void:
 	data.hand.pop_card(card)

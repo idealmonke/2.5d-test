@@ -1,8 +1,11 @@
 class_name status_effect
 extends Resource
 
-var duration: int
+var stacks: int
 var magnitude: int
+var duration_active: int
 
-func execute(target) -> void:
+var targets: Array
+
+func execute(battle: battle_controller) -> void:
 	pass

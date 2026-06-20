@@ -80,8 +80,8 @@ func _set_hand_offset() -> void:
 		var centered_t = t - 0.5          # Normalized t, -0.5 to 0.5
 
 		var x = start_x + spacing * index
-		var y = arc_height * (centered_t * centered_t) * 4.0 - arc_height
-		var tilt = deg_to_rad(max_tilt_degrees * centered_t * 1.5)
+		var y = arc_height * (centered_t * centered_t) * 3.0 - arc_height
+		var tilt = deg_to_rad(max_tilt_degrees * centered_t * 1.2)
 
 		hand[index].location_offset = Vector2(x, y)
 		hand[index].rotation_offset = tilt
