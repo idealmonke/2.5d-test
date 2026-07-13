@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://rml0uowto1u1"]
 
 [ext_resource type="Script" uid="uid://ce0bib1kd6yoj" path="res://game_data/scripts/battle_controller.gd" id="1_p588q"]
-[ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/cards/card_locations/skill_card_discard.gd" id="2_72g67"]
-[ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
-[ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/cards/card_locations/skill_card_library.gd" id="4_h35sd"]
-[ext_resource type="Texture2D" uid="uid://dq27uwoxutmax" path="res://game_data/cards/card_art/Blank_Card.png" id="6_h35sd"]
-[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/cards/card_art/exhausted_card.gdshader" id="6_l4n2p"]
-[ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/cards/skill_card.gd" id="6_wxjty"]
+[ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/skill_cards/card_locations/skill_card_discard.gd" id="2_72g67"]
+[ext_resource type="Script" uid="uid://d02qag4sjnwd8" path="res://game_data/skill_cards/card_locations/skill_card_display_grid.gd" id="2_l4n2p"]
+[ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/skill_cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
+[ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/skill_cards/card_locations/skill_card_library.gd" id="4_h35sd"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="5_h35sd"]
+[ext_resource type="Texture2D" uid="uid://dq27uwoxutmax" path="res://game_data/skill_cards/card_art/Blank_Card.png" id="6_h35sd"]
+[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_art/exhausted_card.gdshader" id="6_l4n2p"]
+[ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="6_wxjty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxjty"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
 shader = ExtResource("6_l4n2p")
@@ -39,14 +43,27 @@ font_color = Color(0, 0, 0, 1)
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_p588q")
 
+[node name="skill_card_display_grid" type="Node2D" parent="." unique_id=47632237]
+script = ExtResource("2_l4n2p")
+metadata/_custom_type_script = "uid://d02qag4sjnwd8"
+
 [node name="hand" type="Node2D" parent="." unique_id=495395319]
 script = ExtResource("3_wxjty")
 
 [node name="library" type="Node2D" parent="." unique_id=808325488]
 script = ExtResource("4_h35sd")
 
-[node name="discard" type="Node2D" parent="." unique_id=1776834287]
+[node name="discard" type="Area2D" parent="." unique_id=215352113]
+position = Vector2(192, 850)
 script = ExtResource("2_72g67")
+
+[node name="base_sprite" type="Sprite2D" parent="discard" unique_id=2013087415]
+scale = Vector2(1.74, 2.488)
+texture = ExtResource("5_h35sd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="discard" unique_id=477968306]
+scale = Vector2(11.025, 15.82)
+shape = SubResource("RectangleShape2D_wxjty")
 
 [node name="card_storage" type="Node2D" parent="." unique_id=149255123]
 

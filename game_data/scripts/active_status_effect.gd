@@ -1,4 +1,4 @@
-class_name status_effect
+class_name active_status_effect
 extends Resource
 
 var stacks: int

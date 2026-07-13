@@ -7,6 +7,9 @@ var data: battle_data
 var current_draw_card: Callable
 var current_discard_card: Callable
 
+## Helps cards 
+var global_state: COMMON_ENUMS.GLOBAL_CARD_STATE = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
+
 # Init Battle Controller
 func _ready() -> void:
 	data = battle_data.new()
