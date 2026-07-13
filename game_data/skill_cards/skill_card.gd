@@ -60,7 +60,6 @@ var exhausted: bool:
 			exhaust_material.set_shader_parameter("is_exhausted", exhausted)
 			exhaust_material.set_shader_parameter("transition_start_time", (Time.get_ticks_msec() / 1000.0) - 10.0)
 			
-		# Do the visual changes here
 # Subscribers
 var select_subscribers: Dictionary
 
