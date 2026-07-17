@@ -1,33 +1,42 @@
 [gd_scene format=3 uid="uid://bqeiaw7piq6ut"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_wtjmy"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_mw5y4"]
+[ext_resource type="Script" uid="uid://djas34mrbinks" path="res://game_data/scripts/main_menu/play_button.gd" id="2_vrr0r"]
 
-[sub_resource type="Sky" id="Sky_wtjmy"]
+[node name="Node2D" type="Node2D" unique_id=1508738771]
 
-[sub_resource type="Environment" id="Environment_wtjmy"]
-background_mode = 2
-sky = SubResource("Sky_wtjmy")
-fog_density = 0.0
-volumetric_fog_enabled = true
+[node name="name_text" type="Label" parent="." unique_id=1791617102]
+offset_left = 482.0
+offset_top = 91.0
+offset_right = 1407.0
+offset_bottom = 353.0
+theme_override_font_sizes/font_size = 120
+text = "Reclaiming Arca"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Node3D" type="Node3D" unique_id=2120986665]
+[node name="logo" type="Sprite2D" parent="." unique_id=956750061]
+position = Vector2(1716.0001, 215)
+scale = Vector2(2.5468755, 2.5468755)
+texture = ExtResource("1_mw5y4")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1469558719]
-transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2, 4)
+[node name="play_button" type="Button" parent="." unique_id=1173965733]
+offset_left = 670.0
+offset_top = 459.0
+offset_right = 1193.0
+offset_bottom = 658.0
+theme_override_font_sizes/font_size = 50
+text = "Play"
+script = ExtResource("2_vrr0r")
 
-[node name="FloorPlane" type="MeshInstance3D" parent="." unique_id=130979373]
-transform = Transform3D(5.005, 0, 0, 0, 5.005, 0, 0, 0, 5.005, 0, 0, 0)
-mesh = SubResource("PlaneMesh_wtjmy")
+[node name="settings_button" type="Button" parent="." unique_id=1040364496]
+offset_left = 677.0
+offset_top = 735.0
+offset_right = 1200.0
+offset_bottom = 934.0
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+script = ExtResource("2_vrr0r")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=858099917]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-light_color = Color(1, 0.7294118, 0.3372549, 1)
-light_size = 0.3
-omni_range = 3.0
-omni_attenuation = 0.75
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=729395508]
-environment = SubResource("Environment_wtjmy")
-
-[node name="Menu" type="Node3D" parent="." unique_id=1487455172]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[connection signal="pressed" from="play_button" to="play_button" method="_on_pressed"]
+[connection signal="pressed" from="settings_button" to="settings_button" method="_on_pressed"]
