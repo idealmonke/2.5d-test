@@ -17,6 +17,7 @@ var card_main_frame: Sprite2D
 var card_name_label: Label
 var card_ability_label: Label
 var card_stamina_cost_label: Label
+var card_mana_cost_label: Label
 
 # Card Control Data
 var controller: battle_controller
@@ -46,6 +47,7 @@ func _ready() -> void:
 	card_name_label = $card_name
 	card_ability_label = $card_ability
 	card_stamina_cost_label = $stamina_cost
+	card_mana_cost_label = $mana_cost
 	_update_text()
 	
 	call_deferred("_late_setup")
@@ -72,11 +74,26 @@ func _late_setup() -> void:
 	#intialize controller and data
 	pass
 
+func set_back() -> void:
+	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Card_Back.png")
+	card_name_label.hide()
+	card_mana_cost_label.hide()
+	card_stamina_cost_label.hide()
+	card_ability_label.hide()
+	
+func set_front() -> void:
+	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Blank_Card.png")
+	card_name_label.show()
+	card_mana_cost_label.show()
+	card_stamina_cost_label.show()
+	card_ability_label.show()
+
 func _update_text() -> void:
 	# Change to actual propertes once they initialize correctly
-	card_name_label.text = "enemy_default_text"
+	card_name_label.text = "enemy default name"
 	card_ability_label.text = "enemy default ability"
-	card_stamina_cost_label.text = "69"
+	card_stamina_cost_label.text = "3"
+	card_mana_cost_label.text = "0"
 
 func initialize_card(resource_data: enemy_card_data) -> void:
 	card_name = resource_data.card_name

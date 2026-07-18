@@ -29,6 +29,10 @@ func shuffle() -> void:
 func push_to_top(card: skill_card) -> void:
 	library.push_front(card)
 
+func push_each(cards: Array[skill_card]) -> void:
+	library.append_array(cards)
+	library.shuffle()
+
 func is_empty() -> bool:
 	return library.is_empty()
 

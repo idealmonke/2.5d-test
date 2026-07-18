@@ -8,5 +8,5 @@ var timing: COMMON_ENUMS.TIMING
 
 var targets: Array
 
-func execute(battle: battle_controller) -> void:
+func execute(target) -> void:
 	pass

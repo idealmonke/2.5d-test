@@ -54,6 +54,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_R:
 			discard_front()
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_P:
+			for enem in data.enemies:
+				enem.process_turn()
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
@@ -114,9 +118,32 @@ func _default_discard_card(card: skill_card) -> void:
 	data.discard.add_card(card)
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 
-# Helper Functions for Abilities
-func _get_player_damage_modifier() -> float:
-	return 0
+func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
+	for key in data.player.active_status_effects:
+		if data.player.active_status_effects.has(key) && data.player.active_status_effects.get(key).timing == timing:
+			data.player.active_status_effects.get(key).execute(self)
+			data.player.active_status_effects.get(key).stacks -= 1
+			if data.player.active_status_effects.get(key).stacks == 0:
+				data.player.active_status_effects.erase(key)
 
-func _get_player_damage_resistance() -> float:
-	return 0
+func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
+	data.player._upkeep_regen_mana()
+	data.player._upkeep_regen_stamina()
+	
+	var current_handsize = data.player.hand_size
+	for i in range(current_handsize):
+		draw_card()
+
+	_process_active_status(COMMON_ENUMS.TIMING.START)
+	return COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING
+
+func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
+	var old_cards: Array[skill_card] = data.hand.pop_each()
+	old_cards.append_array(data.discard.pop_exhausted())
+	
+	for card in old_cards:
+		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
+		card.exhausted = false
+		card.set_back()
+	data.library.push_each(old_cards)
+	return COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS
