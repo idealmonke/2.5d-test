@@ -13,45 +13,45 @@ var hand_size: int
 var passive_status_effects: Dictionary[String, int]
 var active_status_effects: Dictionary[String, active_status_effect]
 
-#health related
-func set_HP(hp : int) -> void:
-	hit_points = hp
-func take_damage_type(damage: int, type: String):
-	#TODO: implement taking damage with defense values
-	pass
-func take_damage(damage : int) -> void:
-	set_HP(hit_points-damage);
-func heal(health : int) -> void:
-	set_HP(hit_points+health)
- 
-#defense
-func set_defense(type: String, d : int) -> void:
-	defense[type] = d
+func get_stamina() -> int:
+	return current_stamina
 
-#stamina
-func set_max_stamina(stamina: int) -> void:
-	max_stamina = stamina
-func reset_stamina() -> void:
-	current_stamina = max_stamina
-
-#mana
-func set_max_mana(mm: int) -> void:
-	max_mana = mm
-func set_mana_regen(mr: int) -> void:
-	mana_regen = mr
-func set_mana(m: int) -> void:
-	current_mana = m
-func regen_mana() -> void:
-	change_mana(mana_regen)
-func use_mana(mana_cost: int) -> bool:
-	if(current_mana < mana_cost):
-		return false
-	change_mana(mana_cost)
-	return true
-func change_mana(mana_change: int) -> void:
-	current_mana = clamp(current_mana+mana_change, 0, max_mana)
-
-#hand size
-func set_hand_size(size: int) -> void:
-	hand_size = size
+func expend_stamina(stamina: int) -> int:
+	current_stamina -= stamina
+	if current_stamina < 0:
+		current_stamina = 0
+	return current_stamina
 	
+func regen_stamina(stamina: int):
+	current_stamina += stamina
+	if current_stamina > max_stamina:
+		current_stamina = max_stamina
+		
+func _upkeep_regen_stamina() -> void:
+	regen_stamina(max_stamina)
+
+func get_mana() -> int:
+	return current_mana
+
+func expend_mana(mana: int) -> int:
+	current_mana -= mana
+	if current_mana < 0:
+		current_mana = 0
+	return current_mana
+
+func regain_mana() -> void:
+	current_mana += mana_regen
+	if current_mana > max_mana:
+		current_mana = max_mana
+
+func _upkeep_regen_mana() -> void:
+	current_mana += mana_regen
+	if current_mana > max_mana:
+		current_mana = max_mana
+
+func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> void:
+	if defense.has(type):
+		damage -= defense.get(type)
+		if damage < 0:
+			damage = 0
+	hit_points -= damage

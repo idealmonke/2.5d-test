@@ -41,6 +41,17 @@ func add_many(cards: Array) -> void:
 func is_empty() -> bool:
 	return discard.is_empty()
 
+func pop_exhausted() -> Array[skill_card]:
+	var exhausted_cards: Array[skill_card]
+	for card in discard:
+		if card.exhausted:
+			exhausted_cards.push_front(pop_card(card))
+	return exhausted_cards
+			
+func exhaust_cards() -> void:
+	for card in discard:
+		card.exhausted = true
+
 func _display_discard() -> void:
 	controller.global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING
 	display_grid.load_cards(discard, _close_display, "Discard")
