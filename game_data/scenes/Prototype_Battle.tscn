@@ -341,5 +341,6 @@ text = "Testing Controls:
 q = draw card
 w = dredge card
 e = replenish discard
-r = discard front card"
+r = discard front card
+p = process enemy turns"
 label_settings = SubResource("LabelSettings_h35sd")

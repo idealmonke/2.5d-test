@@ -1,7 +1,7 @@
 class_name battle_data
 extends RefCounted
 
-var enemies: Array
+var enemies: Array[enemy]
 var hand: skill_card_hand
 var library: skill_card_library
 var discard: skill_card_discard

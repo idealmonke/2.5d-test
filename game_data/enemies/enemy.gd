@@ -75,16 +75,25 @@ func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> void:
 			damage = 0
 	hit_points -= damage
 
+func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
+	for key in active_status_effects:
+		if active_status_effects.has(key) && active_status_effects.get(key).timing == timing:
+			active_status_effects.get(key).execute(self)
+			active_status_effects.get(key).stacks -= 1
+			if active_status_effects.get(key).stacks == 0:
+				active_status_effects.erase(key)
+
+
 func process_turn() -> void:
 	# Upkeep
-	current_stamina = max_stamina
-	regain_mana()
-	for status in active_status_effects.values():
-		if status.timing == COMMON_ENUMS.TIMING.START:
-			status.execute(battle_controller)
+	_upkeep_regen_mana()
+	_upkeep_regen_stamina()
+	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
 	# Playing Turn
 	hand.draw_hand(hand_size)
-	hand.play_card()
+	hand.play_hand()
 	
+	await get_tree().create_timer(2.0).timeout	
 	# End of Turn
+	hand.replenish_hand()
