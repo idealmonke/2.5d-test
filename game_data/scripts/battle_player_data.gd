@@ -14,15 +14,17 @@ var passive_status_effects: Dictionary[String, int]
 var active_status_effects: Dictionary[String, active_status_effect]
 
 #health related
-func set_HP(hp : int) -> void:
+func set_hitpoints(hp : int) -> void:
 	hit_points = hp
+func get_hitpoints() -> int:
+	return hit_points
 func take_damage_type(damage: int, type: String):
 	#TODO: implement taking damage with defense values
 	pass
 func take_damage(damage : int) -> void:
-	set_HP(hit_points-damage);
+	set_hitpoints(hit_points-damage);
 func heal(health : int) -> void:
-	set_HP(hit_points+health)
+	set_hitpoints(hit_points+health)
  
 #defense
 func set_defense(type: String, d : int) -> void:

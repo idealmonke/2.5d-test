@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_mw5y4"]
 [ext_resource type="Script" uid="uid://djas34mrbinks" path="res://game_data/scripts/main_menu/play_button.gd" id="2_vrr0r"]
+[ext_resource type="Script" uid="uid://chvttn1knhgcb" path="res://game_data/scripts/main_menu/settings_button.gd" id="3_kslts"]
 
 [node name="Node2D" type="Node2D" unique_id=1508738771]
 
@@ -36,7 +37,7 @@ offset_right = 1200.0
 offset_bottom = 934.0
 theme_override_font_sizes/font_size = 50
 text = "Settings"
-script = ExtResource("2_vrr0r")
+script = ExtResource("3_kslts")
 
 [connection signal="pressed" from="play_button" to="play_button" method="_on_pressed"]
 [connection signal="pressed" from="settings_button" to="settings_button" method="_on_pressed"]
