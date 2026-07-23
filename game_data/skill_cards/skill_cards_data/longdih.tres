@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="skill_card_data" format=3]
+
+[ext_resource type="Texture2D" path="res://game_data/goku/goku.png" id="1_5skm8"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_dn3ix"]
+
+[resource]
+script = ExtResource("2_dn3ix")
+mana_cost = 1000000
+stamina_cost = 10
+ability_desc = "8------------D"
+card_name = "longdih"
+card_art = ExtResource("1_5skm8")
+card_id = 8888
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

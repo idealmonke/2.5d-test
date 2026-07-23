@@ -1,3 +1,92 @@
 [gd_scene format=3 uid="uid://btoh4lub52f5f"]
 
+[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="1_yweg8"]
+[ext_resource type="Script" uid="uid://caq0ylurqj6un" path="res://game_data/scripts/settings/skill_card_data_container.gd" id="2_uqg7b"]
+[ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/skill_card_data_editor.gd" id="3_sqjrh"]
+
 [node name="Node2D" type="Node2D" unique_id=351512418]
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=1181839278]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+
+[node name="Hello" type="TabBar" parent="TabContainer" unique_id=1002206843]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="welcome_text" type="Label" parent="TabContainer/Hello" unique_id=703568631]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 294.0
+offset_right = 987.0
+offset_bottom = 369.0
+scale = Vector2(1.8247159, 1.8247159)
+text = "Welcome to the super epic goku settings page
+
+"
+
+[node name="goku" type="Sprite2D" parent="TabContainer/Hello" unique_id=1871555000]
+position = Vector2(909, 703)
+scale = Vector2(2.8075, 1)
+texture = ExtResource("1_yweg8")
+
+[node name="Skill Card Data" type="TabBar" parent="TabContainer" unique_id=1951619949]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="skill_card_art" type="Sprite2D" parent="TabContainer/Skill Card Data" unique_id=93649403]
+position = Vector2(827, 98)
+
+[node name="skill_card_button_scroll_container" type="ScrollContainer" parent="TabContainer/Skill Card Data" unique_id=754290636]
+layout_mode = 0
+offset_right = 313.0
+offset_bottom = 1043.0
+
+[node name="skill_card_buttons" type="VBoxContainer" parent="TabContainer/Skill Card Data/skill_card_button_scroll_container" unique_id=1482636198]
+layout_mode = 2
+script = ExtResource("2_uqg7b")
+
+[node name="Label" type="Label" parent="TabContainer/Skill Card Data/skill_card_button_scroll_container/skill_card_buttons" unique_id=727729168]
+layout_mode = 2
+text = "Current Skill Cards:"
+
+[node name="skill_card_editor" type="VBoxContainer" parent="TabContainer/Skill Card Data" unique_id=1500691416]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 15.0
+offset_right = 496.0
+offset_bottom = 55.0
+script = ExtResource("3_sqjrh")
+
+[node name="save_button" type="Button" parent="TabContainer/Skill Card Data" unique_id=437680715]
+layout_mode = 0
+offset_left = 354.0
+offset_top = 324.0
+offset_right = 439.0
+offset_bottom = 355.0
+text = "Save Data"
+
+[node name="skill_card_editor_output" type="Label" parent="TabContainer/Skill Card Data" unique_id=656251278]
+layout_mode = 0
+offset_left = 1161.0
+offset_top = 56.0
+offset_right = 1201.0
+offset_bottom = 105.0
+
+[node name="filter" type="TextEdit" parent="TabContainer/Skill Card Data" unique_id=26117673]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 1.0
+offset_right = 411.0
+offset_bottom = 37.0
+placeholder_text = "Filter"
+
+[connection signal="pressed" from="TabContainer/Skill Card Data/save_button" to="TabContainer/Skill Card Data/skill_card_editor" method="_on_save_button_pressed"]
+[connection signal="text_changed" from="TabContainer/Skill Card Data/filter" to="TabContainer/Skill Card Data/skill_card_button_scroll_container/skill_card_buttons" method="_on_filter_text_changed"]

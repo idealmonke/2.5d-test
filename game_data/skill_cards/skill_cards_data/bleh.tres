@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill_card_data" format=3]
+
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_34la3"]
+[ext_resource type="Texture2D" path="res://game_data/goku/goku.png" id="1_883o3"]
+
+[resource]
+script = ExtResource("1_34la3")
+mana_cost = 5
+stamina_cost = 10
+card_name = "bleh"
+card_art = ExtResource("1_883o3")
+card_id = 69420
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

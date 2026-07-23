@@ -13,27 +13,8 @@ var hand_size: int
 var passive_status_effects: Dictionary[String, int]
 var active_status_effects: Dictionary[String, active_status_effect]
 
-<<<<<<< HEAD
-#health related
-func set_hitpoints(hp : int) -> void:
-	hit_points = hp
-func get_hitpoints() -> int:
-	return hit_points
-func take_damage_type(damage: int, type: String):
-	#TODO: implement taking damage with defense values
-	pass
-func take_damage(damage : int) -> void:
-	set_hitpoints(hit_points-damage);
-func heal(health : int) -> void:
-	set_hitpoints(hit_points+health)
- 
-#defense
-func set_defense(type: String, d : int) -> void:
-	defense[type] = d
-=======
 func get_stamina() -> int:
 	return current_stamina
->>>>>>> ff1d9ec0c728ecbb0df19c350a3adf41a5e5f8b5
 
 func expend_stamina(stamina: int) -> int:
 	current_stamina -= stamina
