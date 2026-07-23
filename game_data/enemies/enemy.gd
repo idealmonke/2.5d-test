@@ -68,12 +68,13 @@ func _upkeep_regen_mana() -> void:
 	if current_mana > max_mana:
 		current_mana = max_mana
 
-func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> void:
+func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> int:
 	if defense.has(type):
 		damage -= defense.get(type)
 		if damage < 0:
 			damage = 0
 	hit_points -= damage
+	return damage
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in active_status_effects:
@@ -82,7 +83,6 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 			active_status_effects.get(key).stacks -= 1
 			if active_status_effects.get(key).stacks == 0:
 				active_status_effects.erase(key)
-
 
 func process_turn() -> void:
 	# Upkeep
