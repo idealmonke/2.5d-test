@@ -8,7 +8,8 @@ var hand: enemy_hand
 var library: enemy_library
 
 # Enemy Stats
-var hit_points: int
+var max_health: int
+var current_health: int
 var defense: Dictionary[String, int]
 
 # immutable stats
@@ -27,10 +28,26 @@ var mana_regen: int
 var passive_status_effects: Dictionary[COMMON_ENUMS.PASSIVE_STATUS_EFFECTS, int]
 var active_status_effects: Dictionary[COMMON_ENUMS.ACTIVE_STATUS_EFFECTS, active_status_effect]
 
+# Child Nodes for UI control
+var sprite: Sprite2D
+var collision: CollisionShape2D
+var health_bar: TextureProgressBar
+var stamina_bar: TextureProgressBar
+var mana_bar: TextureProgressBar
+
+# Card Arts
+var base_sprite: Texture2D
+
 func _ready() -> void:
 	max_mana = base_max_mana
 	max_stamina = base_max_stamina
 	mana_regen = base_mana_regen
+	
+	sprite = $Sprite2D
+	collision = $CollisionShape2D
+	health_bar = $health_bar
+	stamina_bar = $stamina_bar
+	mana_bar = $mana_bar
 
 func get_stamina() -> int:
 	return current_stamina
@@ -39,13 +56,15 @@ func expend_stamina(stamina: int) -> int:
 	current_stamina -= stamina
 	if current_stamina < 0:
 		current_stamina = 0
+	_update_stat_bars()
 	return current_stamina
 	
 func regen_stamina(stamina: int):
 	current_stamina += stamina
 	if current_stamina > max_stamina:
 		current_stamina = max_stamina
-		
+	_update_stat_bars()
+	
 func _upkeep_regen_stamina() -> void:
 	regen_stamina(max_stamina)
 
@@ -56,24 +75,28 @@ func expend_mana(mana: int) -> int:
 	current_mana -= mana
 	if current_mana < 0:
 		current_mana = 0
+	_update_stat_bars()
 	return current_mana
 
 func regain_mana() -> void:
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
+	_update_stat_bars()
 
 func _upkeep_regen_mana() -> void:
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
+	_update_stat_bars()
 
 func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> int:
 	if defense.has(type):
 		damage -= defense.get(type)
 		if damage < 0:
 			damage = 0
-	hit_points -= damage
+	current_health -= damage
+	_update_stat_bars()
 	return damage
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
@@ -83,6 +106,22 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 			active_status_effects.get(key).stacks -= 1
 			if active_status_effects.get(key).stacks == 0:
 				active_status_effects.erase(key)
+
+func _update_stat_bars() -> void:
+	health_bar.value = current_health
+	stamina_bar.value = current_stamina
+	mana_bar.value = current_mana
+	
+func initialize_data(data: enemy_data) -> void:
+	max_health = data.max_health
+	max_stamina = data.max_stamina
+	max_mana = data.max_mana
+	
+	current_health = max_health
+	current_mana = max_mana
+	current_stamina = max_stamina
+	
+	base_sprite = data.art
 
 func process_turn() -> void:
 	# Upkeep

@@ -157,7 +157,8 @@ func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 func _player_playing() -> void:
 	# DO TURN HERE AAAAAAAAAHHHHHHH
 	pass
-	
+
+## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	match state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
@@ -171,6 +172,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			pass
 
+## Used for managing the actions at end of state like animations etc
 func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	match state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:

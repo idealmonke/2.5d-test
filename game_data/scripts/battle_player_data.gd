@@ -55,3 +55,6 @@ func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> void:
 		if damage < 0:
 			damage = 0
 	hit_points -= damage
+
+func initialize_player(party: Party) -> void:
+	pass
