@@ -1,6 +1,8 @@
 class_name enemy_data
 extends Resource
 
+var enemy_id: int
+
 var max_health: int
 var max_stamina: int
 var max_mana: int
