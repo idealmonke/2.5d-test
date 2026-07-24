@@ -9,10 +9,10 @@ var player: battle_player_data
 
 ## Where to place each enemy sprite on the screen, for when creating enemies. 
 ## Index of the vector matches index of the enemy. 
-var enemy_locations: Array[Vector2] = [Vector2(480, 300), Vector2(960, 300), Vector2(1440, 300)]
+var enemy_locations: Array[Vector2] 
 
 func _init() -> void:
-	pass
+	enemy_locations = [Vector2(480, 300), Vector2(960, 300), Vector2(1440, 300)]
 
 func load_enemies(enemy_ids: Array[int]) -> void:
 	for index in range(3):

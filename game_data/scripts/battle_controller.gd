@@ -12,10 +12,15 @@ var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_B
 ## Helps cards 
 var global_state: COMMON_ENUMS.GLOBAL_CARD_STATE = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
 
+# Necessary UI Stuff
+var end_turn_button: Button
+
 # Init Battle Controller
 func _ready() -> void:
 	data = battle_data.new()
 	data.player = battle_player_data.new()
+	
+	end_turn_button = $end_turn
 	
 	data.discard = $discard
 	data.library = $library
@@ -155,8 +160,13 @@ func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP
 	
 func _player_playing() -> void:
-	# DO TURN HERE AAAAAAAAAHHHHHHH
+	# Gameplay related setup
+	# UI/Animation stuff in the state functions
 	pass
+
+func _end_turn() -> void:
+	if current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
+		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
 
 ## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -166,11 +176,13 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
-			pass
+			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.DISABLED
 
 ## Used for managing the actions at end of state like animations etc
 func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -180,12 +192,14 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
-			pass
+			end_turn_button.hide()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
-			# DO NOTHING
+			# DO NOTHING HERE
 			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
 
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	_on_exit_state(current_state)
@@ -200,3 +214,9 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			_player_playing()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			_change_state(_enemy_turns())
+		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
+			# DO NOTHING HERE, JUST STOPS THE EXIT STATE FROM CALLING INITIALLY
+			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			# STATE 
+			pass

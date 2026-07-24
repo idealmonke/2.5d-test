@@ -40,8 +40,6 @@ font_color = Color(0, 0, 0, 1)
 font_size = 42
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
 size = Vector2(500, 500)
 
@@ -51,6 +49,8 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_u3tej"]
 gradient = SubResource("Gradient_md5fw")
+
+[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_p588q")
@@ -344,19 +344,6 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="." unique_id=763715797]
-offset_left = 57.0
-offset_top = 45.0
-offset_right = 289.0
-offset_bottom = 190.0
-text = "Testing Controls:
-q = draw card
-w = dredge card
-e = replenish discard
-r = discard front card
-p = process enemy turns"
-label_settings = SubResource("LabelSettings_h35sd")
-
 [node name="enemy_storage" type="Node2D" parent="." unique_id=380014281]
 
 [node name="enemy" type="Area2D" parent="enemy_storage" unique_id=854484363]
@@ -401,3 +388,25 @@ value = 100.0
 fill_mode = 6
 texture_progress = SubResource("GradientTexture2D_u3tej")
 tint_progress = Color(0, 0, 1, 1)
+
+[node name="end_turn" type="Button" parent="." unique_id=1149504803]
+offset_left = 1620.0
+offset_top = 948.0
+offset_right = 1870.0
+offset_bottom = 1048.0
+text = "END TURN"
+
+[node name="Label" type="Label" parent="." unique_id=763715797]
+offset_left = 1640.0
+offset_top = 779.0
+offset_right = 1872.0
+offset_bottom = 932.0
+text = "Testing Controls:
+q = draw card
+w = dredge card
+e = replenish discard
+r = discard front card
+p = process enemy turns"
+label_settings = SubResource("LabelSettings_h35sd")
+
+[connection signal="pressed" from="end_turn" to="." method="_end_turn"]
