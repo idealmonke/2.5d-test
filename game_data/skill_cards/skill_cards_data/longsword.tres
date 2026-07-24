@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_1hd5p")
-mana_cost = 5
-stamina_cost = 3
+mana_cost = 4
+stamina_cost = 4
 card_name = "longsword"
 card_art = ExtResource("1_in3tp")
 card_id = 1001

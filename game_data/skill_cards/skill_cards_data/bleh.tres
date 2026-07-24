@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_34la3")
-mana_cost = 6
+mana_cost = 3
 stamina_cost = 10
 card_name = "bleh"
 card_art = ExtResource("1_883o3")

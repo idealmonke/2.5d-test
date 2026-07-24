@@ -2,23 +2,34 @@ extends VBoxContainer
 
 var cur_data : Variant
 
+const card_editor_path = "../../../../../card_editor"
 var card_art : Sprite2D
 var card_editor_output : Label
 var card_button_container : VBoxContainer
+var panel : PanelContainer
+
+enum MODE {SKILL_CARD, ENEMY_CARD}
 
 func init() -> void:
-	card_art = get_node("../card_art")
-	card_editor_output = get_node("../card_editor_output")
-	card_button_container = get_node("../card_button_scroll_container/card_button_container")
-
-func display(id : int, is_skill_card: bool) -> void:
-	if is_skill_card:
-		cur_data = skill_card_registry.get_card_data(id)
-	else:
-		cur_data = enemy_card_registry.get_card_data(id)
+	var card_editor : Control = get_node(card_editor_path)
 	
+	card_art = card_editor.get_node("card_art")
+	card_editor_output = card_editor.get_node("card_editor_output")
+	card_button_container = card_editor.get_node("card_button_scroll_container/card_button_container")
+	panel = card_editor.get_node("card_data_editor_panel")
+
+func reset() -> void:
 	for child in get_children():
 		child.queue_free()
+	card_art.texture = null
+
+func display(id : int, mode: MODE) -> void:
+	if mode == MODE.SKILL_CARD:
+		cur_data = skill_card_registry.get_card_data(id)
+	elif mode == MODE.ENEMY_CARD:
+		cur_data = enemy_card_registry.get_card_data(id)
+	
+	reset()
 	
 	card_art.texture = cur_data.card_art
 	card_art.scale = Vector2(100,100)/card_art.texture.get_size()
@@ -26,23 +37,21 @@ func display(id : int, is_skill_card: bool) -> void:
 	var p_list : Array[Dictionary] = cur_data.get_property_list()
 	for prop in p_list:
 		if prop["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE:
-			var name : String = prop["name"]
-			var value : Variant = cur_data.get(name)
+			var cur_name : String = prop["name"]
+			var value : Variant = cur_data.get(cur_name)
 			
 			if typeof(value) != TYPE_INT and typeof(value)!= TYPE_STRING:
 				continue
 			
-			var label : Label = Label.new()
-			label.text = name
+			var hbox = HBoxContainer.new()
 			
-			if(name=="card_id"):
-				var label2 : Label = Label.new()
+			var label : Label = Label.new()
+			label.text = cur_name
+			
+			var label2: Label
+			if(cur_name=="card_id"):
+				label2 = Label.new()
 				label2.text = str(value)
-				label2.position.x += 200
-				label.add_child(label2)
-				label.set_meta("property_name",prop["name"]);
-				add_child(label)
-				continue
 			
 			var edit : LineEdit = LineEdit.new();
 			edit.placeholder_text = "placeholder"
@@ -56,15 +65,19 @@ func display(id : int, is_skill_card: bool) -> void:
 				#continue
 				pass
 			
-			edit.position.x+=200
-			label.add_child(edit)
-			label.set_meta("property_name",prop["name"]);
+			hbox.set_meta("property_name",prop["name"]);
+			label.custom_minimum_size.x = 200
 			
-			add_child(label)
+			hbox.add_child(label)
+			if(cur_name=="card_id"):
+				hbox.add_child(label2)
+			else:
+				hbox.add_child(edit)
+			add_child(hbox)
 
 func _on_save_button_pressed() -> void:
 	for child in get_children():
-		var text : String = child.get_child(0).text
+		var text : String = child.get_child(1).text
 		var prop_name : String = child.get_meta("property_name")
 		var prop : Variant = cur_data.get(prop_name)
 		
@@ -88,8 +101,9 @@ func _on_save_button_pressed() -> void:
 	
 	if cur_data is skill_card_data:
 		skill_card_registry.save_data(cur_data)
-		display(cur_data.card_id, true)
-	else:
+		display(cur_data.card_id, MODE.SKILL_CARD)
+	elif cur_data is enemy_card_data:
 		enemy_card_registry.save_data(cur_data)
-		display(cur_data.card_id, false)
+		display(cur_data.card_id, MODE.ENEMY_CARD)
 	card_button_container.reset_buttons()
+	panel.visible = true

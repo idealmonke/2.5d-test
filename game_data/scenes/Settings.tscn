@@ -1,14 +1,20 @@
 [gd_scene format=3 uid="uid://btoh4lub52f5f"]
 
+[ext_resource type="Script" uid="uid://dtbodi28467ug" path="res://game_data/scripts/settings/tab_container.gd" id="1_5sndr"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_sqjrh"]
-[ext_resource type="Script" uid="uid://bpvqtfbqoo7cj" path="res://game_data/scripts/settings/swap_mode_button.gd" id="2_5sndr"]
 [ext_resource type="Script" uid="uid://caq0ylurqj6un" path="res://game_data/scripts/settings/card_button_container.gd" id="2_uqg7b"]
 [ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/card_data_editor.gd" id="3_sqjrh"]
 [ext_resource type="Script" uid="uid://ec8wy6rx0hv1" path="res://game_data/scripts/settings/exit_button.gd" id="4_wrmvb"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5jsw"]
+bg_color = Color(0.16350216, 0.16350219, 0.16350213, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sndr"]
+bg_color = Color(0.99999994, 0.21055758, 0.7185366, 1)
+
 [node name="Node2D" type="Node2D" unique_id=351512418]
 
-[node name="TabContainer" type="TabContainer" parent="." unique_id=1181839278]
+[node name="tab_container" type="TabContainer" parent="." unique_id=1181839278]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,19 +22,19 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
+script = ExtResource("1_5sndr")
 
-[node name="Welcome" type="TabBar" parent="TabContainer" unique_id=1002206843]
-visible = false
+[node name="Welcome" type="TabBar" parent="tab_container" unique_id=1002206843]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="goku" type="Sprite2D" parent="TabContainer/Welcome" unique_id=1871555000]
+[node name="goku" type="Sprite2D" parent="tab_container/Welcome" unique_id=1871555000]
 position = Vector2(909, 703)
 scale = Vector2(3.4701433, 3.4701433)
 texture = ExtResource("1_sqjrh")
 
-[node name="Label" type="Label" parent="TabContainer/Welcome" unique_id=55782034]
+[node name="Label" type="Label" parent="tab_container/Welcome" unique_id=55782034]
 layout_mode = 0
 offset_left = 135.0
 offset_top = 235.0
@@ -38,70 +44,89 @@ theme_override_font_sizes/font_size = 100
 text = "Welcome to the Dev Settings Menu"
 horizontal_alignment = 1
 
-[node name="Card Data Editor" type="TabBar" parent="TabContainer" unique_id=1951619949]
+[node name="Skill Card Editor" type="TabBar" parent="tab_container" unique_id=1951619949]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="card_art" type="Sprite2D" parent="TabContainer/Card Data Editor" unique_id=93649403]
+[node name="Enemy Card Editor" type="TabBar" parent="tab_container" unique_id=752026713]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="card_editor" type="Control" parent="." unique_id=708963454]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 35.0
+offset_right = 49.0
+offset_bottom = 75.0
+
+[node name="card_art" type="Sprite2D" parent="card_editor" unique_id=1198766026]
 position = Vector2(827, 98)
 
-[node name="card_button_scroll_container" type="ScrollContainer" parent="TabContainer/Card Data Editor" unique_id=754290636]
+[node name="card_button_scroll_container" type="ScrollContainer" parent="card_editor" unique_id=899816624]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 30.0
-offset_right = 319.0
-offset_bottom = 1073.0
+offset_left = 19.0
+offset_top = 95.0
+offset_right = 219.0
+offset_bottom = 895.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5jsw")
 
-[node name="card_button_container" type="VBoxContainer" parent="TabContainer/Card Data Editor/card_button_scroll_container" unique_id=1482636198]
+[node name="card_button_container" type="VBoxContainer" parent="card_editor/card_button_scroll_container" unique_id=521853520]
 layout_mode = 2
 script = ExtResource("2_uqg7b")
 
-[node name="card_data_editor" type="VBoxContainer" parent="TabContainer/Card Data Editor" unique_id=1500691416]
+[node name="margin_container" type="MarginContainer" parent="card_editor/card_button_scroll_container/card_button_container" unique_id=1445931591]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+
+[node name="inner_container" type="VBoxContainer" parent="card_editor/card_button_scroll_container/card_button_container/margin_container" unique_id=790664579]
+layout_mode = 2
+
+[node name="card_data_editor_panel" type="PanelContainer" parent="card_editor" unique_id=1884680401]
 layout_mode = 0
-offset_left = 460.0
-offset_top = 10.0
-offset_right = 528.0
-offset_bottom = 50.0
+offset_left = 267.0
+offset_top = 41.0
+offset_right = 352.0
+offset_bottom = 81.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5sndr")
+
+[node name="margin_container" type="MarginContainer" parent="card_editor/card_data_editor_panel" unique_id=1921524532]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="card_data_editor_container" type="VBoxContainer" parent="card_editor/card_data_editor_panel/margin_container" unique_id=2132488806]
+layout_mode = 2
+
+[node name="card_data_editor" type="VBoxContainer" parent="card_editor/card_data_editor_panel/margin_container/card_data_editor_container" unique_id=1832506293]
+layout_mode = 2
 script = ExtResource("3_sqjrh")
 
-[node name="save_button" type="Button" parent="TabContainer/Card Data Editor" unique_id=437680715]
-layout_mode = 0
-offset_left = 354.0
-offset_top = 324.0
-offset_right = 439.0
-offset_bottom = 355.0
+[node name="save_button" type="Button" parent="card_editor/card_data_editor_panel/margin_container/card_data_editor_container" unique_id=1823745842]
+layout_mode = 2
 text = "Save Data"
 
-[node name="card_editor_output" type="Label" parent="TabContainer/Card Data Editor" unique_id=656251278]
+[node name="card_editor_output" type="Label" parent="card_editor" unique_id=192231761]
 layout_mode = 0
 offset_left = 1161.0
 offset_top = 56.0
 offset_right = 1201.0
 offset_bottom = 105.0
 
-[node name="filter" type="TextEdit" parent="TabContainer/Card Data Editor" unique_id=26117673]
+[node name="filter" type="TextEdit" parent="card_editor" unique_id=1606642491]
 layout_mode = 0
-offset_left = 183.0
-offset_top = 4.0
-offset_right = 433.0
-offset_bottom = 40.0
+offset_left = 9.0
+offset_top = 30.0
+offset_right = 229.0
+offset_bottom = 66.0
 placeholder_text = "Filter"
 
-[node name="Control" type="Control" parent="TabContainer/Card Data Editor" unique_id=1166442980]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="swap_mode" type="Button" parent="TabContainer/Card Data Editor/Control" unique_id=1485332931]
-layout_mode = 0
-offset_left = 214.0
-offset_top = 76.0
-offset_right = 324.0
-offset_bottom = 114.0
-text = "Swap Mode"
-script = ExtResource("2_5sndr")
-
-[node name="mode_display" type="Label" parent="TabContainer/Card Data Editor/Control" unique_id=727729168]
+[node name="mode_display" type="Label" parent="card_editor" unique_id=166342799]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 3.0
@@ -126,7 +151,7 @@ theme_override_font_sizes/font_size = 100
 text = "Exit"
 script = ExtResource("4_wrmvb")
 
-[connection signal="pressed" from="TabContainer/Card Data Editor/save_button" to="TabContainer/Card Data Editor/card_data_editor" method="_on_save_button_pressed"]
-[connection signal="text_changed" from="TabContainer/Card Data Editor/filter" to="TabContainer/Card Data Editor/card_button_scroll_container/card_button_container" method="_on_filter_text_changed"]
-[connection signal="pressed" from="TabContainer/Card Data Editor/Control/swap_mode" to="TabContainer/Card Data Editor/Control/swap_mode" method="_on_pressed"]
+[connection signal="tab_changed" from="tab_container" to="tab_container" method="_on_tab_changed"]
+[connection signal="pressed" from="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/save_button" to="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/card_data_editor" method="_on_save_button_pressed"]
+[connection signal="text_changed" from="card_editor/filter" to="card_editor/card_button_scroll_container/card_button_container" method="_on_filter_text_changed"]
 [connection signal="pressed" from="Control/Exit Button" to="Control/Exit Button" method="_on_pressed"]
