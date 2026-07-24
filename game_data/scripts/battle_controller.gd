@@ -5,7 +5,9 @@ var data: battle_data
 
 # Lambda Functions for game events, modified by perks
 var current_draw_card: Callable
-var current_discard_card: Callable
+var current_discard_card: Callable 
+
+var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE
 
 ## Helps cards 
 var global_state: COMMON_ENUMS.GLOBAL_CARD_STATE = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
@@ -37,9 +39,8 @@ func _ready() -> void:
 		card.set_back()
 	# TEMPORARY TESTING CODE
 	
-# Main Loop
-func _process(delta: float) -> void:
-	pass
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
+	
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -147,3 +148,55 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 		card.set_back()
 	data.library.push_each(old_cards)
 	return COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS
+	
+func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
+	for enem in data.enemies:
+		enem.process_turn()
+	return COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP
+	
+func _player_playing() -> void:
+	# DO TURN HERE AAAAAAAAAHHHHHHH
+	pass
+
+## Used for managing the actions at start of state like animations etc
+func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
+	match state:
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
+			pass
+
+## Used for managing the actions at end of state like animations etc
+func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
+	match state:
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
+			# DO NOTHING
+			pass
+
+func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
+	_on_exit_state(current_state)
+	current_state = new_state
+	_on_enter_state(current_state)
+	match current_state:
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
+			_change_state(_player_upkeep())
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
+			_change_state(_player_endstep())
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
+			_player_playing()
+		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
+			_change_state(_enemy_turns())
