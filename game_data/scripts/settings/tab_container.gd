@@ -5,7 +5,7 @@ var card_editor : Control
 var card_button_container : VBoxContainer
 var mode_display : Label
 
-enum MODE {SKILL_CARD, ENEMY_CARD}
+enum MODE {SKILL_CARD, ENEMY_CARD, ENEMY}
 
 func _ready() -> void:
 	pass
@@ -17,9 +17,7 @@ func init() -> void:
 	_swap_to(current_tab)
 
 func _swap_to(tab: int) -> void:
-	if tab == 0:
-		card_editor.visible = false
-	else:
+	if tab == 1 or tab==2 or tab == 3:
 		card_editor.visible = true
 		if tab == 1:
 			mode_display.text = "Current Skill Cards:"
@@ -27,6 +25,11 @@ func _swap_to(tab: int) -> void:
 		if tab == 2:
 			mode_display.text = "Current Enemy Cards:"
 			card_button_container.reset_to_mode(MODE.ENEMY_CARD)
+		if tab == 3:
+			mode_display.text = "Current Enemies:"
+			card_button_container.reset_to_mode(MODE.ENEMY)
+	else:
+		card_editor.visible = false
 
 func _on_tab_changed(tab: int) -> void:
 	_swap_to(tab)

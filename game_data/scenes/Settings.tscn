@@ -3,14 +3,18 @@
 [ext_resource type="Script" uid="uid://dtbodi28467ug" path="res://game_data/scripts/settings/tab_container.gd" id="1_5sndr"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_sqjrh"]
 [ext_resource type="Script" uid="uid://caq0ylurqj6un" path="res://game_data/scripts/settings/card_button_container.gd" id="2_uqg7b"]
+[ext_resource type="Script" uid="uid://btsaxc8lj6ukt" path="res://game_data/scripts/settings/selector.gd" id="3_l5jsw"]
 [ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/card_data_editor.gd" id="3_sqjrh"]
 [ext_resource type="Script" uid="uid://ec8wy6rx0hv1" path="res://game_data/scripts/settings/exit_button.gd" id="4_wrmvb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8tyr"]
+bg_color = Color(0.23537049, 0.23537055, 0.23537043, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5jsw"]
 bg_color = Color(0.16350216, 0.16350219, 0.16350213, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sndr"]
-bg_color = Color(0.99999994, 0.21055758, 0.7185366, 1)
+bg_color = Color(0.21230498, 0.2123048, 0.21230489, 1)
 
 [node name="Node2D" type="Node2D" unique_id=351512418]
 
@@ -53,6 +57,35 @@ metadata/_tab_index = 1
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="Enemy Editor" type="TabBar" parent="tab_container" unique_id=1599898749]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Enemy Selector" type="TabBar" parent="tab_container" unique_id=130099770]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="tab_container/Enemy Selector" unique_id=1462310274]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 26.0
+offset_right = 75.0
+offset_bottom = 66.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g8tyr")
+
+[node name="MarginContainer" type="MarginContainer" parent="tab_container/Enemy Selector/PanelContainer" unique_id=1800304951]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="tab_container/Enemy Selector/PanelContainer/MarginContainer" unique_id=812841923]
+layout_mode = 2
+script = ExtResource("3_l5jsw")
 
 [node name="card_editor" type="Control" parent="." unique_id=708963454]
 layout_mode = 3

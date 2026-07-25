@@ -8,7 +8,7 @@ var card_editor_output : Label
 var card_button_container : VBoxContainer
 var panel : PanelContainer
 
-enum MODE {SKILL_CARD, ENEMY_CARD}
+enum MODE {SKILL_CARD, ENEMY_CARD, ENEMY}
 
 func init() -> void:
 	var card_editor : Control = get_node(card_editor_path)
@@ -28,10 +28,16 @@ func display(id : int, mode: MODE) -> void:
 		cur_data = skill_card_registry.get_card_data(id)
 	elif mode == MODE.ENEMY_CARD:
 		cur_data = enemy_card_registry.get_card_data(id)
+	elif mode == MODE.ENEMY:
+		cur_data = enemy_registry.get_enemy_data(id)
 	
 	reset()
 	
-	card_art.texture = cur_data.card_art
+	if mode == MODE.ENEMY:
+		card_art.texture = cur_data.art
+	else:
+		card_art.texture = cur_data.card_art
+	
 	card_art.scale = Vector2(100,100)/card_art.texture.get_size()
 	
 	var p_list : Array[Dictionary] = cur_data.get_property_list()
@@ -49,7 +55,7 @@ func display(id : int, mode: MODE) -> void:
 			label.text = cur_name
 			
 			var label2: Label
-			if(cur_name=="card_id"):
+			if(cur_name=="card_id" or cur_name=="enemy_id"):
 				label2 = Label.new()
 				label2.text = str(value)
 			
@@ -69,7 +75,7 @@ func display(id : int, mode: MODE) -> void:
 			label.custom_minimum_size.x = 200
 			
 			hbox.add_child(label)
-			if(cur_name=="card_id"):
+			if(cur_name=="card_id" or cur_name=="enemy_id"):
 				hbox.add_child(label2)
 			else:
 				hbox.add_child(edit)
@@ -105,5 +111,8 @@ func _on_save_button_pressed() -> void:
 	elif cur_data is enemy_card_data:
 		enemy_card_registry.save_data(cur_data)
 		display(cur_data.card_id, MODE.ENEMY_CARD)
+	elif cur_data is enemy_data:
+		enemy_registry.save_data(cur_data)
+		display(cur_data.enemy_id, MODE.ENEMY)
 	card_button_container.reset_buttons()
 	panel.visible = true

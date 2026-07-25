@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemy_data" format=3 uid="uid://b8cwd550ge50p"]
+
+[ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="1_7dg61"]
+[ext_resource type="Texture2D" uid="uid://b8jyxdir6bjj3" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="1_ihtkf"]
+
+[resource]
+script = ExtResource("1_7dg61")
+enemy_id = 1
+enemy_name = "harpy"
+max_health = 4
+art = ExtResource("1_ihtkf")

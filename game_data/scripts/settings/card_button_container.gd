@@ -7,7 +7,7 @@ var card_filter : TextEdit
 var tab_container : TabContainer
 var panel : PanelContainer
 
-enum MODE {SKILL_CARD, ENEMY_CARD}
+enum MODE {SKILL_CARD, ENEMY_CARD, ENEMY}
 var mode : int = MODE.SKILL_CARD
 
 func _ready() -> void:
@@ -45,27 +45,45 @@ func _instantiate_buttons(filter: String) -> void:
 		_instantiate_button_helper(skill_card_registry, MODE.SKILL_CARD, filter)
 	elif mode == MODE.ENEMY_CARD:
 		_instantiate_button_helper(enemy_card_registry, MODE.ENEMY_CARD, filter)
-
-func _instantiate_button_helper(registry: Variant, mode: MODE, filter: String) -> void:
-	for id in registry.CARD_DB:
-		var data : Variant = registry.get_card_data(id)
+	elif mode == MODE.ENEMY:
+		_instantiate_button_helper(enemy_registry, MODE.ENEMY, filter)
+	
+func _instantiate_button_helper(registry: Variant, to_mode: MODE, filter: String) -> void:
+	var DB : Dictionary
+	if(to_mode == MODE.ENEMY):
+		DB = registry.ENEMY_DB
+	else:
+		DB = registry.CARD_DB
+	
+	for id in DB:
+		var data : Variant
+		if(to_mode == MODE.ENEMY):
+			data = registry.get_enemy_data(id)
+		else:
+			data = registry.get_card_data(id)
 		
-		if(not filter=="" and not(data.card_name.to_lower().contains(filter))):
+		var cur_name : String = "placeholder"
+		if(to_mode == MODE.ENEMY):
+			cur_name = data.enemy_name
+		else:
+			cur_name = data.card_name
+		
+		if(not filter=="" and not(cur_name.to_lower().contains(filter))):
 			continue
 		
-		_create_button(id, mode, data.card_name)
+		_create_button(id, to_mode, cur_name)
 
-func _create_button(id: int, mode: MODE, name : String) -> void:
+func _create_button(id: int, to_mode: MODE, cur_name : String) -> void:
 	#var center = CenterContainer.new()
 	
 	var button: Button = Button.new()
-	button.text = str(id)+": "+name
+	button.text = str(id)+": "+cur_name
 	#center.add_child(button)
 	get_node("margin_container/inner_container").add_child(button)
-	button.pressed.connect(_on_pressed.bind(id,mode))
+	button.pressed.connect(_on_pressed.bind(id,to_mode))
 
-func _on_pressed(id : int, mode: MODE) -> void:
-	card_data_editor.display(id, mode)
+func _on_pressed(id : int, to_mode: MODE) -> void:
+	card_data_editor.display(id, to_mode)
 	card_editor_output.text = ""
 	panel.visible = true
 

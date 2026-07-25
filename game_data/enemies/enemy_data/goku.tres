@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="enemy_data" format=3 uid="uid://ciidydjofipf8"]
+
+[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="1_vp33r"]
+[ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="2_y043n"]
+
+[resource]
+script = ExtResource("2_y043n")
+enemy_id = 888
+enemy_name = "goku"
+max_health = 100000000
+max_stamina = 10000000
+max_mana = 300
+mana_regen = 100
+art = ExtResource("1_vp33r")
