@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="battle_config" format=3 uid="uid://df5bsh1fb83v8"]
+[gd_resource type="Resource" script_class="battle_config" format=3]
 
-[ext_resource type="Script" uid="uid://dpmb6l2ednj1l" path="res://game_data/enemies/battle_config.gd" id="1_0e1t4"]
+[ext_resource type="Script" path="res://game_data/enemies/battle_config.gd" id="1_0e1t4"]
 
 [resource]
 script = ExtResource("1_0e1t4")
-enemyIDs = Array[int]([-1, 1, 888])
+enemyIDs = Array[int]([1, 1, 888])
 metadata/_custom_type_script = "uid://dpmb6l2ednj1l"

@@ -67,9 +67,6 @@ func display(id : int, mode: MODE) -> void:
 				edit.placeholder_text = str(value)
 			if typeof(value) == TYPE_STRING:
 				edit.placeholder_text = value
-			else:
-				#continue
-				pass
 			
 			hbox.set_meta("property_name",prop["name"]);
 			label.custom_minimum_size.x = 200

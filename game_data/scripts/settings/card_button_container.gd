@@ -21,9 +21,6 @@ func _ready() -> void:
 	
 	card_data_editor.init()
 	tab_container.init()
-	
-	#reset_buttons()
-	#card_data_editor.display(1001, true)
 
 func reset_to_mode(new_mode : MODE):
 	mode = new_mode
@@ -74,11 +71,8 @@ func _instantiate_button_helper(registry: Variant, to_mode: MODE, filter: String
 		_create_button(id, to_mode, cur_name)
 
 func _create_button(id: int, to_mode: MODE, cur_name : String) -> void:
-	#var center = CenterContainer.new()
-	
 	var button: Button = Button.new()
 	button.text = str(id)+": "+cur_name
-	#center.add_child(button)
 	get_node("margin_container/inner_container").add_child(button)
 	button.pressed.connect(_on_pressed.bind(id,to_mode))
 

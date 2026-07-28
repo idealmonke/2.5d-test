@@ -14,7 +14,7 @@ static func get_card_data(ID: int) -> skill_card_data:
 	return load(skill_card_data_path+CARD_DB[ID]+".tres")
 
 static func save_data(data: skill_card_data) -> void:
-	var ID = data.card_id;
+	var ID : int = data.card_id;
 	
 	assert(CARD_DB.has(ID), "Card ID (%s) not found in registry" % ID)
 	ResourceSaver.save(data, skill_card_data_path+CARD_DB[ID]+".tres")

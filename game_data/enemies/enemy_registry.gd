@@ -13,7 +13,7 @@ static func get_enemy_data(ID: int) -> enemy_data:
 	return load(enemy_data_path+ENEMY_DB[ID]+".tres")
 
 static func save_data(data: enemy_data) -> void:
-	var ID = data.enemy_id;
+	var ID : int = data.enemy_id;
 	
 	assert(ENEMY_DB.has(ID), "Enemy  ID (%s) not found in registry" % ID)
 	ResourceSaver.save(data, enemy_data_path+ENEMY_DB[ID]+".tres")
