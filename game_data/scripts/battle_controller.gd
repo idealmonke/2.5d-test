@@ -9,38 +9,16 @@ var current_discard_card: Callable
 
 var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE
 
-## Helps cards 
-var global_state: COMMON_ENUMS.GLOBAL_CARD_STATE = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
+# Necessary UI Stuff
+var end_turn_button: Button
 
 # Init Battle Controller
 func _ready() -> void:
 	data = battle_data.new()
 	data.player = battle_player_data.new()
 	
-	data.discard = $discard
-	data.library = $library
-	data.hand = $hand
-	
 	current_draw_card = _default_draw_card
 	current_discard_card = _default_discard_card
-	
-	# TEMPORARY TESTING CODE
-	data.library.push_to_top($card_storage/skill_card)
-	data.library.push_to_top($card_storage/skill_card2)
-	data.library.push_to_top($card_storage/skill_card3)
-	data.library.push_to_top($card_storage/skill_card4)
-	data.library.push_to_top($card_storage/skill_card5)
-	$card_storage/skill_card/card_name.text = "Gooby"
-	$card_storage/skill_card2/card_name.text = "Chungus"
-	$card_storage/skill_card3/card_name.text = "Bingus"
-	$card_storage/skill_card4/card_name.text = "Wakka Wakka"
-	$card_storage/skill_card5/card_name.text = "Looney"
-	for card in data.library.library:
-		card.set_back()
-	# TEMPORARY TESTING CODE
-	
-	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
-	
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -59,6 +37,13 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_P:
 			for enem in data.enemies:
 				enem.process_turn()
+				
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, end_turn) -> void:
+	data.discard = discard
+	data.hand = hand
+	data.library = library
+	end_turn_button = end_turn
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
@@ -142,6 +127,8 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 	var old_cards: Array[skill_card] = data.hand.pop_each()
 	old_cards.append_array(data.discard.pop_exhausted())
 	
+	data.discard.exhaust_cards()
+	
 	for card in old_cards:
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
 		card.exhausted = false
@@ -155,8 +142,12 @@ func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP
 	
 func _player_playing() -> void:
-	# DO TURN HERE AAAAAAAAAHHHHHHH
+	# Gameplay related setup
+	# UI/Animation stuff in the state functions
 	pass
+
+func _end_turn() -> void:
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
 
 ## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -164,12 +155,16 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
-			pass
+			print("ENDING TURN")
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
-			pass
+			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
 
 ## Used for managing the actions at end of state like animations etc
@@ -180,11 +175,15 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
-			pass
+			end_turn_button.hide()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
-			# DO NOTHING
+			# DO NOTHING HERE
+			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
 
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -200,3 +199,11 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			_player_playing()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			_change_state(_enemy_turns())
+		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
+			# DO NOTHING HERE, JUST STOPS THE EXIT STATE FROM CALLING INITIALLY
+			pass
+		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+			# STATE 
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
+			pass
