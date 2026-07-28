@@ -56,12 +56,7 @@ var base_scale: Vector2
 var exhausted: bool:
 	set(value):
 		exhausted = value
-		if exhausted == true:
-			exhaust_material.set_shader_parameter("is_exhausted", exhausted)
-			exhaust_material.set_shader_parameter("transition_start_time", Time.get_ticks_msec() / 1000.0)
-		else:
-			exhaust_material.set_shader_parameter("is_exhausted", exhausted)
-			exhaust_material.set_shader_parameter("transition_start_time", (Time.get_ticks_msec() / 1000.0) - 10.0)
+		exhaust_material.set_shader_parameter("is_exhausted", exhausted)
 			
 # Subscribers
 var select_subscribers: Dictionary

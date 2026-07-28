@@ -40,8 +40,8 @@ func is_empty() -> bool:
 	return discard.is_empty()
 
 func pop_exhausted() -> Array[skill_card]:
-	var exhausted_cards: Array[skill_card]
-	for card in discard:
+	var exhausted_cards: Array[skill_card] = []
+	for card in discard.duplicate():
 		if card.exhausted:
 			exhausted_cards.push_front(pop_card(card))
 	return exhausted_cards

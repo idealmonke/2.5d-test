@@ -20,3 +20,7 @@ func _ready() -> void:
 	# TEMPORARY TESTING CODE
 	
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
+
+
+func _on_end_turn_pressed() -> void:
+	BattleController._end_turn()

@@ -127,6 +127,8 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 	var old_cards: Array[skill_card] = data.hand.pop_each()
 	old_cards.append_array(data.discard.pop_exhausted())
 	
+	data.discard.exhaust_cards()
+	
 	for card in old_cards:
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
 		card.exhausted = false
@@ -145,8 +147,7 @@ func _player_playing() -> void:
 	pass
 
 func _end_turn() -> void:
-	if current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
-		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
 
 ## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -154,7 +155,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
-			pass
+			print("ENDING TURN")
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:

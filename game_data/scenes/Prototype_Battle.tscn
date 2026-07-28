@@ -17,8 +17,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
 shader = ExtResource("6_l4n2p")
 shader_parameter/is_exhausted = false
-shader_parameter/transition_start_time = 0.0
-shader_parameter/fade_duration = 0.4
 shader_parameter/darken_amount = 0.800000038
 shader_parameter/desaturate_amount = 0.30000001425
 
@@ -66,6 +64,7 @@ script = ExtResource("3_wxjty")
 script = ExtResource("4_h35sd")
 
 [node name="discard" type="Area2D" parent="." unique_id=215352113]
+z_index = -1
 position = Vector2(192, 850)
 script = ExtResource("2_72g67")
 
@@ -409,4 +408,4 @@ r = discard front card
 p = process enemy turns"
 label_settings = SubResource("LabelSettings_h35sd")
 
-[connection signal="pressed" from="end_turn" to="." method="_end_turn"]
+[connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
