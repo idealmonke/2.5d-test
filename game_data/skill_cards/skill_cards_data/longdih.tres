@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_dn3ix")
-mana_cost = 1000000
+mana_cost = 4
 stamina_cost = 10
 ability_desc = "8------------D"
 card_name = "longdih"
