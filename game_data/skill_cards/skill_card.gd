@@ -87,13 +87,7 @@ func _ready() -> void:
 	card_mana_cost_label = $mana_cost
 	card_stamina_cost_label = $stamina_cost
 	_update_text()
-	
-	call_deferred("_late_setup")
 
-func _late_setup() -> void:
-	# TEMPORARY UNTIL INSTANCING
-	controller = get_parent().get_parent()
-	data = get_parent().get_parent().data
 	
 func _process(delta: float) -> void:
 	
@@ -185,10 +179,10 @@ func _update_text() -> void:
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if controller.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and event.pressed:
-				data.hand.register_pickup(self)
+			if BattleController.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and event.pressed:
+				BattleController.data.hand.register_pickup(self)
 				return
-			if controller.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING and event.pressed:
+			if BattleController.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING and event.pressed:
 				_report_select()
 				return
 

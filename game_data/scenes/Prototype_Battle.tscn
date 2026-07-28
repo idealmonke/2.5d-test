@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rml0uowto1u1"]
 
-[ext_resource type="Script" uid="uid://ce0bib1kd6yoj" path="res://game_data/scripts/battle_controller.gd" id="1_p588q"]
+[ext_resource type="Script" uid="uid://corc8hs0rus56" path="res://game_data/scripts/battle_setup.gd" id="1_lpuuh"]
 [ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/skill_cards/card_locations/skill_card_discard.gd" id="2_72g67"]
 [ext_resource type="Script" uid="uid://d02qag4sjnwd8" path="res://game_data/skill_cards/card_locations/skill_card_display_grid.gd" id="2_l4n2p"]
 [ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/skill_cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
@@ -53,7 +53,7 @@ gradient = SubResource("Gradient_md5fw")
 [sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
-script = ExtResource("1_p588q")
+script = ExtResource("1_lpuuh")
 
 [node name="skill_card_display_grid" type="Node2D" parent="." unique_id=47632237]
 script = ExtResource("2_l4n2p")

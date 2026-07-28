@@ -4,7 +4,6 @@ extends Area2D
 var discard: Array[skill_card] = []
 var detection: Area2D
 var display_grid: skill_card_display_grid
-var controller: battle_controller
 
 func _ready() -> void:
 	connect("input_event", _on_input_event)
@@ -12,10 +11,9 @@ func _ready() -> void:
 	
 func _late_ready() -> void:
 	display_grid = get_parent().get_node("skill_card_display_grid")
-	controller = get_parent()
 	
 func _on_input_event(_viewport, event, _shape_idx) -> void:
-	if event is InputEventMouseButton and controller.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and !discard.is_empty():
+	if event is InputEventMouseButton and BattleController.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and !discard.is_empty():
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				_display_discard()
@@ -53,8 +51,8 @@ func exhaust_cards() -> void:
 		card.exhausted = true
 
 func _display_discard() -> void:
-	controller.global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING
+	BattleController.global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING
 	display_grid.load_cards(discard, _close_display, "Discard")
 
 func _close_display(card: skill_card) -> void:
-	controller.global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
+	BattleController.global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
