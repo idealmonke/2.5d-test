@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cyfbc1ti6fbjv"]
+
+[ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="1_qx01e"]
+[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_art/exhausted_card.gdshader" id="2_nujpf"]
+[ext_resource type="Texture2D" uid="uid://dq27uwoxutmax" path="res://game_data/skill_cards/card_art/Blank_Card.png" id="3_c1cq6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
+shader = ExtResource("2_nujpf")
+shader_parameter/is_exhausted = false
+shader_parameter/darken_amount = 0.800000038
+shader_parameter/desaturate_amount = 0.30000001425
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4n2p"]
+size = Vector2(362, 482)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72g67"]
+size = Vector2(380, 554)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wxjty"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.7607843, 0.32941177, 0.24313726, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1dyx"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aonjl"]
+font_size = 42
+font_color = Color(0, 0, 0, 1)
+
+[node name="skill_card" type="Area2D" unique_id=1995512998]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_qx01e")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593555912]
+material = SubResource("ShaderMaterial_5ar1h")
+texture = ExtResource("3_c1cq6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055926202]
+position = Vector2(-17, -35)
+shape = SubResource("RectangleShape2D_l4n2p")
+
+[node name="hover_area" type="Area2D" parent="." unique_id=2101019855]
+
+[node name="hover_area_collision" type="CollisionShape2D" parent="hover_area" unique_id=1595753072]
+position = Vector2(-18, -61)
+shape = SubResource("RectangleShape2D_72g67")
+
+[node name="card_name" type="Label" parent="." unique_id=1982668748]
+offset_left = -92.0
+offset_top = -256.0
+offset_right = 60.0
+offset_bottom = -214.0
+label_settings = SubResource("LabelSettings_wxjty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="card_ability" type="Label" parent="." unique_id=469903765]
+offset_left = -154.0
+offset_top = 34.0
+offset_right = 122.0
+offset_bottom = 122.0
+label_settings = SubResource("LabelSettings_c1dyx")
+
+[node name="mana_cost" type="Label" parent="." unique_id=758448026]
+offset_left = 42.0
+offset_top = 144.0
+offset_right = 90.0
+offset_bottom = 202.0
+label_settings = SubResource("LabelSettings_aonjl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina_cost" type="Label" parent="." unique_id=1530469752]
+offset_left = -132.0
+offset_top = 142.0
+offset_right = -72.0
+offset_bottom = 200.0
+label_settings = SubResource("LabelSettings_aonjl")
+horizontal_alignment = 1
+vertical_alignment = 1
