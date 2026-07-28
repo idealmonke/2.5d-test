@@ -48,6 +48,9 @@ var old_position: Vector2
 var old_tilt: float = 0.0
 var screen_size: Vector2
 var exhaust_material: ShaderMaterial
+var tween_scale: Tween
+var base_scale: Vector2
+
 
 # Card State
 var exhausted: bool:
@@ -65,6 +68,8 @@ var select_subscribers: Dictionary
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
+	
+	base_scale = scale
 	
 	# TEMPORARY VARIABLES
 	hand_location = Vector2(screen_size.x / 2.0, screen_size.y - 150)
@@ -208,7 +213,20 @@ func _update_pickable() -> void:
 func _player_highlight_card() -> void:
 	z_index += 5
 	hover_offset = Vector2(0,-50)
+	if tween_scale:
+		tween_scale.kill()
+	tween_scale = create_tween()
+	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween_scale.tween_property(self, "scale", base_scale * 1.2, 0.15)
 
 func _player_unhighlight_card() -> void:
 	z_index -= 5
 	hover_offset = Vector2(0,0)
+	if tween_scale:
+		tween_scale.kill()
+	tween_scale = create_tween()
+	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween_scale.tween_property(self, "scale", base_scale, 0.15)
+
+func _play_card() -> void:
+	pass
