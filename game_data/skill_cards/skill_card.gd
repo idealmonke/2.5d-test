@@ -48,23 +48,23 @@ var old_position: Vector2
 var old_tilt: float = 0.0
 var screen_size: Vector2
 var exhaust_material: ShaderMaterial
+var tween_scale: Tween
+var base_scale: Vector2
+
 
 # Card State
 var exhausted: bool:
 	set(value):
 		exhausted = value
-		if exhausted == true:
-			exhaust_material.set_shader_parameter("is_exhausted", exhausted)
-			exhaust_material.set_shader_parameter("transition_start_time", Time.get_ticks_msec() / 1000.0)
-		else:
-			exhaust_material.set_shader_parameter("is_exhausted", exhausted)
-			exhaust_material.set_shader_parameter("transition_start_time", (Time.get_ticks_msec() / 1000.0) - 10.0)
+		exhaust_material.set_shader_parameter("is_exhausted", exhausted)
 			
 # Subscribers
 var select_subscribers: Dictionary
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
+	
+	base_scale = scale
 	
 	# TEMPORARY VARIABLES
 	hand_location = Vector2(screen_size.x / 2.0, screen_size.y - 150)
@@ -87,13 +87,7 @@ func _ready() -> void:
 	card_mana_cost_label = $mana_cost
 	card_stamina_cost_label = $stamina_cost
 	_update_text()
-	
-	call_deferred("_late_setup")
 
-func _late_setup() -> void:
-	# TEMPORARY UNTIL INSTANCING
-	controller = get_parent().get_parent()
-	data = get_parent().get_parent().data
 	
 func _process(delta: float) -> void:
 	
@@ -185,10 +179,10 @@ func _update_text() -> void:
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if controller.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and event.pressed:
-				data.hand.register_pickup(self)
+			if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING and event.pressed:
+				BattleController.data.hand.register_pickup(self)
 				return
-			if controller.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING and event.pressed:
+			if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.DISPLAYING and event.pressed:
 				_report_select()
 				return
 
@@ -212,10 +206,22 @@ func _update_pickable() -> void:
 		set_input_pickable(false)
 
 func _player_highlight_card() -> void:
-	old_z_index = z_index
-	z_index = hover_z_index
+	z_index += 5
 	hover_offset = Vector2(0,-50)
+	if tween_scale:
+		tween_scale.kill()
+	tween_scale = create_tween()
+	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween_scale.tween_property(self, "scale", base_scale * 1.2, 0.15)
 
 func _player_unhighlight_card() -> void:
-	z_index = old_z_index
+	z_index -= 5
 	hover_offset = Vector2(0,0)
+	if tween_scale:
+		tween_scale.kill()
+	tween_scale = create_tween()
+	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween_scale.tween_property(self, "scale", base_scale, 0.15)
+
+func _play_card() -> void:
+	pass

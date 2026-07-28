@@ -26,6 +26,7 @@ func load_cards(payload: Array[skill_card], exit: Callable, text: String) -> voi
 		card.add_select_subscriber(_select_card, "display_grid")
 		old_state = card.interactable_state
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY
+		card.z_index += 10
 	_calculate_grid()
 
 func _select_card(card: skill_card):
@@ -36,6 +37,7 @@ func _clear_cards() -> void:
 	for card in cards:
 		card.remove_select_subscriber("display_grid")
 		card.interactable_state = old_state
+		card.z_index -= 10
 	cards.clear()
 
 func _calculate_grid() -> void:

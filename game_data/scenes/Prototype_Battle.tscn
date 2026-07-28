@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rml0uowto1u1"]
 
-[ext_resource type="Script" uid="uid://ce0bib1kd6yoj" path="res://game_data/scripts/battle_controller.gd" id="1_p588q"]
+[ext_resource type="Script" uid="uid://corc8hs0rus56" path="res://game_data/scripts/battle_setup.gd" id="1_lpuuh"]
 [ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/skill_cards/card_locations/skill_card_discard.gd" id="2_72g67"]
 [ext_resource type="Script" uid="uid://d02qag4sjnwd8" path="res://game_data/skill_cards/card_locations/skill_card_display_grid.gd" id="2_l4n2p"]
 [ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/skill_cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
@@ -17,8 +17,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
 shader = ExtResource("6_l4n2p")
 shader_parameter/is_exhausted = false
-shader_parameter/transition_start_time = 0.0
-shader_parameter/fade_duration = 0.4
 shader_parameter/darken_amount = 0.800000038
 shader_parameter/desaturate_amount = 0.30000001425
 
@@ -40,8 +38,6 @@ font_color = Color(0, 0, 0, 1)
 font_size = 42
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
 size = Vector2(500, 500)
 
@@ -52,8 +48,10 @@ colors = PackedColorArray(1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_u3tej"]
 gradient = SubResource("Gradient_md5fw")
 
+[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
+
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
-script = ExtResource("1_p588q")
+script = ExtResource("1_lpuuh")
 
 [node name="skill_card_display_grid" type="Node2D" parent="." unique_id=47632237]
 script = ExtResource("2_l4n2p")
@@ -66,6 +64,7 @@ script = ExtResource("3_wxjty")
 script = ExtResource("4_h35sd")
 
 [node name="discard" type="Area2D" parent="." unique_id=215352113]
+z_index = -1
 position = Vector2(192, 850)
 script = ExtResource("2_72g67")
 
@@ -344,19 +343,6 @@ label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="." unique_id=763715797]
-offset_left = 57.0
-offset_top = 45.0
-offset_right = 289.0
-offset_bottom = 190.0
-text = "Testing Controls:
-q = draw card
-w = dredge card
-e = replenish discard
-r = discard front card
-p = process enemy turns"
-label_settings = SubResource("LabelSettings_h35sd")
-
 [node name="enemy_storage" type="Node2D" parent="." unique_id=380014281]
 
 [node name="enemy" type="Area2D" parent="enemy_storage" unique_id=854484363]
@@ -401,3 +387,25 @@ value = 100.0
 fill_mode = 6
 texture_progress = SubResource("GradientTexture2D_u3tej")
 tint_progress = Color(0, 0, 1, 1)
+
+[node name="end_turn" type="Button" parent="." unique_id=1149504803]
+offset_left = 1620.0
+offset_top = 948.0
+offset_right = 1870.0
+offset_bottom = 1048.0
+text = "END TURN"
+
+[node name="Label" type="Label" parent="." unique_id=763715797]
+offset_left = 1640.0
+offset_top = 779.0
+offset_right = 1872.0
+offset_bottom = 932.0
+text = "Testing Controls:
+q = draw card
+w = dredge card
+e = replenish discard
+r = discard front card
+p = process enemy turns"
+label_settings = SubResource("LabelSettings_h35sd")
+
+[connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
