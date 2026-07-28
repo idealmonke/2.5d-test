@@ -179,10 +179,10 @@ func _update_text() -> void:
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if BattleController.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING and event.pressed:
+			if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING and event.pressed:
 				BattleController.data.hand.register_pickup(self)
 				return
-			if BattleController.global_state == COMMON_ENUMS.GLOBAL_CARD_STATE.DISPLAYING and event.pressed:
+			if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.DISPLAYING and event.pressed:
 				_report_select()
 				return
 
@@ -206,10 +206,9 @@ func _update_pickable() -> void:
 		set_input_pickable(false)
 
 func _player_highlight_card() -> void:
-	old_z_index = z_index
-	z_index = hover_z_index
+	z_index += 5
 	hover_offset = Vector2(0,-50)
 
 func _player_unhighlight_card() -> void:
-	z_index = old_z_index
+	z_index -= 5
 	hover_offset = Vector2(0,0)

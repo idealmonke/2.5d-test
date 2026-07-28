@@ -9,9 +9,6 @@ var current_discard_card: Callable
 
 var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE
 
-## Helps cards 
-var global_state: COMMON_ENUMS.GLOBAL_CARD_STATE = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
-
 # Necessary UI Stuff
 var end_turn_button: Button
 
@@ -165,7 +162,9 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
-			global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.DISABLED
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
+			pass
 
 ## Used for managing the actions at end of state like animations etc
 func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -182,7 +181,9 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			# DO NOTHING HERE
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
-			global_state = COMMON_ENUMS.GLOBAL_CARD_STATE.PLAYING
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
+			pass
 
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	_on_exit_state(current_state)
@@ -202,4 +203,6 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
 			# STATE 
+			pass
+		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
