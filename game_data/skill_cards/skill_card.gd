@@ -80,13 +80,16 @@ func _ready() -> void:
 	exhaust_material.shader = load("res://game_data/skill_cards/card_art/exhausted_card.gdshader")
 	card_main_frame.material = exhaust_material
 	
-	interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
+
 	
 	card_name_label = $card_name
 	card_ability_label = $card_ability
 	card_mana_cost_label = $mana_cost
 	card_stamina_cost_label = $stamina_cost
 	_update_text()
+	
+	interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
+	set_back()
 
 	
 func _process(delta: float) -> void:
@@ -118,15 +121,23 @@ func _process(delta: float) -> void:
 				global_position = global_position.lerp(misc_location, slow_lerp * delta)
 			else:
 				global_position = misc_location
+		COMMON_ENUMS.INTERACT_STATE.PLAYING:
+			if global_position.distance_to((screen_size/2) + Vector2(0,-256)) > 1:
+				global_position = global_position.lerp(screen_size/2, slow_lerp * delta)
+			else:
+				global_position = (screen_size/2) + Vector2(0,-256)
 			
 func initialize_card(resource_data: skill_card_data) -> void:
+	
 	card_name = resource_data.card_name
 	card_id = resource_data.card_id
 	card_art = resource_data.card_art
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
-	ability = resource_data.card_ability.execute
-	classes = resource_data.card_classes
+	
+	# Temporarily disable until we figure this out
+	# ability = resource_data.card_ability.execute
+	# classes = resource_data.card_classes
 	_update_text()
 	
 
@@ -170,10 +181,10 @@ func _report_select() -> void:
 
 func _update_text() -> void:
 	# Change to actual propertes once they initialize correctly
-	card_name_label.text = "card_name"
-	card_ability_label.text = "This is the cards ability."
-	card_stamina_cost_label.text = "3"
-	card_mana_cost_label.text = "0"
+	card_name_label.text = card_name
+	card_ability_label.text = ability_desc
+	card_stamina_cost_label.text = str(stamina_cost)
+	card_mana_cost_label.text = str(mana_cost)
 	
 ## Handles Mouse Down Presses
 func _on_input_event(_viewport, event, _shape_idx):
@@ -186,18 +197,25 @@ func _on_input_event(_viewport, event, _shape_idx):
 				_report_select()
 				return
 
+func _input(event: InputEvent) -> void:
+	if (interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING) && (BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING) && (self.position.y <= screen_size.y/2):
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+				interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
+				BattleController.play_card(self)
+
+	elif interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+				interactable_state = prev_state
+				self.target_rotation = old_tilt
+	
+
 func _on_mouse_entered() -> void:
 	_player_highlight_card()
 	
 func _on_mouse_exited() -> void:
 	_player_unhighlight_card()
-
-func _input(event: InputEvent) -> void:
-	if interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING:
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
-				interactable_state = prev_state
-				self.target_rotation = old_tilt
 
 func _update_pickable() -> void:
 	if interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND or interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY:
