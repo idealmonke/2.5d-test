@@ -44,18 +44,15 @@ func _calculate_grid() -> void:
 	var cards_per_row: int = max_display_width / (card_width + separation_width)
 	var layers: Array[Array] = []
 	layers.resize(int(ceil(float(cards.size()) / cards_per_row)))
-
 	for index in range(layers.size()):
 		layers[index] = []
 		layers[index].append_array(cards.slice(index * cards_per_row, (index + 1) * cards_per_row))
-
 	var total_height: float = layers.size() * (card_height + separation_height) - separation_height
 	var y_offset: float = (screen_size.y - total_height) / 2.0
-
 	for layer_index in range(layers.size()):
 		var layer = layers[layer_index]
 		var total_width: float = layer.size() * (card_width + separation_width) - separation_width
 		var x_offset: float = (screen_size.x - total_width) / 2.0
 		for card_index in range(layer.size()):
-			layer[card_index].misc_location.x = x_offset + card_index * (card_width + separation_width)
-			layer[card_index].misc_location.y = y_offset + layer_index * (card_height + separation_height)
+			layer[card_index].misc_location.x = x_offset + card_width / 2.0 + card_index * (card_width + separation_width)
+			layer[card_index].misc_location.y = y_offset + card_height / 2.0 + layer_index * (card_height + separation_height)

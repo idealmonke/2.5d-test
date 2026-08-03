@@ -1,6 +1,6 @@
 class_name Party
 extends Resource
 
-var party_id: int
-var card_ids: Array[int]
-var character_ids: Array[int]
+@export var party_id: int
+@export var card_ids: Array[int]
+@export var character_ids: Array[int]

@@ -89,6 +89,17 @@ func discard_front() -> void:
 		return
 	data.discard.add_card(temp)
 	temp.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
+	
+func play_card(card: skill_card) -> void:
+	_change_state(COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING)
+	data.hand.pop_card(card)
+	card.z_index += 10
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	card.z_index -= 10
+	data.discard.add_card(card)
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 
 # Mutable Game Actions (Default lambda functions, sometimes replaced by perks)
 func _default_draw_card() -> void:

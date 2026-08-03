@@ -31,6 +31,7 @@ func pop_card(card: skill_card) -> skill_card:
 	return discard.pop_at(index)
 
 func add_card(card: skill_card) -> void:
+	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 	discard.push_front(card)
 	
 func add_many(cards: Array) -> void:
