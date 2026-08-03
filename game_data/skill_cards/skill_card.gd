@@ -128,10 +128,10 @@ func _process(delta: float) -> void:
 				global_position = (screen_size/2) + Vector2(0,-256)
 			
 func initialize_card(resource_data: skill_card_data) -> void:
-	
 	card_name = resource_data.card_name
 	card_id = resource_data.card_id
 	card_art = resource_data.card_art
+	stamina_cost = resource_data.stamina_cost
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
 	
@@ -140,7 +140,6 @@ func initialize_card(resource_data: skill_card_data) -> void:
 	# classes = resource_data.card_classes
 	_update_text()
 	
-
 func begin_drag() -> void:
 	if interactable_state != COMMON_ENUMS.INTERACT_STATE.DRAGGING:
 		prev_state = interactable_state

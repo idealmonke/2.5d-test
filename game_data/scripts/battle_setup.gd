@@ -7,8 +7,6 @@ func _ready() -> void:
 	
 	BattleController.setup(self, $discard, $hand, $library, $end_turn)
 	
-
-	
 	_init_player_cards()
 	
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
