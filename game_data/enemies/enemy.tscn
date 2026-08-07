@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://ch2ettxg1bc2v"]
+
+[ext_resource type="Script" uid="uid://dtosnq5o1su6r" path="res://game_data/enemies/enemy.gd" id="1_n0pnn"]
+[ext_resource type="Texture2D" uid="uid://b8jyxdir6bjj3" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="2_mde5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
+size = Vector2(500, 500)
+
+[sub_resource type="Gradient" id="Gradient_md5fw"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u3tej"]
+gradient = SubResource("Gradient_md5fw")
+
+[node name="enemy" type="Area2D" unique_id=239038922]
+script = ExtResource("1_n0pnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1195882322]
+texture = ExtResource("2_mde5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018664359]
+shape = SubResource("RectangleShape2D_mja0g")
+
+[node name="health_bar" type="TextureProgressBar" parent="." unique_id=1149442455]
+offset_left = -100.0
+offset_top = 50.0
+offset_right = -36.0
+offset_bottom = 114.0
+scale = Vector2(3, 0.3)
+value = 100.0
+fill_mode = 6
+texture_progress = SubResource("GradientTexture2D_u3tej")
+tint_progress = Color(0.99215686, 0, 0, 1)
+
+[node name="health_bar_text" type="Label" parent="." unique_id=641729111]
+offset_left = -50.0
+offset_top = 45.0
+offset_right = 50.0
+offset_bottom = 68.0
+text = "30 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina_bar" type="TextureProgressBar" parent="." unique_id=850431977]
+offset_left = -100.0
+offset_top = 75.0
+offset_right = -36.0
+offset_bottom = 139.00002
+scale = Vector2(3, 0.3)
+value = 100.0
+fill_mode = 6
+texture_progress = SubResource("GradientTexture2D_u3tej")
+tint_progress = Color(0.8599168, 0.5781709, 0, 1)
+
+[node name="stamina_bar_text" type="Label" parent="." unique_id=1836693364]
+offset_left = -50.0
+offset_top = 70.0
+offset_right = 50.0
+offset_bottom = 93.0
+text = "5 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mana_bar" type="TextureProgressBar" parent="." unique_id=1285670159]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = -36.0
+offset_bottom = 164.00002
+scale = Vector2(3, 0.3)
+value = 100.0
+fill_mode = 6
+texture_progress = SubResource("GradientTexture2D_u3tej")
+tint_progress = Color(0, 0, 1, 1)
+
+[node name="mana_bar_text" type="Label" parent="." unique_id=1084803537]
+offset_left = -50.0
+offset_top = 95.0
+offset_right = 50.0
+offset_bottom = 118.0
+text = "2 / 5"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -3,11 +3,14 @@ extends Node
 const SKILL_CARD_SCENE = preload("res://game_data/skill_cards/skill_card.tscn")
 const BATTLE_CONFIG = preload("res://game_data/battle_config.tres")
 
+const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
+
 func _ready() -> void:
 	
-	BattleController.setup(self, $discard, $hand, $library, $end_turn)
+	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn)
 	
 	_init_player_cards()
+	_init_enemies()
 	
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
@@ -26,4 +29,21 @@ func _init_player_cards() -> void:
 		card_instance.initialize_card(data)
 		BattleController.data.library.push_to_top(card_instance)
 	BattleController.data.library.shuffle()
+
+func _init_enemies() -> void:
+	var enemyIDs : Array[int] = BATTLE_CONFIG.enemyIDs
+	BattleController.data.enemies = [null, null, null]
 	
+	for idx in range(3):
+		var id = enemyIDs[idx]
+		
+		if id == -1:
+			continue
+		
+		var data : enemy_data = enemy_registry.get_enemy_data(id)
+		var enemy_instance : enemy = ENEMY_SCENE.instantiate()
+		$enemy_storage.add_child(enemy_instance)
+		enemy_instance.initialize_data(data, idx)
+		
+		BattleController.data.enemies[idx] = enemy_instance
+		enemy_instance.position = BattleController.data.enemy_locations[idx]

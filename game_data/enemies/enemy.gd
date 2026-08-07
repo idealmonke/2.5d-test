@@ -3,6 +3,12 @@ extends Area2D
 
 var controller: battle_controller
 
+# cur idx
+var idx : int
+
+# Size of Texture
+const ENEMY_SPRITE_SIZE = 200
+
 # Locations
 var hand: enemy_hand
 var library: enemy_library
@@ -13,6 +19,8 @@ var current_health: int
 var defense: Dictionary[String, int]
 
 # immutable stats
+var enemy_name : String
+
 var base_max_stamina: int
 var base_max_mana: int
 var base_mana_regen: int
@@ -35,6 +43,10 @@ var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
 var mana_bar: TextureProgressBar
 
+var health_bar_text : Label
+var stamina_bar_text : Label
+var mana_bar_text : Label
+
 # Card Arts
 var base_sprite: Texture2D
 
@@ -48,6 +60,10 @@ func _ready() -> void:
 	health_bar = $health_bar
 	stamina_bar = $stamina_bar
 	mana_bar = $mana_bar
+	
+	health_bar_text = $health_bar_text
+	stamina_bar_text = $stamina_bar_text
+	mana_bar_text = $mana_bar_text
 
 func get_stamina() -> int:
 	return current_stamina
@@ -108,11 +124,19 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 				active_status_effects.erase(key)
 
 func _update_stat_bars() -> void:
-	health_bar.value = current_health
-	stamina_bar.value = current_stamina
-	mana_bar.value = current_mana
+	health_bar.value = float(current_health) / max_health * 100
+	stamina_bar.value = float(current_stamina) / max_stamina * 100
+	mana_bar.value = float(current_mana) / max_mana * 100
 	
-func initialize_data(data: enemy_data) -> void:
+	health_bar_text.text = str(current_health)+"/"+str(max_health)
+	stamina_bar_text.text = str(current_stamina)+"/"+str(max_stamina)
+	mana_bar_text.text = str(current_mana)+"/"+str(max_mana)
+	
+	
+func initialize_data(data: enemy_data, cur_idx : int) -> void:
+	enemy_name = data.enemy_name
+	idx = cur_idx
+	
 	max_health = data.max_health
 	max_stamina = data.max_stamina
 	max_mana = data.max_mana
@@ -121,7 +145,19 @@ func initialize_data(data: enemy_data) -> void:
 	current_mana = max_mana
 	current_stamina = max_stamina
 	
+	_update_stat_bars()
+	
 	base_sprite = data.art
+	sprite.texture = base_sprite
+	
+	#TODO: make image scaling / position automatic
+	var TEMP_SIZE = 400
+	
+	if(data.enemy_name=="goku"):
+		TEMP_SIZE = 200
+		sprite.position.y -= 100
+	
+	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
 
 func process_turn() -> void:
 	# Upkeep
