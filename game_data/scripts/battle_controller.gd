@@ -12,6 +12,9 @@ var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_B
 # Necessary UI Stuff
 var end_turn_button: Button
 
+#Targeting Manager
+var targeting_manager_instance : targeting_manager
+
 # Init Battle Controller
 func _ready() -> void:
 	data = battle_data.new()
@@ -21,6 +24,11 @@ func _ready() -> void:
 	current_discard_card = _default_discard_card
 	
 func _input(event: InputEvent) -> void:
+	#Because of autoload
+	var scene : Node = get_tree().current_scene
+	if  scene != null and scene.name != "PrototypeBattle":
+		return
+	
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_Q:
 			draw_card()
@@ -38,10 +46,13 @@ func _input(event: InputEvent) -> void:
 			for enem in data.enemies:
 				enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, end_turn) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
+	
+	targeting_manager_instance = tm
+	
 	end_turn_button = end_turn
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
@@ -95,7 +106,11 @@ func play_card(card: skill_card) -> void:
 	data.hand.pop_card(card)
 	card.z_index += 10
 	
-	await get_tree().create_timer(2.0).timeout
+	# pause code
+	#await get_tree().create_timer(2.0).timeout
+	
+	var targets = await targeting_manager_instance.select_targets(card)
+	card.ability.execute(self, targets)
 	
 	card.z_index -= 10
 	data.discard.add_card(card)
@@ -215,6 +230,9 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
 			# STATE 
+			
+			print("playing")
+			
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass

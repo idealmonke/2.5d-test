@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="longsword_ability" format=3 uid="uid://t6ouyn5yhdc"]
+
+[ext_resource type="Script" uid="uid://dvlvlpxdfn5og" path="res://game_data/skill_cards/skill_cards_data/longsword_ability.gd" id="1_k3bh4"]
+
+[resource]
+script = ExtResource("1_k3bh4")
+metadata/_custom_type_script = "uid://dvlvlpxdfn5og"

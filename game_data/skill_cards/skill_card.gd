@@ -8,7 +8,7 @@ var card_art: Texture2D
 var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
-var ability: Callable
+var ability: skill_card_ability
 var classes: Array[String]
 
 # Card Sprites
@@ -136,7 +136,7 @@ func initialize_card(resource_data: skill_card_data) -> void:
 	ability_desc = resource_data.ability_desc
 	
 	# Temporarily disable until we figure this out
-	# ability = resource_data.card_ability.execute
+	ability = resource_data.card_ability
 	# classes = resource_data.card_classes
 	_update_text()
 	
