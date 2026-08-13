@@ -166,9 +166,14 @@ func process_turn() -> void:
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
 	# Playing Turn
-	hand.draw_hand(hand_size)
-	hand.play_hand()
+	#hand.draw_hand(hand_size)
+	#hand.play_hand()
 	
 	await get_tree().create_timer(2.0).timeout	
 	# End of Turn
-	hand.replenish_hand()
+	#hand.replenish_hand()
+
+func is_full_health() -> bool:
+	if max_health == current_health:
+		return true
+	return false

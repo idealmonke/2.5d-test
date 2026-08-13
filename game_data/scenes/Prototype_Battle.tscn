@@ -12,6 +12,42 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
+[sub_resource type="Gradient" id="Gradient_wxjty"]
+colors = PackedColorArray(0.18717596, 0.1871762, 0.18717608, 1, 0.60122615, 0.6012221, 0.6012204, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h35sd"]
+gradient = SubResource("Gradient_wxjty")
+width = 200
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_l4n2p"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ar1h"]
+gradient = SubResource("Gradient_l4n2p")
+width = 200
+height = 40
+fill_to = Vector2(0.98913044, 0)
+
+[sub_resource type="Gradient" id="Gradient_h35sd"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l4n2p"]
+gradient = SubResource("Gradient_h35sd")
+width = 200
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_5ar1h"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0.6392157, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lpuuh"]
+gradient = SubResource("Gradient_5ar1h")
+width = 200
+height = 40
+
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_lpuuh")
 
@@ -80,6 +116,59 @@ offset_top = 685.0
 offset_right = 1082.0
 offset_bottom = 716.0
 text = "Confirm Targets"
+
+[node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
+
+[node name="health_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1190676496]
+offset_left = 80.0
+offset_top = 40.0
+offset_right = 280.0
+offset_bottom = 80.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_5ar1h")
+
+[node name="health_label" type="Label" parent="player_stat_bars/health_bar" unique_id=621116592]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mana_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1617729946]
+offset_left = 80.0
+offset_top = 90.0
+offset_right = 280.0
+offset_bottom = 130.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_l4n2p")
+
+[node name="mana_label" type="Label" parent="player_stat_bars/mana_bar" unique_id=1893524866]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1752691136]
+offset_left = 80.0
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 180.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_lpuuh")
+
+[node name="stamina_label" type="Label" parent="player_stat_bars/stamina_bar" unique_id=2046305648]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/confirm_button" to="targeting_manager" method="_on_confirm_button_pressed"]

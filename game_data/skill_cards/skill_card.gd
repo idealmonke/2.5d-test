@@ -122,10 +122,10 @@ func _process(delta: float) -> void:
 			else:
 				global_position = misc_location
 		COMMON_ENUMS.INTERACT_STATE.PLAYING:
-			if global_position.distance_to((screen_size/2) + Vector2(0,-256)) > 1:
+			if global_position.distance_to((screen_size/2) + Vector2(0,512)) > 1:
 				global_position = global_position.lerp(screen_size/2, slow_lerp * delta)
 			else:
-				global_position = (screen_size/2) + Vector2(0,-256)
+				global_position = (screen_size/2) + Vector2(0,512)
 			
 func initialize_card(resource_data: skill_card_data) -> void:
 	card_name = resource_data.card_name
@@ -200,9 +200,15 @@ func _input(event: InputEvent) -> void:
 	if (interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING) && (BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING) && (self.position.y <= screen_size.y/2):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
-				interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
-				BattleController.play_card(self)
-
+				if BattleController.data.player.get_stamina() >= self.stamina_cost && BattleController.data.player.get_mana() >= self.mana_cost:
+					BattleController.data.player.expend_stamina(stamina_cost)
+					BattleController.data.player.expend_mana(mana_cost)
+					interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
+					BattleController.play_card(self)
+				else:
+					interactable_state = prev_state
+					self.target_rotation = old_tilt
+					
 	elif interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:

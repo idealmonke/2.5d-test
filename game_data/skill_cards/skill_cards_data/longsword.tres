@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://bscpiuhrkw4a7"]
+[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://ef76bmulu7gf"]
 
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_1hd5p"]
-[ext_resource type="Resource" uid="uid://t6ouyn5yhdc" path="res://game_data/skill_cards/skill_cards_data/longsword_ability.tres" id="1_d87u7"]
+[ext_resource type="Script" uid="uid://dvlvlpxdfn5og" path="res://game_data/skill_cards/skill_card_abilities/longsword_ability.gd" id="1_d87u7"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_in3tp"]
+
+[sub_resource type="Resource" id="Resource_d87u7"]
+script = ExtResource("1_d87u7")
+metadata/_custom_type_script = "uid://dvlvlpxdfn5og"
 
 [resource]
 script = ExtResource("1_1hd5p")
 stamina_cost = 3
-card_ability = ExtResource("1_d87u7")
-ability_desc = "Deal 5 damage to 2 enemies"
+card_ability = SubResource("Resource_d87u7")
+ability_desc = "Draw a card, Strike once for physical damage equal to twice the number of cards in your hand. "
 target_type = 1
 card_name = "Longsword"
 card_art = ExtResource("1_in3tp")

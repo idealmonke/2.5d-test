@@ -110,7 +110,7 @@ func play_card(card: skill_card) -> void:
 	#await get_tree().create_timer(2.0).timeout
 	
 	var targets = await targeting_manager_instance.select_targets(card)
-	card.ability.execute(self, targets)
+	card.ability.execute(targets)
 	
 	card.z_index -= 10
 	data.discard.add_card(card)
