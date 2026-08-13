@@ -7,13 +7,19 @@ const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
 
 func _ready() -> void:
 	
+	BattleController.data.player.init_bars(	$player_stat_bars/health_bar, 
+										$player_stat_bars/health_bar/health_label,
+										$player_stat_bars/mana_bar,
+										$player_stat_bars/mana_bar/mana_label,
+										$player_stat_bars/stamina_bar,
+										$player_stat_bars/stamina_bar/stamina_label)
+	
 	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn)
 	
 	_init_player_cards()
 	_init_enemies()
 	
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
-
 
 func _on_end_turn_pressed() -> void:
 	BattleController._end_turn()

@@ -31,6 +31,7 @@ func _ready() -> void:
 	confirm_button = $confirm_button
 
 signal targeting_finished(targets: targeting_info)
+
 func select_targets(card: skill_card) -> targeting_info:
 	_targeting = true
 	cur_card = card
@@ -106,6 +107,7 @@ func _display_arrow():
 	var init = 0.9
 	var change = 0.05
 	_arrow_head.rotation = (bezier(start,control,end,init) - bezier(start,control, end, init-change)).normalized().angle()
+
 func _input(event):
 	if not res or not _targeting:
 		return
@@ -139,10 +141,12 @@ func _reset():
 	for arrow in _placed_arrows:
 		arrow.queue_free()
 	_cur_arrow.queue_free()
+	_placed_arrows.clear()
 	
 	for arrow_head in _placed_arrowheads:
 		arrow_head.queue_free()
 	_arrow_head.queue_free()
+	_placed_arrowheads.clear()
 	
 	cancel_button.visible = false
 	confirm_button.visible = false

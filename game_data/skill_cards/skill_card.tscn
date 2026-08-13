@@ -61,6 +61,7 @@ offset_top = 34.0
 offset_right = 122.0
 offset_bottom = 122.0
 label_settings = SubResource("LabelSettings_c1dyx")
+autowrap_mode = 3
 
 [node name="mana_cost" type="Label" parent="." unique_id=758448026]
 offset_left = 42.0
