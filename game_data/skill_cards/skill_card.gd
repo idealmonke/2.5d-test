@@ -80,8 +80,6 @@ func _ready() -> void:
 	exhaust_material.shader = load("res://game_data/skill_cards/card_art/exhausted_card.gdshader")
 	card_main_frame.material = exhaust_material
 	
-
-	
 	card_name_label = $card_name
 	card_ability_label = $card_ability
 	card_mana_cost_label = $mana_cost
@@ -122,10 +120,14 @@ func _process(delta: float) -> void:
 			else:
 				global_position = misc_location
 		COMMON_ENUMS.INTERACT_STATE.PLAYING:
-			if global_position.distance_to((screen_size/2) + Vector2(0,512)) > 1:
-				global_position = global_position.lerp(screen_size/2, slow_lerp * delta)
+			var target = (screen_size/2) 
+			if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
+				target += Vector2(0, 1000)
+				
+			if global_position.distance_to(target) > 1:
+				global_position = global_position.lerp(target, slow_lerp * delta)
 			else:
-				global_position = (screen_size/2) + Vector2(0,512)
+				global_position = target
 			
 func initialize_card(resource_data: skill_card_data) -> void:
 	card_name = resource_data.card_name

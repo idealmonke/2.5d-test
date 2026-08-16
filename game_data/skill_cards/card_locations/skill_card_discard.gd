@@ -55,5 +55,10 @@ func _display_discard() -> void:
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.DISPLAYING)
 	display_grid.load_cards(discard, _close_display, "Discard")
 
-func _close_display(card: skill_card) -> void:
+func _custom_display_discard(custom_func: Callable) -> void:
+	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.DISPLAYING)
+	display_grid.load_cards(discard, custom_func, "Discard")
+
+func _close_display(card: skill_card) -> skill_card:
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
+	return card

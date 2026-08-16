@@ -6,8 +6,7 @@ static var skill_card_data_path: String = "res://game_data/skill_cards/skill_car
 const CARD_DB: Dictionary = {
 	1001: "longsword",
 	1002: "rondel_dagger",
-	69420: "bleh",
-	8888: "longdih"
+	3004: "scavenge"
 }
 
 static func get_card_data(ID: int) -> skill_card_data:

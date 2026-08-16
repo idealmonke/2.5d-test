@@ -9,11 +9,15 @@ var current_discard_card: Callable
 
 var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE
 
+var display_grid: skill_card_display_grid
+
 # Necessary UI Stuff
 var end_turn_button: Button
 
 #Targeting Manager
 var targeting_manager_instance : targeting_manager
+
+signal display_signal
 
 # Init Battle Controller
 func _ready() -> void:
@@ -46,13 +50,13 @@ func _input(event: InputEvent) -> void:
 			for enem in data.enemies:
 				enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
 	
 	targeting_manager_instance = tm
-	
+	display_grid = display
 	end_turn_button = end_turn
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
@@ -108,9 +112,13 @@ func play_card(card: skill_card) -> void:
 	
 	# pause code
 	#await get_tree().create_timer(2.0).timeout
+	var targets = null
+	if card.ability.target_type == COMMON_ENUMS.TARGET_TYPE.NONE:
+		targets = targeting_info.new()
+	else:
+		targets = await targeting_manager_instance.select_targets(card)
 	
-	var targets = await targeting_manager_instance.select_targets(card)
-	card.ability.execute(targets)
+	await card.ability.execute(targets)
 	
 	card.z_index -= 10
 	data.discard.add_card(card)
