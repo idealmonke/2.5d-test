@@ -12,7 +12,7 @@ var mana_regen: int
 var hand_size: int = 2
 
 var passive_status_effects: Dictionary[String, int]
-var active_status_effects: Dictionary[String, active_status_effect]
+var current_status_effects: Dictionary[String, status_effect_data]
 
 var health_bar: TextureProgressBar
 var health_label: Label
@@ -53,8 +53,8 @@ func expend_mana(mana: int) -> int:
 	_update_bars()
 	return current_mana
 
-func regain_mana() -> void:
-	current_mana += mana_regen
+func regain_mana(mana: int) -> void:
+	current_mana += mana
 	if current_mana > max_mana:
 		current_mana = max_mana
 	_update_bars()
