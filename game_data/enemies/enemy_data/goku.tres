@@ -7,8 +7,8 @@
 script = ExtResource("2_y043n")
 enemy_id = 888
 enemy_name = "goku"
-max_health = 100
-max_stamina = 10
+max_health = 1000
+max_stamina = 400
 max_mana = 30
 mana_regen = 5
 art = ExtResource("1_vp33r")

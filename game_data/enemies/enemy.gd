@@ -16,7 +16,7 @@ var library: enemy_library
 # Enemy Stats
 var max_health: int
 var current_health: int
-var defense: Dictionary[String, int]
+var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
 # immutable stats
 var enemy_name : String
@@ -33,8 +33,7 @@ var max_mana: int
 var current_mana: int
 var mana_regen: int
 
-var passive_status_effects: Dictionary[COMMON_ENUMS.PASSIVE_STATUS_EFFECTS, int]
-var active_status_effects: Dictionary[COMMON_ENUMS.ACTIVE_STATUS_EFFECTS, active_status_effect]
+var current_status_effects: Dictionary[COMMON_ENUMS.STATUS_EFFECT, status_effect]
 
 # Child Nodes for UI control
 var sprite: Sprite2D
@@ -114,14 +113,25 @@ func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> int:
 	current_health -= damage
 	_update_stat_bars()
 	return damage
+	
+	
+func add_status_stacks(status: COMMON_ENUMS.STATUS_EFFECT, stacks: int, magnitude: float) -> void:
+	if current_status_effects.has(status):
+		var cur = current_status_effects.get(status)
+		cur.stacks += stacks
+		if cur.data.magnitude < magnitude:
+			cur.data.magnitude = magnitude
+	else:
+		var cur = status_effect.new(null)
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
-	for key in active_status_effects:
-		if active_status_effects.has(key) && active_status_effects.get(key).timing == timing:
-			active_status_effects.get(key).execute(self)
-			active_status_effects.get(key).stacks -= 1
-			if active_status_effects.get(key).stacks == 0:
-				active_status_effects.erase(key)
+	for key in current_status_effects:
+		if current_status_effects.get(key).data.timing == timing:
+			current_status_effects.get(key).data.execute(self)
+			current_status_effects.get(key).stacks -= 1
+			current_status_effects.get(key).duration_active += 1
+			if current_status_effects.get(key).stacks == 0:
+				current_status_effects.erase(key)
 
 func _update_stat_bars() -> void:
 	health_bar.value = float(current_health) / max_health * 100

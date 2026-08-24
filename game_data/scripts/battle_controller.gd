@@ -139,12 +139,12 @@ func _default_discard_card(card: skill_card) -> void:
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
-	for key in data.player.active_status_effects:
-		if data.player.active_status_effects.has(key) && data.player.active_status_effects.get(key).timing == timing:
-			data.player.active_status_effects.get(key).execute(self)
-			data.player.active_status_effects.get(key).stacks -= 1
-			if data.player.active_status_effects.get(key).stacks == 0:
-				data.player.active_status_effects.erase(key)
+	for key in data.player.current_status_effects:
+		if data.player.current_status_effects.has(key) && data.player.current_status_effects.get(key).timing == timing:
+			data.player.current_status_effects.get(key).execute(self)
+			data.player.current_status_effects.get(key).stacks -= 1
+			if data.player.current_status_effects.get(key).stacks == 0:
+				data.player.current_status_effects.erase(key)
 
 func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
 	data.player._upkeep_regen_mana()
