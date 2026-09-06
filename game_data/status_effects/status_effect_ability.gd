@@ -1,5 +1,5 @@
-class_name skill_card_ability
+class_name status_effect_ability
 extends Resource
 
-func execute() -> void:
+func execute(target: Variant) -> void:
 	pass
