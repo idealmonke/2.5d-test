@@ -6,7 +6,11 @@ func _init() -> void:
 
 func execute( targets : targeting_info) -> void:
 	
-	if targets.single_target().is_full_health():
-		targets.single_target().take_damage(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL, 4 * BattleController.data.discard.get_size())
-	else:
-		targets.single_target().take_damage(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL, 2 * BattleController.data.discard.get_size())
+	var damage = Damage.new()
+	damage.set_amount(BattleController.data.discard.get_size()*2)
+	damage.set_type(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
+	
+	if targets.single_target().current_health == targets.single_target().max_health:
+		damage.multiply_damage(2)
+	
+	targets.single_target().take_damage(damage)

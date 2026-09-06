@@ -64,12 +64,10 @@ func _upkeep_regen_mana() -> void:
 		current_mana = max_mana
 	_update_bars()
 
-func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> void:
-	if defense.has(type):
-		damage -= defense.get(type)
-		if damage < 0:
-			damage = 0
-	hit_points -= damage
+func take_damage(damage: Damage) -> void:
+	if defense.has(damage.damage_type):
+		damage.add_damage(-1 * defense.get(damage.damage_type))
+	hit_points -= damage.get_amount()
 	_update_bars()
 	
 func heal(healing: int) -> void:
@@ -112,3 +110,12 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 			current_status_effects.get(key).duration_active += 1
 			if current_status_effects.get(key).stacks == 0:
 				current_status_effects.erase(key)
+
+func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
+	if current_status_effects.has(status):
+		var cur = current_status_effects.get(status)
+		cur.stacks += stacks
+		if cur.data.magnitude < magnitude:
+			cur.data.magnitude = magnitude
+	else:
+		current_status_effects.set(status.data.name, status)
