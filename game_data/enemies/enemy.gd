@@ -33,7 +33,7 @@ var max_mana: int
 var current_mana: int
 var mana_regen: int
 
-var current_status_effects: Dictionary[COMMON_ENUMS.STATUS_EFFECT, status_effect]
+var current_status_effects: Dictionary[String, status_effect]
 
 # Child Nodes for UI control
 var sprite: Sprite2D
