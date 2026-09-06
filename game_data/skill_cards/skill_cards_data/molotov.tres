@@ -1,12 +1,17 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://c7nha0ptovxs5"]
+[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://bk2quj41i34ho"]
 
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_6v6km"]
-[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="1_lsmr2"]
+[ext_resource type="Script" uid="uid://b2r57fguu3l5k" path="res://game_data/skill_cards/skill_card_abilities/molotov_ability.gd" id="1_lsmr2"]
+
+[sub_resource type="Resource" id="Resource_kslts"]
+script = ExtResource("1_lsmr2")
+metadata/_custom_type_script = "uid://b2r57fguu3l5k"
 
 [resource]
 script = ExtResource("1_6v6km")
 stamina_cost = 4
-card_name = "molotov"
-card_art = ExtResource("1_lsmr2")
+card_ability = SubResource("Resource_kslts")
+ability_desc = "Deals a 2 fire damage and applies three stacks of burning to all enemies."
+card_name = "Molotov"
 card_id = 7001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

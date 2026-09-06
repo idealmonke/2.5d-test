@@ -112,20 +112,24 @@ func take_damage(damage: Damage) -> void:
 	_update_stat_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
-	if current_status_effects.has(status):
-		var cur = current_status_effects.get(status)
+	if current_status_effects.has(status.data.name):
+		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
 		if cur.data.magnitude < magnitude:
 			cur.data.magnitude = magnitude
 	else:
+		status.stacks = stacks
+		status.magnitude = magnitude
 		current_status_effects.set(status.data.name, status)
+		
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
-		if (current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.ACTIVE || current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.BOTH) && current_status_effects.get(key).data.timing == timing:
-			current_status_effects.get(key).data.execute(self)
+		print(current_status_effects.get(key).data.name + " " + str(current_status_effects.get(key).stacks))
+		if (current_status_effects.get(key).data.status_type == COMMON_ENUMS.STATUS_TYPE.ACTIVE || current_status_effects.get(key).data.status_type == COMMON_ENUMS.STATUS_TYPE.BOTH) && current_status_effects.get(key).data.timing == timing:
 			current_status_effects.get(key).stacks -= 1
 			current_status_effects.get(key).duration_active += 1
+			current_status_effects.get(key).data.ability.execute(self, current_status_effects.get(key))
 			if current_status_effects.get(key).stacks == 0:
 				current_status_effects.erase(key)
 
