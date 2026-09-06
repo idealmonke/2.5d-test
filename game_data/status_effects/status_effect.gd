@@ -4,7 +4,7 @@ extends RefCounted
 var data: status_effect_data
 
 var stacks: int
-var magnitude: int
+var magnitude: float
 var duration_active: int
 
 func _init(status_data: status_effect_data) -> void:

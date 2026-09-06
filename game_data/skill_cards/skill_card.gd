@@ -57,7 +57,7 @@ var exhausted: bool:
 	set(value):
 		exhausted = value
 		exhaust_material.set_shader_parameter("is_exhausted", exhausted)
-			
+				
 # Subscribers
 var select_subscribers: Dictionary
 

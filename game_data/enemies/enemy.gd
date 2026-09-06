@@ -126,7 +126,7 @@ func add_status_stacks(status: COMMON_ENUMS.STATUS_EFFECT, stacks: int, magnitud
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
-		if current_status_effects.get(key).data.timing == timing:
+		if (current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.ACTIVE || current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.BOTH) && current_status_effects.get(key).data.timing == timing:
 			current_status_effects.get(key).data.execute(self)
 			current_status_effects.get(key).stacks -= 1
 			current_status_effects.get(key).duration_active += 1
@@ -179,7 +179,6 @@ func process_turn() -> void:
 	#hand.draw_hand(hand_size)
 	#hand.play_hand()
 	
-	await get_tree().create_timer(2.0).timeout	
 	# End of Turn
 	#hand.replenish_hand()
 
