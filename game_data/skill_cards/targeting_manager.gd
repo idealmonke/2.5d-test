@@ -173,3 +173,8 @@ func bezier(start: Vector2, control: Vector2, end: Vector2, t: float) -> Vector2
 func _on_confirm_button_pressed() -> void:
 	_reset()
 	targeting_finished.emit(cur_targets)
+
+
+func _on_cancel_button_pressed() -> void:
+	_reset()
+	targeting_finished.emit(null)
