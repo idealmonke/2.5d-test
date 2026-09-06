@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtosnq5o1su6r" path="res://game_data/enemies/enemy.gd" id="1_n0pnn"]
 [ext_resource type="Texture2D" uid="uid://b8jyxdir6bjj3" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="2_mde5d"]
+[ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="3_mde5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
 size = Vector2(500, 500)
@@ -81,3 +82,11 @@ offset_bottom = 118.0
 text = "2 / 5"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="status_effect_bar" type="FlowContainer" parent="." unique_id=2058616845]
+offset_left = -100.0
+offset_top = 120.0
+offset_right = 92.0
+offset_bottom = 170.0
+script = ExtResource("3_mde5d")
+metadata/_custom_type_script = "uid://t5qbjm3s8snw"
