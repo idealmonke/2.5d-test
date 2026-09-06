@@ -4,6 +4,7 @@ extends Resource
 var name: String
 var desc: String
 var display_image: Texture2D
+var ability: status_effect_ability
 var timing: COMMON_ENUMS.TIMING
 var effect: COMMON_ENUMS.STATUS_EFFECT
 var status_type: COMMON_ENUMS.STATUS_TYPE
