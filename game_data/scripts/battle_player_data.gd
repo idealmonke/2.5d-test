@@ -11,7 +11,6 @@ var current_mana: int = 15
 var mana_regen: int
 var hand_size: int = 2
 
-var passive_status_effects: Dictionary[String, int]
 var current_status_effects: Dictionary[String, status_effect_data]
 
 var health_bar: TextureProgressBar
@@ -105,5 +104,11 @@ func _update_bars() -> void:
 	stamina_bar.value = current_stamina
 	stamina_label.text = str(current_stamina) + "/" + str(max_stamina)
 
-func initialize_player(party: Party) -> void:
-	pass
+func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
+	for key in current_status_effects:
+		if (current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.ACTIVE || current_status_effects.get(key) == COMMON_ENUMS.STATUS_TYPE.BOTH) && current_status_effects.get(key).data.timing == timing:
+			current_status_effects.get(key).data.execute(self)
+			current_status_effects.get(key).stacks -= 1
+			current_status_effects.get(key).duration_active += 1
+			if current_status_effects.get(key).stacks == 0:
+				current_status_effects.erase(key)

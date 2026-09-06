@@ -1,13 +1,10 @@
 class_name status_effect_registry
 extends RefCounted
 
-static var status_effect_data_path: String = ""
+static var status_effect_data_path: String = "res://game_data/status_effects/status_effect_data/"
 
 const CARD_DB: Dictionary = {
-	1001: "longsword",
-	1002: "rondel_dagger",
-	3004: "scavenge",
-	1003: "brief_respite"
+	1001: "burning",
 }
 
 static func get_status_effect_data(ID: COMMON_ENUMS.STATUS_EFFECT) -> skill_card_data:
