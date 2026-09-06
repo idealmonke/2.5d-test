@@ -19,3 +19,6 @@ func add_damage(value) -> void:
 
 func multiply_damage(value) -> void:
 	amount *= value
+
+func set_type(value) -> void:
+	damage_type = value

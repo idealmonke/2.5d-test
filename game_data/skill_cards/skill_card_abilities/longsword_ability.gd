@@ -6,4 +6,7 @@ func _init() -> void:
 
 func execute( targets : targeting_info) -> void:
 	BattleController.draw_card()
-	targets.single_target().take_damage(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL, BattleController.data.hand.get_hand_size()*2)
+	var damage = Damage.new()
+	damage.set_amount(BattleController.data.hand.get_hand_size()*2)
+	damage.set_type(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
+	targets.single_target().take_damage(damage)
