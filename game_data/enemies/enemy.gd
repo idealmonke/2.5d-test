@@ -33,7 +33,7 @@ var max_mana: int
 var current_mana: int
 var mana_regen: int
 
-var current_status_effects: Dictionary[COMMON_ENUMS.STATUS_EFFECT, status_effect]
+var current_status_effects: Dictionary[String, status_effect]
 
 # Child Nodes for UI control
 var sprite: Sprite2D
@@ -105,24 +105,20 @@ func _upkeep_regen_mana() -> void:
 		current_mana = max_mana
 	_update_stat_bars()
 
-func take_damage(type: COMMON_ENUMS.DAMAGE_TYPE, damage: int) -> int:
-	if defense.has(type):
-		damage -= defense.get(type)
-		if damage < 0:
-			damage = 0
-	current_health -= damage
+func take_damage(damage: Damage) -> void:
+	if defense.has(damage.damage_type):
+		damage.add_damage(-1 * defense.get(damage.damage_type))
+	current_health -= damage.get_amount()
 	_update_stat_bars()
-	return damage
 	
-	
-func add_status_stacks(status: COMMON_ENUMS.STATUS_EFFECT, stacks: int, magnitude: float) -> void:
+func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status):
 		var cur = current_status_effects.get(status)
 		cur.stacks += stacks
 		if cur.data.magnitude < magnitude:
 			cur.data.magnitude = magnitude
 	else:
-		var cur = status_effect.new(null)
+		current_status_effects.set(status.data.name, status)
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
