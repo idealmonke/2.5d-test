@@ -46,6 +46,8 @@ var health_bar_text : Label
 var stamina_bar_text : Label
 var mana_bar_text : Label
 
+var status_effect_bar : status_effect_display
+
 # Card Arts
 var base_sprite: Texture2D
 
@@ -63,6 +65,8 @@ func _ready() -> void:
 	health_bar_text = $health_bar_text
 	stamina_bar_text = $stamina_bar_text
 	mana_bar_text = $mana_bar_text
+	
+	status_effect_bar = $status_effect_bar
 
 func get_stamina() -> int:
 	return current_stamina
@@ -121,7 +125,11 @@ func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> 
 		status.stacks = stacks
 		status.magnitude = magnitude
 		current_status_effects.set(status.data.name, status)
-		
+	_update_status()
+
+func _update_status():
+	status_effect_bar.setup(192)
+	status_effect_bar.reset(current_status_effects)
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
@@ -132,6 +140,7 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 			current_status_effects.get(key).data.ability.execute(self, current_status_effects.get(key))
 			if current_status_effects.get(key).stacks == 0:
 				current_status_effects.erase(key)
+	_update_status()
 
 func _update_stat_bars() -> void:
 	health_bar.value = float(current_health) / max_health * 100
