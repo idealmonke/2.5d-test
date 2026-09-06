@@ -113,16 +113,22 @@ func play_card(card: skill_card) -> void:
 	# pause code
 	#await get_tree().create_timer(2.0).timeout
 	var targets = null
-	if card.ability.target_type == COMMON_ENUMS.TARGET_TYPE.NONE:
-		targets = targeting_info.new()
+	targets = await targeting_manager_instance.select_targets(card)
+	
+	if not targets:
+		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
+		data.hand.add_card(card)
+		card.z_index -= 10
+		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.HAND
+		
+		BattleController.data.player.regen_stamina(card.stamina_cost)
+		BattleController.data.player.regain_mana(card.mana_cost)
 	else:
-		targets = await targeting_manager_instance.select_targets(card)
-	
-	await card.ability.execute(targets)
-	
-	card.z_index -= 10
-	data.discard.add_card(card)
-	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
+		await card.ability.execute(targets)
+		
+		card.z_index -= 10
+		data.discard.add_card(card)
+		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 
 # Mutable Game Actions (Default lambda functions, sometimes replaced by perks)
 func _default_draw_card() -> void:
