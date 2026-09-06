@@ -7,7 +7,8 @@ const CARD_DB: Dictionary = {
 	1001: "longsword",
 	1002: "rondel_dagger",
 	3004: "scavenge",
-	1003: "brief_respite"
+	1003: "brief_respite",
+	7001: "molotov"
 }
 
 static func get_card_data(ID: int) -> skill_card_data:
