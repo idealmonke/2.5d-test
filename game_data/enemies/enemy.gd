@@ -110,17 +110,33 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 
 func take_damage(damage: Damage) -> void:
-	if defense.has(damage.damage_type):
-		damage.add_damage(-1 * defense.get(damage.damage_type))
-	current_health -= damage.get_amount()
+	
+	if damage.source != null:
+		damage.outgoing_update()
+	
+	for key in current_status_effects:
+		var status: status_effect = current_status_effects.get(key)
+		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.DAMAGE:
+			damage.modify_all_damage(status.data.calculation.calculate)
+	
+	var total_damage_applied: int = 0
+	for key in damage.damages:
+		var individual_type: int = damage.damages.get(key)
+		var def = defense.get(key)
+		if def == null:
+			def = 0
+		individual_type -= def
+		if individual_type > 0:
+			total_damage_applied += individual_type
+	current_health -= total_damage_applied
 	_update_stat_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
 		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
-		if cur.data.magnitude < magnitude:
-			cur.data.magnitude = magnitude
+		if cur.magnitude < magnitude:
+			cur.magnitude = magnitude
 	else:
 		status.stacks = stacks
 		status.magnitude = magnitude
@@ -179,16 +195,18 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
 
 func process_turn() -> void:
+	BattleController.active_enemy = self
+	
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
 	# Playing Turn
-	#hand.draw_hand(hand_size)
-	#hand.play_hand()
+	_process_active_status(COMMON_ENUMS.TIMING.PLAY) # In whatever loop is playing cards place this
 	
 	# End of Turn
+	_process_active_status(COMMON_ENUMS.TIMING.END)
 	#hand.replenish_hand()
 
 func is_full_health() -> bool:

@@ -2,6 +2,7 @@ class_name battle_controller
 extends Node
 
 var data: battle_data
+var active_enemy: enemy
 
 # Lambda Functions for game events, modified by perks
 var current_draw_card: Callable

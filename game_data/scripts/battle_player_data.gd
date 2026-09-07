@@ -1,8 +1,8 @@
 class_name battle_player_data
 extends RefCounted
 
-var max_hit_points: int = 40
-var hit_points: int = 40
+var max_health: int = 40
+var current_health: int = 40
 var defense: Dictionary[String, int]
 var max_stamina: int = 10
 var current_stamina: int = 10
@@ -11,7 +11,7 @@ var current_mana: int = 15
 var mana_regen: int
 var hand_size: int = 2
 
-var current_status_effects: Dictionary[String, status_effect_data]
+var current_status_effects: Dictionary[String, status_effect]
 
 var health_bar: TextureProgressBar
 var health_label: Label
@@ -21,6 +21,8 @@ var mana_label: Label
 
 var stamina_bar: TextureProgressBar
 var stamina_label: Label
+
+var status_effect_bar : status_effect_display
 
 func get_stamina() -> int:
 	return current_stamina
@@ -65,21 +67,53 @@ func _upkeep_regen_mana() -> void:
 	_update_bars()
 
 func take_damage(damage: Damage) -> void:
-	if defense.has(damage.damage_type):
-		damage.add_damage(-1 * defense.get(damage.damage_type))
-	hit_points -= damage.get_amount()
-	_update_bars()
 	
+	if damage.source != null:
+		damage.outgoing_update()
+	
+	for key in current_status_effects:
+		var status: status_effect = current_status_effects.get(key)
+		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.DAMAGE:
+			damage.modify_all_damage(status.data.calculation.calculate)
+	
+	var total_damage_applied: int = 0
+	for key in damage.damages:
+		var individual_type: int = damage.damages.get(key)
+		var def = defense.get(key)
+		if def == null:
+			def = 0
+		individual_type -= def
+		if individual_type > 0:
+			total_damage_applied += individual_type
+	current_health -= total_damage_applied
+	_update_status()
+	
+func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
+	if current_status_effects.has(status.data.name):
+		var cur = current_status_effects.get(status.data.name)
+		cur.stacks += stacks
+		if cur.magnitude < magnitude:
+			cur.magnitude = magnitude
+	else:
+		status.stacks = stacks
+		status.magnitude = magnitude
+		current_status_effects.set(status.data.name, status)
+	_update_status()
+
+func _update_status():
+	status_effect_bar.setup(192)
+	status_effect_bar.reset(current_status_effects)
+
 func heal(healing: int) -> void:
-	hit_points += healing
-	if hit_points > max_hit_points:
-		hit_points = max_hit_points
+	current_health += healing
+	if current_health > max_health:
+		current_health = max_health
 	_update_bars()
 	
 func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label) -> void:
 	health_bar = hp_bar
 	health_label = hp_label
-	health_bar.max_value = max_hit_points
+	health_bar.max_value = max_health
 	
 	mana_bar = m_bar
 	mana_label = m_label
@@ -93,8 +127,8 @@ func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label) -> void:
 	
 func _update_bars() -> void:
 	
-	health_bar.value = hit_points
-	health_label.text = str(hit_points) + "/" + str(max_hit_points)
+	health_bar.value = current_health
+	health_label.text = str(current_health) + "/" + str(max_health)
 	
 	mana_bar.value = current_mana
 	mana_label.text = str(current_mana) + "/" + str(max_mana)
@@ -110,12 +144,3 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 			current_status_effects.get(key).duration_active += 1
 			if current_status_effects.get(key).stacks == 0:
 				current_status_effects.erase(key)
-
-func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
-	if current_status_effects.has(status):
-		var cur = current_status_effects.get(status)
-		cur.stacks += stacks
-		if cur.data.magnitude < magnitude:
-			cur.data.magnitude = magnitude
-	else:
-		current_status_effects.set(status.data.name, status)

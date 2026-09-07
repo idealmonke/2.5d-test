@@ -6,8 +6,8 @@ func _init() -> void:
 
 func execute(targets : targeting_info) -> void:
 	var damage = Damage.new()
-	damage.set_type(COMMON_ENUMS.DAMAGE_TYPE.FIRE)
-	damage.set_amount(2)
+	damage.add_damage(2, COMMON_ENUMS.DAMAGE_TYPE.FIRE)
+	damage.source = BattleController.data.player
 	
 	var status_data = status_effect_registry.get_status_effect_data(0001)
 	
