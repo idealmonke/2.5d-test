@@ -13,11 +13,10 @@ var display_grid: skill_card_display_grid
 
 # Necessary UI Stuff
 var end_turn_button: Button
+var win_screen : PanelContainer
 
 #Targeting Manager
 var targeting_manager_instance : targeting_manager
-
-signal display_signal
 
 # Init Battle Controller
 func _ready() -> void:
@@ -50,15 +49,17 @@ func _input(event: InputEvent) -> void:
 			for enem in data.enemies:
 				enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
 	
+	win_screen = win
+	
 	targeting_manager_instance = tm
 	display_grid = display
 	end_turn_button = end_turn
-	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
+	#(must be run post enemy creation): _change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
@@ -184,10 +185,23 @@ func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 func _player_playing() -> void:
 	# Gameplay related setup
 	# UI/Animation stuff in the state functions
+	
+	
+	
 	pass
+
+
 
 func _end_turn() -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
+
+func _process_deaths() -> bool:
+	for enem in data.enemies.duplicate():
+		if enem.is_dead():
+			data.enemies.erase(enem)
+			enem.queue_free()
+	
+	return data.enemies.size()==0
 
 ## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -206,6 +220,9 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
+		COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN:
+			end_turn_button.hide()
+			win_screen.show()
 
 ## Used for managing the actions at end of state like animations etc
 func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -229,6 +246,9 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	_on_exit_state(current_state)
 	current_state = new_state
+	if current_state != COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN and _process_deaths():
+		_change_state(COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN)
+		return
 	_on_enter_state(current_state)
 	match current_state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
@@ -249,4 +269,6 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
+			pass
+		COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN:
 			pass

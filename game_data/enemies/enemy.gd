@@ -114,6 +114,9 @@ func take_damage(damage: Damage) -> void:
 		damage.add_damage(-1 * defense.get(damage.damage_type))
 	current_health -= damage.get_amount()
 	_update_stat_bars()
+
+func is_dead() -> bool:
+	return current_health<=0
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):

@@ -116,7 +116,7 @@ func _input(event):
 			_placed_arrows.append(_cur_arrow)
 			_placed_arrowheads.append(_arrow_head)
 			
-			cur_targets.add_target(res.idx)
+			cur_targets.add_target(res)
 			
 			_create_arrow()
 			OFFSETS[res.idx] += 100

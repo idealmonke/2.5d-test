@@ -14,11 +14,11 @@ func _ready() -> void:
 										$player_stat_bars/stamina_bar,
 										$player_stat_bars/stamina_bar/stamina_label)
 	
-	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid)
+	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid, $win_panel)
 	
 	_init_player_cards()
 	_init_enemies()
-	
+	print("enemies created")
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 func _on_end_turn_pressed() -> void:
@@ -38,7 +38,7 @@ func _init_player_cards() -> void:
 
 func _init_enemies() -> void:
 	var enemyIDs : Array[int] = BATTLE_CONFIG.enemyIDs
-	BattleController.data.enemies = [null, null, null]
+	BattleController.data.enemies = []
 	
 	for idx in range(3):
 		var id = enemyIDs[idx]
@@ -51,5 +51,6 @@ func _init_enemies() -> void:
 		$enemy_storage.add_child(enemy_instance)
 		enemy_instance.initialize_data(data, idx)
 		
-		BattleController.data.enemies[idx] = enemy_instance
+		#BattleController.data.enemies[idx] = enemy_instance
+		BattleController.data.enemies.append(enemy_instance)
 		enemy_instance.position = BattleController.data.enemy_locations[idx]
