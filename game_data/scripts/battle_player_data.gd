@@ -3,12 +3,24 @@ extends RefCounted
 
 var max_health: int = 40
 var current_health: int = 40
+
+var base_defense: Dictionary[String, int]
 var defense: Dictionary[String, int]
+
+var base_max_stamina: int
 var max_stamina: int = 10
 var current_stamina: int = 10
+
+var base_max_mana: int
 var max_mana: int = 15
 var current_mana: int = 15
+
+var base_mana_regen: int
 var mana_regen: int
+
+var shield: int
+
+var base_hand_size: int
 var hand_size: int = 2
 
 var current_status_effects: Dictionary[String, status_effect]
@@ -85,7 +97,17 @@ func take_damage(damage: Damage) -> void:
 		individual_type -= def
 		if individual_type > 0:
 			total_damage_applied += individual_type
-	current_health -= total_damage_applied
+			
+	if shield > 0:
+		if shield < total_damage_applied:
+			total_damage_applied -= shield
+			shield = 0
+			current_health -= total_damage_applied
+			if damage.is_strike:
+				_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
+		else:
+			shield -= total_damage_applied
+	
 	_update_status()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:

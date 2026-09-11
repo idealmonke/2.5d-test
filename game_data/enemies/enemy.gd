@@ -129,6 +129,7 @@ func take_damage(damage: Damage) -> void:
 		if individual_type > 0:
 			total_damage_applied += individual_type
 	current_health -= total_damage_applied
+	
 	_update_stat_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
@@ -195,7 +196,7 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
 
 func process_turn() -> void:
-	BattleController.active_enemy = self
+	BattleController.active_turn = self
 	
 	# Upkeep
 	_upkeep_regen_mana()
