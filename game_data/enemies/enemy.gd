@@ -42,6 +42,8 @@ var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
 var mana_bar: TextureProgressBar
 
+var enemy_card_container : Node2D
+
 var health_bar_text : Label
 var stamina_bar_text : Label
 var mana_bar_text : Label
@@ -65,6 +67,8 @@ func _ready() -> void:
 	health_bar_text = $health_bar_text
 	stamina_bar_text = $stamina_bar_text
 	mana_bar_text = $mana_bar_text
+	
+	enemy_card_container = $enemy_card_container
 	
 	status_effect_bar = $status_effect_bar
 
@@ -180,6 +184,16 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 		sprite.position.y -= 100
 	
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
+	
+	#activate_goku_mode(data.card_ids)
+
+#func activate_goku_mode(ids : Array[int]):
+#	library = enemy_library.new()
+#	library.init(ids)
+
+func setup_library(lib : Array[enemy_card]) -> void:
+	hand = enemy_hand.new()
+	hand.init(self, lib)
 
 func process_turn() -> void:
 	# Upkeep
@@ -188,11 +202,19 @@ func process_turn() -> void:
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
 	# Playing Turn
-	#hand.draw_hand(hand_size)
+	
+	#TODO: set hand size
+	
+	print("processing turn for enemy # "+str(idx))
+	
+	hand.draw_hand(1)
 	#hand.play_hand()
+	
+	#await get_tree().create_timer(1.0).timeout
 	
 	# End of Turn
 	#hand.replenish_hand()
+	await get_tree().create_timer(1.0).timeout
 
 func is_full_health() -> bool:
 	if max_health == current_health:

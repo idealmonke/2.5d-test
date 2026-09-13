@@ -49,6 +49,7 @@ func _ready() -> void:
 	card_ability_label = $card_ability
 	card_stamina_cost_label = $stamina_cost
 	card_mana_cost_label = $mana_cost
+	
 	_update_text()
 	
 	call_deferred("_late_setup")
@@ -92,17 +93,26 @@ func set_front() -> void:
 
 func _update_text() -> void:
 	# Change to actual propertes once they initialize correctly
-	card_name_label.text = "enemy default name"
-	card_ability_label.text = "enemy default ability"
-	card_stamina_cost_label.text = "3"
-	card_mana_cost_label.text = "0"
+	card_name_label.text = card_name
+	card_ability_label.text = ability_desc
+	card_stamina_cost_label.text = str(stamina_cost)
+	card_mana_cost_label.text = str(mana_cost)
 
-func initialize_card(resource_data: enemy_card_data) -> void:
+func initialize_card(resource_data: enemy_card_data, idx : int) -> void:
+	#temp (hi tyler >:D)
+	scale = Vector2(0.5,0.5)
+	
 	card_name = resource_data.card_name
 	card_id = resource_data.card_id
 	card_art = resource_data.card_art
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
-	ability = resource_data.card_ability.execute
+	#ability = resource_data.card_ability.execute
 	stamina_cost = resource_data.stamina_cost
+	
+	#temp as well ig
+	library_location = BattleController.data.enemy_locations[idx]+Vector2(-200,200)
+	hand_location = BattleController.data.enemy_locations[idx]+Vector2(0,300)
+	
 	_update_text()
+	set_back()

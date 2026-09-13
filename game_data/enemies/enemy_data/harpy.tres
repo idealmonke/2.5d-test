@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="enemy_data" format=3]
+[gd_resource type="Resource" script_class="enemy_data" format=3 uid="uid://buyn7osxe6swb"]
 
-[ext_resource type="Script" path="res://game_data/enemies/enemy_data.gd" id="1_7dg61"]
-[ext_resource type="Texture2D" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="1_ihtkf"]
+[ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="1_7dg61"]
+[ext_resource type="Texture2D" uid="uid://b8jyxdir6bjj3" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="1_ihtkf"]
 
 [resource]
 script = ExtResource("1_7dg61")
@@ -11,4 +11,5 @@ max_health = 15
 max_stamina = 5
 max_mana = 5
 mana_regen = 1
+card_ids = Array[int]([1, 2])
 art = ExtResource("1_ihtkf")

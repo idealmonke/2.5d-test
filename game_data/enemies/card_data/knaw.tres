@@ -7,6 +7,7 @@
 script = ExtResource("1_tm1w8")
 mana_cost = 1
 stamina_cost = 3
+ability_desc = "knaws the head off"
 card_name = "knaw"
 card_art = ExtResource("1_isu5f")
 card_id = 2

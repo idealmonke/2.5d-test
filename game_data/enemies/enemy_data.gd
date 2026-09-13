@@ -8,6 +8,7 @@ extends Resource
 @export var max_stamina: int
 @export var max_mana: int
 @export var mana_regen: int
+@export var card_ids : Array[int]
 
 var deck: Array[enemy_card]
 

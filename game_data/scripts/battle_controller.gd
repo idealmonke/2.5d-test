@@ -44,10 +44,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_R:
 			discard_front()
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_P:
-			for enem in data.enemies:
-				enem.process_turn()
+	#if event is InputEventKey:
+	#	if event.pressed and event.keycode == KEY_P:
+	#		for enem in data.enemies:
+	#			enem.process_turn()
 				
 func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer) -> void:
 	data.discard = discard
@@ -179,7 +179,13 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 	
 func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 	for enem in data.enemies:
-		enem.process_turn()
+		await enem.process_turn()
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	for enem in data.enemies:
+		enem.hand.replenish_hand()
+	
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP
 	
 func _player_playing() -> void:
@@ -213,7 +219,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
-			pass
+			end_turn_button.hide()
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
@@ -258,7 +264,8 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			_player_playing()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
-			_change_state(_enemy_turns())
+			var state = await _enemy_turns()
+			_change_state(state)
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			# DO NOTHING HERE, JUST STOPS THE EXIT STATE FROM CALLING INITIALLY
 			pass

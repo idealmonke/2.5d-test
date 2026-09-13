@@ -6,6 +6,9 @@ var library: Array[enemy_card]
 func _ready() -> void:
 	pass
 
+#func init(ids : Array[int]):
+#	pass
+
 func draw_card() -> enemy_card:
 	if library.is_empty():
 		return
