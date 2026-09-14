@@ -8,7 +8,7 @@ var card_art: Texture2D
 var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
-var ability: Callable
+var ability: enemy_card_ability
 
 # Card Sprites
 var card_main_frame: Sprite2D
@@ -122,10 +122,12 @@ func initialize_card(resource_data: enemy_card_data, idx : int) -> void:
 	card_art = resource_data.card_art
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
-	#ability = resource_data.card_ability.execute
+	
+	ability = resource_data.card_ability
+	
 	stamina_cost = resource_data.stamina_cost
 	
-	#temp as well ig
+	#HARDCODED LOCATIONS
 	library_location = BattleController.data.enemy_locations[idx]+Vector2(-200,0)
 	hand_location = BattleController.data.enemy_locations[idx]+Vector2(-100,400)
 	playing_target  =  BattleController.data.enemy_locations[idx]+Vector2(0,500)

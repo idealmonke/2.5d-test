@@ -1,12 +1,18 @@
 [gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://n0f0xfnw00os"]
 
 [ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="1_1r737"]
+[ext_resource type="Script" uid="uid://35y3b81yqphf" path="res://game_data/enemies/enemy_card_abilities/bite_ability.gd" id="1_pxxg8"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_sav3h"]
+
+[sub_resource type="Resource" id="Resource_sav3h"]
+script = ExtResource("1_pxxg8")
+metadata/_custom_type_script = "uid://35y3b81yqphf"
 
 [resource]
 script = ExtResource("1_1r737")
 mana_cost = 5
 stamina_cost = 2
+card_ability = SubResource("Resource_sav3h")
 ability_desc = "Deal 1 damage"
 card_name = "bite"
 card_art = ExtResource("1_sav3h")

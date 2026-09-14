@@ -61,6 +61,8 @@ func play_card() -> enemy_card:
 	_set_hand_offset()
 	
 	#TODO: activate card
+	card_to_play.ability.execute()
+	
 	return card_to_play
 
 func play_hand() -> void:
