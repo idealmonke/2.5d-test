@@ -108,6 +108,7 @@ func regain_mana() -> void:
 	_update_stat_bars()
 
 func _upkeep_regen_mana() -> void:
+	print(str(current_mana) +" "+str(mana_regen))
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
@@ -167,6 +168,8 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	max_stamina = data.max_stamina
 	max_mana = data.max_mana
 	
+	mana_regen = data.mana_regen
+	
 	current_health = max_health
 	current_mana = max_mana
 	current_stamina = max_stamina
@@ -207,14 +210,12 @@ func process_turn() -> void:
 	
 	print("processing turn for enemy # "+str(idx))
 	
-	hand.draw_hand(1)
-	#hand.play_hand()
+	hand.draw_hand(3)
 	
-	#await get_tree().create_timer(1.0).timeout
+	await hand.play_hand()
 	
-	# End of Turn
-	#hand.replenish_hand()
-	await get_tree().create_timer(1.0).timeout
+	hand.replenish_hand()
+	
 
 func is_full_health() -> bool:
 	if max_health == current_health:

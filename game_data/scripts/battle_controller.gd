@@ -183,8 +183,8 @@ func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	for enem in data.enemies:
-		enem.hand.replenish_hand()
+	#for enem in data.enemies:
+	#	enem.hand.replenish_hand()
 	
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP
 	

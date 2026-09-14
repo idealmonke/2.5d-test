@@ -29,7 +29,9 @@ var library_location: Vector2
 @export var slow_lerp: int = 20
 @export var rotate_lerp: int = 12
 var location_offset: Vector2
-var playing_target: Vector2 = (screen_size/2) + Vector2(0,300)
+var playing_target: Vector2
+
+var rotation_offset
 
 # tyler's bleh variables
 var screen_size: Vector2
@@ -57,21 +59,33 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	match interactable_state:
 		COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING:
+			z_index = 15
+			
 			if global_position.distance_to(playing_target) > 1:
 				global_position = global_position.lerp(playing_target, slow_lerp * delta)
 			else:
 				global_position = playing_target
+			
+			rotation = 0
 		COMMON_ENUMS.ENEMY_CARD_STATE.HAND:
+			z_index = 10
+			
 			var target = hand_location + location_offset
 			if global_position.distance_to(target) > 1:
 				global_position = global_position.lerp(target, slow_lerp * delta)
 			else:
 				global_position = target
+			
+			rotation = lerp_angle(rotation, rotation_offset, rotate_lerp * delta)
 		COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY:
+			z_index = 0
+			
 			if global_position.distance_to(library_location) > 1:
 				global_position = global_position.lerp(library_location, slow_lerp * delta)
 			else:
 				global_position = library_location
+			
+			rotation = 0
 
 func _late_setup() -> void:
 	#intialize controller and data
@@ -83,6 +97,7 @@ func set_back() -> void:
 	card_mana_cost_label.hide()
 	card_stamina_cost_label.hide()
 	card_ability_label.hide()
+	
 	
 func set_front() -> void:
 	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Blank_Card.png")
@@ -111,8 +126,9 @@ func initialize_card(resource_data: enemy_card_data, idx : int) -> void:
 	stamina_cost = resource_data.stamina_cost
 	
 	#temp as well ig
-	library_location = BattleController.data.enemy_locations[idx]+Vector2(-200,200)
-	hand_location = BattleController.data.enemy_locations[idx]+Vector2(0,300)
+	library_location = BattleController.data.enemy_locations[idx]+Vector2(-200,0)
+	hand_location = BattleController.data.enemy_locations[idx]+Vector2(-100,400)
+	playing_target  =  BattleController.data.enemy_locations[idx]+Vector2(0,500)
 	
 	_update_text()
 	set_back()
