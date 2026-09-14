@@ -17,6 +17,8 @@ var library: enemy_library
 var max_health: int
 var current_health: int
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+var current_shield: int
+var shield_retention: int
 
 # immutable stats
 var enemy_name : String
@@ -116,19 +118,14 @@ func take_damage(damage: Damage) -> void:
 	
 	for key in current_status_effects:
 		var status: status_effect = current_status_effects.get(key)
-		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.DAMAGE:
+		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE:
 			damage.modify_all_damage(status.data.calculation.calculate)
 	
-	var total_damage_applied: int = 0
-	for key in damage.damages:
-		var individual_type: int = damage.damages.get(key)
-		var def = defense.get(key)
-		if def == null:
-			def = 0
-		individual_type -= def
-		if individual_type > 0:
-			total_damage_applied += individual_type
-	current_health -= total_damage_applied
+	if current_shield > 0:
+		current_shield -= damage.damage_shield(current_shield, defense)
+	current_health -= damage.damage_health(defense)
+	
+	_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_stat_bars()
 	

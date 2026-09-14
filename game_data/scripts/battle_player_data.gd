@@ -5,7 +5,7 @@ var max_health: int = 40
 var current_health: int = 40
 
 var base_defense: Dictionary[String, int]
-var defense: Dictionary[String, int]
+var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
 var base_max_stamina: int
 var max_stamina: int = 10
@@ -18,7 +18,8 @@ var current_mana: int = 15
 var base_mana_regen: int
 var mana_regen: int
 
-var shield: int
+var current_shield: int
+var shield_rentention: int
 
 var base_hand_size: int
 var hand_size: int = 2
@@ -85,28 +86,14 @@ func take_damage(damage: Damage) -> void:
 	
 	for key in current_status_effects:
 		var status: status_effect = current_status_effects.get(key)
-		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.DAMAGE:
+		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE:
 			damage.modify_all_damage(status.data.calculation.calculate)
 	
-	var total_damage_applied: int = 0
-	for key in damage.damages:
-		var individual_type: int = damage.damages.get(key)
-		var def = defense.get(key)
-		if def == null:
-			def = 0
-		individual_type -= def
-		if individual_type > 0:
-			total_damage_applied += individual_type
-			
-	if shield > 0:
-		if shield < total_damage_applied:
-			total_damage_applied -= shield
-			shield = 0
-			current_health -= total_damage_applied
-			if damage.is_strike:
-				_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
-		else:
-			shield -= total_damage_applied
+	if current_shield > 0:
+		current_shield -= damage.damage_shield(current_shield, defense)
+	current_health -= damage.damage_health(defense)
+	
+	_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_status()
 	
