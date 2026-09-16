@@ -7,14 +7,7 @@ extends Resource
 @export var display_image: Texture2D
 
 ## APPLIES WHEN STATUS IS ACTIVE
-@export var ability: status_effect_ability
+@export var abilities: Dictionary[COMMON_ENUMS.TIMING, status_effect_ability]
 
 ## APPLIES WHEN STATUS IS PASSIVE
-@export var calculation: status_effect_calculation
-
-## APPLIES WHEN STATUS IS ACTIVE
-@export var timing: COMMON_ENUMS.TIMING
-@export var status_type: COMMON_ENUMS.STATUS_TYPE
-
-## APPLIES WHEN STATUS IS PASSIVE
-@export var stat_affected: COMMON_ENUMS.PLAYER_STATS
+@export var stats_calculations: Dictionary[COMMON_ENUMS.PLAYER_STATS, status_effect_calculation]

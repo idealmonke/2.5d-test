@@ -3,12 +3,11 @@ extends RefCounted
 
 var damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
-var damage_type: COMMON_ENUMS.DAMAGE_TYPE
-var amount: int
 var source: Variant
 
 var is_strike: bool = false
 
+# Pass in Lambda, int parameter and return int.
 var shield_multipliers: Array[Callable] = []
 var health_multipliers: Array[Callable] = []
 
@@ -28,12 +27,17 @@ func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 
 # Checks if a player status adds to the outgoing damage
 func outgoing_update() -> void:
-	var cur_status = source.current_status_effects
-	for key in cur_status:
-		var status: status_effect = cur_status.get(key)
-		if status.data.status_type == COMMON_ENUMS.STATUS_TYPE.PASSIVE && status.data.stat_affected == COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE:
-			self.modify_all_damage(status.data.calculation.calculate)
-
+	for status_key in source.current_status_effects:
+		var status: status_effect = source.current_status_effects.get(status_key)
+		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
+			self.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+			
+func incoming_update(statuses: Dictionary[String, status_effect]) -> void:
+	for status_key in statuses:
+		var status: status_effect = statuses.get(status_key)
+		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
+			self.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+			
 ## Returns amount of damage done to shield, and decrements values within the object
 func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
 	
