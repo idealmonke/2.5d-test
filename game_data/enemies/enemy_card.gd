@@ -82,38 +82,6 @@ func _create_tween(pos : Vector2, rot: float):
 	tween.tween_property(self, "position", pos, 0.2)
 	tween.parallel().tween_property(self, "rotation", rot, 0.2)
 
-func _process(delta: float) -> void:
-	pass
-	#match interactable_state:
-		#COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING:
-			#z_index = 15
-			#
-			#if global_position.distance_to(playing_target) > 1:
-				#global_position = global_position.lerp(playing_target, slow_lerp * delta)
-			#else:
-				#global_position = playing_target
-			#
-			#rotation = 0
-		#COMMON_ENUMS.ENEMY_CARD_STATE.HAND:
-			#z_index = 10
-			#
-			#var target = hand_location + location_offset
-			#if global_position.distance_to(target) > 1:
-				#global_position = global_position.lerp(target, slow_lerp * delta)
-			#else:
-				#global_position = target
-			#
-			#rotation = lerp_angle(rotation, rotation_offset, rotate_lerp * delta)
-		#COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY:
-			#z_index = 0
-			#
-			#if global_position.distance_to(library_location) > 1:
-				#global_position = global_position.lerp(library_location, slow_lerp * delta)
-			#else:
-				#global_position = library_location
-			#
-			#rotation = 0
-
 func _late_setup() -> void:
 	#intialize controller and data
 	pass

@@ -1,6 +1,7 @@
 class_name battle_player_data
 extends RefCounted
 
+var base_max_health : int
 var max_health: int = 40
 var current_health: int = 40
 
@@ -147,13 +148,50 @@ func _update_stats_bars() -> void:
 	stamina_bar.value = current_stamina
 	stamina_label.text = str(current_stamina) + "/" + str(max_stamina)
 
+func process_statuses() -> void:
+	_process_active_status(COMMON_ENUMS.TIMING.START)
+	update_passive_effects()
+	_process_status_stacks()
+
+func update_passive_effects() -> void:
+	max_health = base_max_health
+	max_mana = base_max_mana
+	max_stamina = base_max_stamina
+	mana_regen = base_mana_regen
+	
+	hand_size = base_hand_size
+	defense = base_defense.duplicate()
+	
+	for effect_name in current_status_effects:
+		var effect  : status_effect = current_status_effects[effect_name]
+		var stat_calcs = effect.data.stats_calculations
+		for stat in stat_calcs:
+			var calc = stat_calcs[stat]
+			
+			if(stat==COMMON_ENUMS.PLAYER_STATS.HEALTH):
+				max_health = calc.calculate.call(max_health)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA):
+				max_mana = calc.calculate.call(max_mana)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.STAMINA):
+				max_stamina = calc.calculate.call(max_stamina)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA_REGEN):
+				mana_regen = calc.calculate.call(mana_regen)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.HANDSIZE):
+				hand_size = calc.calculate.call(hand_size)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.DEFENSE):
+				defense = calc.calculate.call(defense)
+
+func _process_status_stacks():
+	for key in current_status_effects.duplicate():
+		var status: status_effect = current_status_effects.get(key)
+		status.stacks -= 1
+		status.duration_active += 1
+		
+		if status.stacks == 0:
+			current_status_effects.erase(key)
+
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
 		var status: status_effect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
-			status.stacks -= 1
-			status.duration_active += 1
 			status.data.abilities[timing].execute(self, status)
-			if status.stacks == 0:
-				current_status_effects.erase(key)
-	_update_status()

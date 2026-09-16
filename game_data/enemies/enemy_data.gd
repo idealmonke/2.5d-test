@@ -11,6 +11,8 @@ extends Resource
 @export var card_ids : Array[int]
 @export var hand_size : int
 
+@export var defense : Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+
 var deck: Array[enemy_card]
 
 @export var art: Texture2D

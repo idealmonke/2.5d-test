@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://q4cgnemnaqe5"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_6a4ly"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_dbiwf"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_qt3ri"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_dbiwf"]
+
+[resource]
+script = ExtResource("2_qt3ri")
+name = "Haste"
+desc = "+2 max stamina"
+id = 69
+display_image = ExtResource("2_dbiwf")
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"
