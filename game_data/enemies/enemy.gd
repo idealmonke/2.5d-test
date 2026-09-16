@@ -14,9 +14,13 @@ var hand: enemy_hand
 var library: enemy_library
 
 # Enemy Stats
+var base_max_health: int
 var max_health: int
 var current_health: int
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+var current_shield: int
+var shield_retention: int
+var base_shield_retention: int
 
 # immutable stats
 var enemy_name : String
@@ -108,19 +112,37 @@ func _upkeep_regen_mana() -> void:
 	if current_mana > max_mana:
 		current_mana = max_mana
 	_update_stat_bars()
+	
+func update_passive_effects() -> void:
+	pass
 
 func take_damage(damage: Damage) -> void:
-	if defense.has(damage.damage_type):
-		damage.add_damage(-1 * defense.get(damage.damage_type))
-	current_health -= damage.get_amount()
+	
+	if damage.source != null:
+		damage.outgoing_update()
+		
+	damage.incoming_update(self.current_status_effects)
+	
+	for key in current_status_effects:
+		var status: status_effect = current_status_effects.get(key)
+		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
+			damage.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+	
+	if current_shield > 0:
+		current_shield -= damage.damage_shield(current_shield, defense)
+	current_health -= damage.damage_health(defense)
+	
+	if (damage.is_strike):
+		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
+	
 	_update_stat_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
 		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
-		if cur.data.magnitude < magnitude:
-			cur.data.magnitude = magnitude
+		if cur.magnitude < magnitude:
+			cur.magnitude = magnitude
 	else:
 		status.stacks = stacks
 		status.magnitude = magnitude
@@ -133,12 +155,12 @@ func _update_status():
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
-		print(current_status_effects.get(key).data.name + " " + str(current_status_effects.get(key).stacks))
-		if (current_status_effects.get(key).data.status_type == COMMON_ENUMS.STATUS_TYPE.ACTIVE || current_status_effects.get(key).data.status_type == COMMON_ENUMS.STATUS_TYPE.BOTH) && current_status_effects.get(key).data.timing == timing:
-			current_status_effects.get(key).stacks -= 1
-			current_status_effects.get(key).duration_active += 1
-			current_status_effects.get(key).data.ability.execute(self, current_status_effects.get(key))
-			if current_status_effects.get(key).stacks == 0:
+		var status: status_effect = current_status_effects.get(key)
+		if (status.data.abilities.has(timing)):
+			status.stacks -= 1
+			status.duration_active += 1
+			status.data.abilities[timing].execute(self, status)
+			if status.stacks == 0:
 				current_status_effects.erase(key)
 	_update_status()
 
@@ -156,13 +178,21 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	enemy_name = data.enemy_name
 	idx = cur_idx
 	
+	base_max_health = data.max_health
+	base_max_stamina = data.max_stamina
+	base_max_mana = data.max_mana
 	max_health = data.max_health
 	max_stamina = data.max_stamina
 	max_mana = data.max_mana
-	
 	current_health = max_health
 	current_mana = max_mana
 	current_stamina = max_stamina
+	
+	base_hand_size = data.hand_size
+	hand_size = data.hand_size
+	
+	base_shield_retention = data.shield_retention
+	shield_retention = data.shield_retention
 	
 	_update_stat_bars()
 	
@@ -179,16 +209,18 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
 
 func process_turn() -> void:
+	BattleController.active_turn = self
+	
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
 	# Playing Turn
-	#hand.draw_hand(hand_size)
-	#hand.play_hand()
+	_process_active_status(COMMON_ENUMS.TIMING.PLAY) # In whatever loop is playing cards place this
 	
 	# End of Turn
+	_process_active_status(COMMON_ENUMS.TIMING.END)
 	#hand.replenish_hand()
 
 func is_full_health() -> bool:
