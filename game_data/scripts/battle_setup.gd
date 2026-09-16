@@ -50,6 +50,10 @@ func _init_enemies() -> void:
 			continue
 		
 		var data : enemy_data = enemy_registry.get_enemy_data(id)
+		if(data.enemy_name=="goku"):
+			for i in range(200):
+				data.card_ids.append(1)
+		
 		var enemy_instance : enemy = ENEMY_SCENE.instantiate()
 		$enemy_storage.add_child(enemy_instance)
 		enemy_instance.initialize_data(data, idx)

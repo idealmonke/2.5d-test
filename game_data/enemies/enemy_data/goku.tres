@@ -11,4 +11,5 @@ max_health = 1000
 max_stamina = 400
 max_mana = 30
 mana_regen = 5
+hand_size = 100
 art = ExtResource("1_vp33r")

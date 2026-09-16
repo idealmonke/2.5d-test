@@ -28,20 +28,25 @@ func draw_hand(hand_size: int) -> void:
 			return
 		var card = library.draw_card()
 		card.set_front()
-		card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.HAND
+		card.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.HAND)
+		#card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.HAND
 		hand.push_front(card)
 	_set_hand_offset()
+	for card in hand:
+		card.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.HAND)
 	
 func replenish_hand() -> void:
 	for card in hand:
 		card.set_back()
-		card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
+		card.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
+		#card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
 	library.replenish_cards(hand)
 	hand.clear()
 
 func replenish_card(card: enemy_card) -> void:
 	card.set_back()
-	card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
+	card.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
+	#card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
 	library.replenish_card(card)
 	#hand.pop_at(hand.find(card))
 
@@ -57,7 +62,8 @@ func play_card() -> enemy_card:
 	enemy_self.expend_mana(card_to_play.mana_cost)
 	enemy_self.expend_stamina(card_to_play.stamina_cost)
 	
-	card_to_play.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING;
+	card_to_play.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING)
+	#card_to_play.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING;
 	_set_hand_offset()
 	
 	#TODO: activate card
@@ -77,32 +83,6 @@ func play_hand() -> void:
 		
 		await BattleController.get_tree().create_timer(1.0).timeout
 		replenish_card(card)
-		
-#
-#func _set_hand_offset() -> void:
-	#var count = hand.size()
-	#
-	#if count == 0:
-		#return
-	#if count == 1:
-		#hand[0].location_offset = Vector2.ZERO
-		##hand[0].rotation_offset = 0.0
-		#return
-		#
-	#var ideal_total_width = (count - 1) * card_width # Distance apart if no overlap
-	#var spacing = card_width # Gap between card centers
-	#if ideal_total_width > max_hand_width:
-		#spacing = max_hand_width / (count - 1)
-#
-	#var total_width = spacing * (count - 1) # Actual width used
-	#var start_x = -total_width / 2.0 # Leftmost card x
-#
-	#for index in range(count):
-		#var x = start_x + spacing * index
-#
-		#hand[index].location_offset = Vector2(x, 0)
-		#hand[index].z_index = index
-		##hand[index].old_z_index = index
 
 func _set_hand_offset() -> void:
 	var count = hand.size()
@@ -131,6 +111,6 @@ func _set_hand_offset() -> void:
 		var tilt = deg_to_rad(max_tilt_degrees * centered_t * 1.2)
 
 		hand[index].location_offset = Vector2(x, y)
+		#print(tilt)
 		hand[index].rotation_offset = tilt
 		hand[index].z_index = index
-		#hand[index].old_z_index = index

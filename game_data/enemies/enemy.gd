@@ -119,7 +119,25 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 	
 func update_passive_effects() -> void:
-	pass
+	max_health = base_max_health
+	max_mana = base_max_mana
+	max_stamina = base_max_stamina
+	mana_regen = base_mana_regen
+	
+	for effect_name in current_status_effects:
+		var effect  : status_effect = current_status_effects[effect_name]
+		var stat_calcs = effect.data.stats_calculations
+		for stat in stat_calcs:
+			var calc = stat_calcs[stat]
+			
+			if(stat==COMMON_ENUMS.PLAYER_STATS.HEALTH):
+				max_health = calc.calculate.call(max_health)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA):
+				max_mana = calc.calculate.call(max_mana)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.STAMINA):
+				max_stamina = calc.calculate.call(max_stamina)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA_REGEN):
+				mana_regen = calc.calculate.call(mana_regen)
 
 func take_damage(damage: Damage) -> void:
 	
@@ -202,8 +220,8 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	base_hand_size = data.hand_size
 	hand_size = data.hand_size
 	
-	base_shield_retention = data.shield_retention
-	shield_retention = data.shield_retention
+	#base_shield_retention = data.shield_retention
+	#shield_retention = data.shield_retention
 	
 	_update_stat_bars()
 	
@@ -246,7 +264,7 @@ func process_turn() -> void:
 	
 	print("processing turn for enemy # "+str(idx))
 	
-	hand.draw_hand(3)
+	hand.draw_hand(hand_size)
 	
 	await hand.play_hand()
 	

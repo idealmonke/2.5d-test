@@ -19,6 +19,8 @@ var win_screen : PanelContainer
 #Targeting Manager
 var targeting_manager_instance : targeting_manager
 
+signal display_signal
+
 # Init Battle Controller
 func _ready() -> void:
 	data = battle_data.new()
@@ -110,25 +112,24 @@ func discard_front() -> void:
 func play_card(card: skill_card) -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING)
 	data.hand.pop_card(card)
-	card.z_index += 10
+	card.z_index_modifier = 10
 	
 	# pause code
 	#await get_tree().create_timer(2.0).timeout
 	var targets = null
 	targets = await targeting_manager_instance.select_targets(card)
 	
+	card.z_index_modifier = 0
+	
 	if not targets:
 		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 		data.hand.add_card(card)
-		card.z_index -= 10
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.HAND
 		
 		BattleController.data.player.regen_stamina(card.stamina_cost)
 		BattleController.data.player.regain_mana(card.mana_cost)
 	else:
 		await card.ability.execute(targets)
-		
-		card.z_index -= 10
 		data.discard.add_card(card)
 		_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 

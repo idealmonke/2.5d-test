@@ -40,16 +40,19 @@ var misc_location: Vector2
 var prev_state: COMMON_ENUMS.INTERACT_STATE
 
 # Animation Variables
-@export var hover_z_index: int = 20
 var target_rotation: float
 var hover_offset: Vector2 = Vector2.ZERO
-var old_z_index: int
 var old_position: Vector2
 var old_tilt: float = 0.0
 var screen_size: Vector2
 var exhaust_material: ShaderMaterial
 var tween_scale: Tween
 var base_scale: Vector2
+
+var base_z_index : float
+var z_index_modifier: float
+var z_index_hover: float
+
 
 var hover : bool
 
@@ -93,6 +96,7 @@ func _ready() -> void:
 
 	
 func _process(delta: float) -> void:
+	z_index = base_z_index + z_index_modifier + z_index_hover
 	
 	match interactable_state:
 		COMMON_ENUMS.INTERACT_STATE.DRAGGING:
@@ -183,7 +187,6 @@ func _report_select() -> void:
 		subscriber.call(self)
 
 func _update_text() -> void:
-	# Change to actual propertes once they initialize correctly
 	card_name_label.text = card_name
 	card_ability_label.text = ability_desc
 	card_stamina_cost_label.text = str(stamina_cost)
@@ -221,14 +224,14 @@ func _input(event: InputEvent) -> void:
 	
 
 func _on_mouse_entered() -> void:
-	#_player_highlight_card()
+	player_highlight_card()
 	hover = true
-	z_index += 5
+	
 	
 func _on_mouse_exited() -> void:
-	#_player_unhighlight_card()
+	player_unhighlight_card()
 	hover = false
-	z_index -= 5
+	
 
 func _update_pickable() -> void:
 	if interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND or interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY:
@@ -237,6 +240,7 @@ func _update_pickable() -> void:
 		set_input_pickable(false)
 
 func player_highlight_card() -> void:
+	z_index_hover = 5
 	hover_offset = Vector2(0,-50)
 	if tween_scale:
 		tween_scale.kill()
@@ -245,6 +249,7 @@ func player_highlight_card() -> void:
 	tween_scale.tween_property(self, "scale", base_scale * 1.2, 0.15)
 
 func player_unhighlight_card() -> void:
+	z_index_hover = -5
 	hover_offset = Vector2(0,0)
 	if tween_scale:
 		tween_scale.kill()
