@@ -111,6 +111,5 @@ func _set_hand_offset() -> void:
 		var tilt = deg_to_rad(max_tilt_degrees * centered_t * 1.2)
 
 		hand[index].location_offset = Vector2(x, y)
-		#print(tilt)
 		hand[index].rotation_offset = tilt
 		hand[index].z_index = index

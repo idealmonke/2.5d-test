@@ -21,7 +21,6 @@ func _ready() -> void:
 	_init_player_cards()
 	_init_enemies()
 	
-	print("enemies created")
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 func _on_end_turn_pressed() -> void:

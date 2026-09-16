@@ -62,16 +62,25 @@ func change_state(state : COMMON_ENUMS.ENEMY_CARD_STATE):
 	interactable_state = state
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING):
 		z_index = 100
-		rotation = 0
-		position = playing_target
+		
+		_create_tween(playing_target, 0)
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.HAND):
 		z_index = 10
-		position = hand_location + location_offset
-		rotation = rotation_offset
+		
+		_create_tween(hand_location + location_offset, rotation_offset)
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY):
 		z_index = 5
-		position = library_location
-		rotation = 0
+		
+		_create_tween(library_location, 0)
+
+func _create_tween(pos : Vector2, rot: float):
+	var tween = create_tween()
+	
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_property(self, "position", pos, 0.2)
+	tween.parallel().tween_property(self, "rotation", rot, 0.2)
 
 func _process(delta: float) -> void:
 	pass

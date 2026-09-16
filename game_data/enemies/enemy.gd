@@ -112,7 +112,6 @@ func regain_mana() -> void:
 	_update_stat_bars()
 
 func _upkeep_regen_mana() -> void:
-	print(str(current_mana) +" "+str(mana_regen))
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
@@ -258,16 +257,8 @@ func process_turn() -> void:
 	if(current_health<=0):
 		return
 	
-	# Playing Turn
-	
-	#TODO: set hand size
-	
-	print("processing turn for enemy # "+str(idx))
-	
 	hand.draw_hand(hand_size)
-	
 	await hand.play_hand()
-	
 	hand.replenish_hand()
 	
 
