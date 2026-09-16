@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="8_l4n2p"]
 [ext_resource type="Texture2D" uid="uid://8pldicdphy16" path="res://game_data/status_effects/status_effect_data/fire.png" id="9_5ar1h"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
+[ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wxjty"]
 
@@ -136,6 +137,7 @@ text = "Confirm Targets"
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
 
 [node name="health_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1190676496]
+z_index = 150
 offset_left = 80.0
 offset_top = 40.0
 offset_right = 280.0
@@ -153,6 +155,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="mana_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1617729946]
+z_index = 150
 offset_left = 80.0
 offset_top = 90.0
 offset_right = 280.0
@@ -170,6 +173,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stamina_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1752691136]
+z_index = 150
 offset_left = 80.0
 offset_top = 140.0
 offset_right = 280.0
@@ -238,6 +242,14 @@ script = ExtResource("10_5ar1h")
 [node name="HBoxContainer2" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=588068581]
 layout_mode = 2
 alignment = 2
+
+[node name="status_effect_display" type="FlowContainer" parent="." unique_id=1636289337]
+offset_left = 1624.0
+offset_top = 586.0
+offset_right = 1824.0
+offset_bottom = 786.0
+script = ExtResource("11_lpuuh")
+metadata/_custom_type_script = "uid://t5qbjm3s8snw"
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]

@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://harljq3wkyjp"]
 
+[ext_resource type="Script" uid="uid://ccvq6hclgvyjw" path="res://game_data/skill_cards/skill_card_abilities/draught_of_the_rabbit_ability.gd" id="1_8psuk"]
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_e01a8"]
+
+[sub_resource type="Resource" id="Resource_i5ht4"]
+script = ExtResource("1_8psuk")
+metadata/_custom_type_script = "uid://ccvq6hclgvyjw"
 
 [resource]
 script = ExtResource("1_e01a8")
 mana_cost = 5
 stamina_cost = 3
+card_ability = SubResource("Resource_i5ht4")
 ability_desc = "Gain two stacks of haste"
 card_name = "Draught of the Rabbit"
 card_id = 7002

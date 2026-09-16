@@ -52,7 +52,7 @@ func _input(event: InputEvent) -> void:
 	#		for enem in data.enemies:
 	#			enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer, effect_bar: status_effect_display) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -62,6 +62,8 @@ func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : ta
 	targeting_manager_instance = tm
 	display_grid = display
 	end_turn_button = end_turn
+	
+	data.player.status_effect_bar = effect_bar
 	#(must be run post enemy creation): _change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 # Immutable Game Actions (These are what we call elsewhere)
