@@ -204,6 +204,9 @@ func process_turn() -> void:
 	_upkeep_regen_stamina()
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
+	if(current_health<=0):
+		return
+	
 	# Playing Turn
 	
 	#TODO: set hand size
