@@ -3,8 +3,9 @@ extends status_effect_ability
 
 func execute(target: Variant, status: status_effect) -> void:
 	var damage = Damage.new()
-	damage.set_type(COMMON_ENUMS.DAMAGE_TYPE.FIRE)
-	damage.set_amount(2)
-	damage.multiply_damage(status.duration_active+1)
+	damage.add_damage(2, COMMON_ENUMS.DAMAGE_TYPE.FIRE)
+	var scale_by_turns = func(amount: int) -> int:
+		return status.duration_active * amount
+	damage.modify_all_damage(scale_by_turns)
 	
 	target.take_damage(damage)
