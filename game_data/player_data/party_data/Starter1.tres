@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_q0e4e")
 party_id = 1
-card_ids = Array[int]([1001, 1001, 1001, 1001, 1002, 1002, 1002, 1002, 3004, 3004, 3004, 3004, 7001, 7001, 7001, 7001])
+card_ids = Array[int]([1001, 1001, 1001, 1001, 1002, 1002, 1002, 1002, 3004, 3004, 3004, 3004, 7001, 7001, 7001, 7001, 2002, 2002, 2002, 2002])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"

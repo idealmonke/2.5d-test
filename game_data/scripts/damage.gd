@@ -16,11 +16,12 @@ func add_damage(amount: int, type: COMMON_ENUMS.DAMAGE_TYPE):
 		damages.set(type, damages.get(type) + amount)
 	else:
 		damages.set(type, amount)
-	
+
 func modify_all_damage(calculation: Callable):
 	for key in damages:
 		damages.set(key, calculation.call(damages.get(key)))
 	
+## Calculation in the form func(int) -> int:
 func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 	if damages.has(type):
 		damages.set(type, calculation.call(damages.get(type)))

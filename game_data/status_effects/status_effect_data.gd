@@ -5,6 +5,7 @@ extends Resource
 @export var desc: String
 @export var id: int
 @export var display_image: Texture2D
+@export var status_type: COMMON_ENUMS.STATUS_TYPE
 
 ## APPLIES WHEN STATUS IS ACTIVE
 @export var abilities: Dictionary[COMMON_ENUMS.TIMING, status_effect_ability]
