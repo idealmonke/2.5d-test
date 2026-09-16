@@ -38,6 +38,7 @@ var screen_size: Vector2
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
+	rotation_offset = 0
 	
 	#TEMP
 	#hand_location = Vector2(screen_size.x / 2.0, screen_size.y - 150)
@@ -45,7 +46,8 @@ func _ready() -> void:
 	
 	card_main_frame = $Sprite2D
 	
-	interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
+	change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
+	#interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
 	
 	card_name_label = $card_name
 	card_ability_label = $card_ability
@@ -56,36 +58,61 @@ func _ready() -> void:
 	
 	call_deferred("_late_setup")
 
+func change_state(state : COMMON_ENUMS.ENEMY_CARD_STATE):
+	interactable_state = state
+	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING):
+		z_index = 100
+		
+		_create_tween(playing_target, 0)
+	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.HAND):
+		z_index = 10
+		
+		_create_tween(hand_location + location_offset, rotation_offset)
+	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY):
+		z_index = 5
+		
+		_create_tween(library_location, 0)
+
+func _create_tween(pos : Vector2, rot: float):
+	var tween = create_tween()
+	
+	tween.set_trans(Tween.TRANS_QUAD)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	tween.tween_property(self, "position", pos, 0.2)
+	tween.parallel().tween_property(self, "rotation", rot, 0.2)
+
 func _process(delta: float) -> void:
-	match interactable_state:
-		COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING:
-			z_index = 15
-			
-			if global_position.distance_to(playing_target) > 1:
-				global_position = global_position.lerp(playing_target, slow_lerp * delta)
-			else:
-				global_position = playing_target
-			
-			rotation = 0
-		COMMON_ENUMS.ENEMY_CARD_STATE.HAND:
-			z_index = 10
-			
-			var target = hand_location + location_offset
-			if global_position.distance_to(target) > 1:
-				global_position = global_position.lerp(target, slow_lerp * delta)
-			else:
-				global_position = target
-			
-			rotation = lerp_angle(rotation, rotation_offset, rotate_lerp * delta)
-		COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY:
-			z_index = 0
-			
-			if global_position.distance_to(library_location) > 1:
-				global_position = global_position.lerp(library_location, slow_lerp * delta)
-			else:
-				global_position = library_location
-			
-			rotation = 0
+	pass
+	#match interactable_state:
+		#COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING:
+			#z_index = 15
+			#
+			#if global_position.distance_to(playing_target) > 1:
+				#global_position = global_position.lerp(playing_target, slow_lerp * delta)
+			#else:
+				#global_position = playing_target
+			#
+			#rotation = 0
+		#COMMON_ENUMS.ENEMY_CARD_STATE.HAND:
+			#z_index = 10
+			#
+			#var target = hand_location + location_offset
+			#if global_position.distance_to(target) > 1:
+				#global_position = global_position.lerp(target, slow_lerp * delta)
+			#else:
+				#global_position = target
+			#
+			#rotation = lerp_angle(rotation, rotation_offset, rotate_lerp * delta)
+		#COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY:
+			#z_index = 0
+			#
+			#if global_position.distance_to(library_location) > 1:
+				#global_position = global_position.lerp(library_location, slow_lerp * delta)
+			#else:
+				#global_position = library_location
+			#
+			#rotation = 0
 
 func _late_setup() -> void:
 	#intialize controller and data
@@ -128,9 +155,12 @@ func initialize_card(resource_data: enemy_card_data, idx : int) -> void:
 	stamina_cost = resource_data.stamina_cost
 	
 	#HARDCODED LOCATIONS
-	library_location = BattleController.data.enemy_locations[idx]+Vector2(-200,0)
-	hand_location = BattleController.data.enemy_locations[idx]+Vector2(-100,400)
-	playing_target  =  BattleController.data.enemy_locations[idx]+Vector2(0,500)
+	
+	library_location = Vector2(-200,0)
+	hand_location = Vector2(-100,400)
+	playing_target  =  Vector2(0,500)
+	
+	change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
 	
 	_update_text()
 	set_back()

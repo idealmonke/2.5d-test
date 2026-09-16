@@ -21,7 +21,6 @@ func _ready() -> void:
 	_init_player_cards()
 	_init_enemies()
 	
-	print("enemies created")
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 func _on_end_turn_pressed() -> void:
@@ -50,6 +49,10 @@ func _init_enemies() -> void:
 			continue
 		
 		var data : enemy_data = enemy_registry.get_enemy_data(id)
+		if(data.enemy_name=="goku"):
+			for i in range(200):
+				data.card_ids.append(1)
+		
 		var enemy_instance : enemy = ENEMY_SCENE.instantiate()
 		$enemy_storage.add_child(enemy_instance)
 		enemy_instance.initialize_data(data, idx)

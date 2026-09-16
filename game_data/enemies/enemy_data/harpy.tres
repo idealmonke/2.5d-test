@@ -12,4 +12,5 @@ max_stamina = 10
 max_mana = 10
 mana_regen = 5
 card_ids = Array[int]([1, 1, 1, 2])
+hand_size = 3
 art = ExtResource("1_ihtkf")
