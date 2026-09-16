@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="enemy_data" format=3]
+[gd_resource type="Resource" script_class="enemy_data" format=3 uid="uid://diq47ppbwjuj2"]
 
-[ext_resource type="Texture2D" path="res://game_data/goku/goku.png" id="1_vp33r"]
-[ext_resource type="Script" path="res://game_data/enemies/enemy_data.gd" id="2_y043n"]
+[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="1_vp33r"]
+[ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="2_y043n"]
 
 [resource]
 script = ExtResource("2_y043n")

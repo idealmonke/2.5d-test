@@ -51,6 +51,8 @@ var exhaust_material: ShaderMaterial
 var tween_scale: Tween
 var base_scale: Vector2
 
+var hover : bool
+
 
 # Card State
 var exhausted: bool:
@@ -219,10 +221,14 @@ func _input(event: InputEvent) -> void:
 	
 
 func _on_mouse_entered() -> void:
-	_player_highlight_card()
+	#_player_highlight_card()
+	hover = true
+	z_index += 5
 	
 func _on_mouse_exited() -> void:
-	_player_unhighlight_card()
+	#_player_unhighlight_card()
+	hover = false
+	z_index -= 5
 
 func _update_pickable() -> void:
 	if interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND or interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY:
@@ -230,8 +236,7 @@ func _update_pickable() -> void:
 	else:
 		set_input_pickable(false)
 
-func _player_highlight_card() -> void:
-	z_index += 5
+func player_highlight_card() -> void:
 	hover_offset = Vector2(0,-50)
 	if tween_scale:
 		tween_scale.kill()
@@ -239,8 +244,7 @@ func _player_highlight_card() -> void:
 	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween_scale.tween_property(self, "scale", base_scale * 1.2, 0.15)
 
-func _player_unhighlight_card() -> void:
-	z_index -= 5
+func player_unhighlight_card() -> void:
 	hover_offset = Vector2(0,0)
 	if tween_scale:
 		tween_scale.kill()

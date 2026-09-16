@@ -37,8 +37,22 @@ func pop_each() -> Array:
 		_reset_offset(card)
 	return old_hand
 
+func _process(delta: float) -> void:
+	_resolve_hover()
+
 func is_empty() -> bool:
 	return hand.is_empty()
+
+func _resolve_hover() -> void:
+	var hovered : skill_card;
+	
+	for card in hand:
+		if(card.hover):
+			hovered = card
+		card.player_unhighlight_card()
+	
+	if hovered:
+		hovered.player_highlight_card()
 
 func register_pickup(card: skill_card) -> void:
 	pending_pickup.append(card)
@@ -47,7 +61,7 @@ func register_pickup(card: skill_card) -> void:
 func _resolve_pickup() -> void:
 	if pending_pickup.is_empty():
 		return
-	pending_pickup.sort_custom(func(a, b): return hand.find(a) < hand.find(b))
+	pending_pickup.sort_custom(func(a, b): return hand.find(a) > hand.find(b))
 	var winner = pending_pickup[0]
 	winner.begin_drag()
 	pending_pickup.clear()

@@ -46,6 +46,8 @@ var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
 var mana_bar: TextureProgressBar
 
+var enemy_card_container : Node2D
+
 var health_bar_text : Label
 var stamina_bar_text : Label
 var mana_bar_text : Label
@@ -69,6 +71,8 @@ func _ready() -> void:
 	health_bar_text = $health_bar_text
 	stamina_bar_text = $stamina_bar_text
 	mana_bar_text = $mana_bar_text
+	
+	enemy_card_container = $enemy_card_container
 	
 	status_effect_bar = $status_effect_bar
 
@@ -108,6 +112,7 @@ func regain_mana() -> void:
 	_update_stat_bars()
 
 func _upkeep_regen_mana() -> void:
+	print(str(current_mana) +" "+str(mana_regen))
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
@@ -136,6 +141,9 @@ func take_damage(damage: Damage) -> void:
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_stat_bars()
+
+func is_dead() -> bool:
+	return current_health<=0
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
@@ -184,6 +192,9 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	max_health = data.max_health
 	max_stamina = data.max_stamina
 	max_mana = data.max_mana
+	
+	mana_regen = data.mana_regen
+	
 	current_health = max_health
 	current_mana = max_mana
 	current_stamina = max_stamina
@@ -207,6 +218,16 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 		sprite.position.y -= 100
 	
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
+	
+	#activate_goku_mode(data.card_ids)
+
+#func activate_goku_mode(ids : Array[int]):
+#	library = enemy_library.new()
+#	library.init(ids)
+
+func setup_library(lib : Array[enemy_card]) -> void:
+	hand = enemy_hand.new()
+	hand.init(self, lib)
 
 func process_turn() -> void:
 	BattleController.active_turn = self
@@ -216,12 +237,21 @@ func process_turn() -> void:
 	_upkeep_regen_stamina()
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	
-	# Playing Turn
-	_process_active_status(COMMON_ENUMS.TIMING.PLAY) # In whatever loop is playing cards place this
+	if(current_health<=0):
+		return
 	
-	# End of Turn
-	_process_active_status(COMMON_ENUMS.TIMING.END)
-	#hand.replenish_hand()
+	# Playing Turn
+	
+	#TODO: set hand size
+	
+	print("processing turn for enemy # "+str(idx))
+	
+	hand.draw_hand(3)
+	
+	await hand.play_hand()
+	
+	hand.replenish_hand()
+	
 
 func is_full_health() -> bool:
 	if max_health == current_health:

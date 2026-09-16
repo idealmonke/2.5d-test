@@ -5,6 +5,8 @@ const BATTLE_CONFIG = preload("res://game_data/battle_config.tres")
 
 const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
 
+const ENEMY_CARD_SCENE = preload("res://game_data/enemies/enemy_card.tscn")
+
 func _ready() -> void:
 	
 	BattleController.data.player.init_bars(	$player_stat_bars/health_bar, 
@@ -14,11 +16,12 @@ func _ready() -> void:
 										$player_stat_bars/stamina_bar,
 										$player_stat_bars/stamina_bar/stamina_label)
 	
-	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid)
+	BattleController.setup(self, $discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid, $win_panel)
 	
 	_init_player_cards()
 	_init_enemies()
 	
+	print("enemies created")
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 func _on_end_turn_pressed() -> void:
@@ -38,7 +41,7 @@ func _init_player_cards() -> void:
 
 func _init_enemies() -> void:
 	var enemyIDs : Array[int] = BATTLE_CONFIG.enemyIDs
-	BattleController.data.enemies = [null, null, null]
+	BattleController.data.enemies = []
 	
 	for idx in range(3):
 		var id = enemyIDs[idx]
@@ -51,5 +54,16 @@ func _init_enemies() -> void:
 		$enemy_storage.add_child(enemy_instance)
 		enemy_instance.initialize_data(data, idx)
 		
-		BattleController.data.enemies[idx] = enemy_instance
+		var enemy_cards : Array[enemy_card]
+		for card_id in data.card_ids:
+			var enemy_card_instance : enemy_card = ENEMY_CARD_SCENE.instantiate()
+			var e_card_data : enemy_card_data = enemy_card_registry.get_card_data(card_id)
+			enemy_instance.enemy_card_container.add_child(enemy_card_instance)
+			enemy_card_instance.initialize_card(e_card_data, idx)
+			enemy_cards.append(enemy_card_instance)
+		
+		enemy_instance.setup_library(enemy_cards)
+		
+		#BattleController.data.enemies[idx] = enemy_instance
+		BattleController.data.enemies.append(enemy_instance)
 		enemy_instance.position = BattleController.data.enemy_locations[idx]

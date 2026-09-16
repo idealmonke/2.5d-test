@@ -3,18 +3,18 @@ extends RefCounted
 
 enum POSITIONS {LEFT, MIDDLE, RIGHT}
 
-var targets : Array[int]
+var targets : Array[enemy]
 
-func add_target(idx : int):
-	targets.append(idx)
+func add_target(enem : enemy):
+	targets.append(enem)
 	
 func single_target() -> enemy:
-	return BattleController.data.enemies[targets[0]]
+	return targets[0]
 	
 func all_targets() -> Array[enemy]:
 	var enemies = []
-	for position in targets:
-		enemies.append(BattleController.data.enemies[position])
+	for enem in targets:
+		enemies.append(enem)
 	return enemies
 		
 # Deprecated?

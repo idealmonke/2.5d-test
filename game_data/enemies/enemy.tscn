@@ -90,3 +90,5 @@ offset_right = 92.0
 offset_bottom = 170.0
 script = ExtResource("3_mde5d")
 metadata/_custom_type_script = "uid://t5qbjm3s8snw"
+
+[node name="enemy_card_container" type="Node2D" parent="." unique_id=1801170905]
