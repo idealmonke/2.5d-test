@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="battle_config" format=3 uid="uid://diui58goywvk2"]
+[gd_resource type="Resource" script_class="battle_config" format=3 uid="uid://ho0yaixa65ro"]
 
 [ext_resource type="Resource" uid="uid://bfow5mjt2qwkc" path="res://game_data/player_data/party_data/Starter1.tres" id="1_d2gtx"]
 [ext_resource type="Script" uid="uid://dpmb6l2ednj1l" path="res://game_data/battle_config.gd" id="2_krdy4"]

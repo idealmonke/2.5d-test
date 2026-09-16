@@ -36,7 +36,7 @@ var mana_label: Label
 var stamina_bar: TextureProgressBar
 var stamina_label: Label
 
-var status_effect_bar : status_effect_display
+var status_effect_bar: status_effect_display
 
 func get_stamina() -> int:
 	return current_stamina
@@ -121,7 +121,7 @@ func heal(healing: int) -> void:
 		current_health = max_health
 	_update_stats_bars()
 	
-func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label) -> void:
+func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label, status_bars) -> void:
 	health_bar = hp_bar
 	health_label = hp_label
 	health_bar.max_value = max_health
@@ -133,6 +133,8 @@ func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label) -> void:
 	stamina_bar = s_bar
 	stamina_label = s_label
 	stamina_bar.max_value = max_stamina
+	
+	status_effect_bar = status_bars
 	
 	_update_stats_bars()
 	
