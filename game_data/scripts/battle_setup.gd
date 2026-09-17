@@ -34,6 +34,9 @@ func _init_player_cards() -> void:
 	for card in cards:
 		var data: card_data = skill_card_registry.get_card_data(card)
 		var card_instance: skill_card = SKILL_CARD_SCENE.instantiate()
+		
+		card_instance.set_locs($library, $discard);
+		
 		$card_storage.add_child(card_instance)
 		card_instance.initialize_card(data)
 		BattleController.data.library.push_to_top(card_instance)

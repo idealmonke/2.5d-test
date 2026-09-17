@@ -12,6 +12,12 @@
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lpuuh"]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_in72b"]
+blend_mode = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wxjty"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
@@ -77,13 +83,23 @@ script = ExtResource("3_wxjty")
 [node name="library" type="Node2D" parent="." unique_id=808325488]
 script = ExtResource("4_h35sd")
 
+[node name="base_sprite" type="Sprite2D" parent="library" unique_id=12149178]
+z_index = -100
+material = SubResource("CanvasItemMaterial_lpuuh")
+position = Vector2(148, 848)
+scale = Vector2(1.74, 2.488)
+texture = ExtResource("5_h35sd")
+flip_h = true
+flip_v = true
+
 [node name="discard" type="Area2D" parent="." unique_id=215352113]
 z_index = -1
-position = Vector2(192, 850)
+position = Vector2(405, 845)
 script = ExtResource("2_72g67")
 
 [node name="base_sprite" type="Sprite2D" parent="discard" unique_id=2013087415]
 z_index = -100
+material = SubResource("CanvasItemMaterial_in72b")
 scale = Vector2(1.74, 2.488)
 texture = ExtResource("5_h35sd")
 
@@ -135,6 +151,7 @@ offset_bottom = 716.0
 text = "Confirm Targets"
 
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
+position = Vector2(-30, 480)
 
 [node name="health_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1190676496]
 z_index = 150
@@ -252,10 +269,10 @@ layout_mode = 2
 alignment = 2
 
 [node name="status_effect_display" type="FlowContainer" parent="." unique_id=1636289337]
-offset_left = 1624.0
-offset_top = 586.0
-offset_right = 1824.0
-offset_bottom = 786.0
+offset_left = 305.0
+offset_top = 516.0
+offset_right = 505.0
+offset_bottom = 716.0
 script = ExtResource("11_lpuuh")
 metadata/_custom_type_script = "uid://t5qbjm3s8snw"
 

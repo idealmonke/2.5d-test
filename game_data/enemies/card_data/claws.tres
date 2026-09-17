@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://q4w0avk8bbjc"]
+
+[ext_resource type="Script" uid="uid://cbd40cj0edxrr" path="res://game_data/enemies/enemy_card_abilities/claws_ability.gd" id="1_lu7il"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_lixsf"]
+[ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="3_6akgt"]
+
+[sub_resource type="Resource" id="Resource_md5fw"]
+script = ExtResource("1_lu7il")
+metadata/_custom_type_script = "uid://cbd40cj0edxrr"
+
+[resource]
+script = ExtResource("3_6akgt")
+stamina_cost = 3
+card_ability = SubResource("Resource_md5fw")
+ability_desc = "Strike twice for 9 physical damage."
+card_name = "claws"
+card_art = ExtResource("2_lixsf")
+card_id = 2
+metadata/_custom_type_script = "uid://dkt7p0jgp2uag"

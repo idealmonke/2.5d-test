@@ -5,6 +5,8 @@ static var status_effect_data_path: String = "res://game_data/status_effects/sta
 
 const CARD_DB: Dictionary = {
 	0001: "burning",
+	0069: "haste",
+	69420: "dazed",
 	0002: "divine_favor",
 	0069: "haste"
 }

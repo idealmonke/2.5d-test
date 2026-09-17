@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://damyul745f3fd"]
+
+[ext_resource type="Script" uid="uid://coo8lqv6i5nff" path="res://game_data/enemies/enemy_card_abilities/aching_screech_ability.gd" id="1_hj5la"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_dph4c"]
+[ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="3_njmx2"]
+
+[sub_resource type="Resource" id="Resource_in72b"]
+script = ExtResource("1_hj5la")
+metadata/_custom_type_script = "uid://coo8lqv6i5nff"
+
+[resource]
+script = ExtResource("3_njmx2")
+stamina_cost = 5
+card_ability = SubResource("Resource_in72b")
+ability_desc = "Apply a stack of dazed"
+card_name = "aching_screech"
+card_art = ExtResource("2_dph4c")
+card_id = 4
+metadata/_custom_type_script = "uid://dkt7p0jgp2uag"

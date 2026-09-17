@@ -10,10 +10,9 @@ metadata/_custom_type_script = "uid://35y3b81yqphf"
 
 [resource]
 script = ExtResource("1_1r737")
-mana_cost = 5
-stamina_cost = 2
+stamina_cost = 3
 card_ability = SubResource("Resource_sav3h")
-ability_desc = "Deal 1 damage"
+ability_desc = "Strike once for 15 physical damage."
 card_name = "bite"
 card_art = ExtResource("1_sav3h")
 card_id = 1

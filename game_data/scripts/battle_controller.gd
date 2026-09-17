@@ -25,6 +25,9 @@ signal display_signal
 func _ready() -> void:
 	data = battle_data.new()
 	data.player = battle_player_data.new()
+	data.player.base_defense.set(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL, 6)
+	data.player.defense = data.player.base_defense.duplicate()
+	
 	
 	current_draw_card = _default_draw_card
 	current_discard_card = _default_discard_card
@@ -163,6 +166,7 @@ func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
 	data.player._upkeep_regen_mana()
 	data.player._upkeep_regen_stamina()
 	
+	print("iteration : "+str(data.player.hand_size))
 	var current_handsize = data.player.hand_size
 	for i in range(current_handsize):
 		draw_card()

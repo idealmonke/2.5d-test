@@ -5,7 +5,10 @@ static var enemy_card_data_path: String = "res://game_data/enemies/card_data/"
 
 const CARD_DB: Dictionary = {
 	1: "bite",
-	2: "knaw"
+	2: "claws",
+	3: "block",
+	4: "aching_screech",
+	5: "storm_of_feathers"
 }
 
 static func get_card_data(ID: int) -> enemy_card_data:
