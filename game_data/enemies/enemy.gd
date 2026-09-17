@@ -14,7 +14,6 @@ var hand: enemy_hand
 var library: enemy_library
 
 # Enemy Stats
-var base_max_health: int
 var max_health: int
 var current_health: int
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
@@ -25,10 +24,13 @@ var base_shield_retention: int
 # immutable stats
 var enemy_name : String
 
+var base_max_health: int
 var base_max_stamina: int
 var base_max_mana: int
 var base_mana_regen: int
 var base_hand_size: int
+var base_defense : Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+
 
 var hand_size: int
 var max_stamina: int
@@ -117,27 +119,6 @@ func _upkeep_regen_mana() -> void:
 		current_mana = max_mana
 	_update_stat_bars()
 	
-func update_passive_effects() -> void:
-	max_health = base_max_health
-	max_mana = base_max_mana
-	max_stamina = base_max_stamina
-	mana_regen = base_mana_regen
-	
-	for effect_name in current_status_effects:
-		var effect  : status_effect = current_status_effects[effect_name]
-		var stat_calcs = effect.data.stats_calculations
-		for stat in stat_calcs:
-			var calc = stat_calcs[stat]
-			
-			if(stat==COMMON_ENUMS.PLAYER_STATS.HEALTH):
-				max_health = calc.calculate.call(max_health)
-			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA):
-				max_mana = calc.calculate.call(max_mana)
-			if(stat==COMMON_ENUMS.PLAYER_STATS.STAMINA):
-				max_stamina = calc.calculate.call(max_stamina)
-			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA_REGEN):
-				mana_regen = calc.calculate.call(mana_regen)
-
 func take_damage(damage: Damage) -> void:
 	
 	if damage.source != null:
@@ -178,17 +159,6 @@ func _update_status():
 	status_effect_bar.setup(192)
 	status_effect_bar.reset(current_status_effects)
 
-func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
-	for key in current_status_effects:
-		var status: status_effect = current_status_effects.get(key)
-		if (status.data.abilities.has(timing)):
-			status.stacks -= 1
-			status.duration_active += 1
-			status.data.abilities[timing].execute(self, status)
-			if status.stacks == 0:
-				current_status_effects.erase(key)
-	_update_status()
-
 func _update_stat_bars() -> void:
 	health_bar.value = float(current_health) / max_health * 100
 	stamina_bar.value = float(current_stamina) / max_stamina * 100
@@ -206,11 +176,15 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	base_max_health = data.max_health
 	base_max_stamina = data.max_stamina
 	base_max_mana = data.max_mana
+	
+	base_mana_regen = data.mana_regen
+	base_defense = data.defense
+	
 	max_health = data.max_health
 	max_stamina = data.max_stamina
 	max_mana = data.max_mana
-	
 	mana_regen = data.mana_regen
+	defense = data.defense
 	
 	current_health = max_health
 	current_mana = max_mana
@@ -249,10 +223,14 @@ func setup_library(lib : Array[enemy_card]) -> void:
 func process_turn() -> void:
 	BattleController.active_turn = self
 	
+	_process_active_status(COMMON_ENUMS.TIMING.START)
+	update_passive_effects()
+	_process_status_stacks()
+	
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
-	_process_active_status(COMMON_ENUMS.TIMING.START)
+	
 	
 	if(current_health<=0):
 		return
@@ -261,6 +239,50 @@ func process_turn() -> void:
 	await hand.play_hand()
 	hand.replenish_hand()
 	
+func update_passive_effects() -> void:
+	max_health = base_max_health
+	max_mana = base_max_mana
+	max_stamina = base_max_stamina
+	mana_regen = base_mana_regen
+	
+	hand_size = base_hand_size
+	defense = base_defense.duplicate()
+	
+	for effect_name in current_status_effects:
+		var effect  : status_effect = current_status_effects[effect_name]
+		var stat_calcs = effect.data.stats_calculations
+		for stat in stat_calcs:
+			var calc = stat_calcs[stat]
+			
+			if(stat==COMMON_ENUMS.PLAYER_STATS.HEALTH):
+				max_health = calc.calculate.call(max_health)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA):
+				max_mana = calc.calculate.call(max_mana)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.STAMINA):
+				max_stamina = calc.calculate.call(max_stamina)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.MANA_REGEN):
+				mana_regen = calc.calculate.call(mana_regen)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.HANDSIZE):
+				hand_size = calc.calculate.call(hand_size)
+			if(stat==COMMON_ENUMS.PLAYER_STATS.DEFENSE):
+				defense = calc.calculate.call(defense)
+
+func _process_status_stacks():
+	for key in current_status_effects.duplicate():
+		var status: status_effect = current_status_effects.get(key)
+		status.stacks -= 1
+		status.duration_active += 1
+		
+		if status.stacks == 0:
+			current_status_effects.erase(key)
+	
+	_update_status()
+func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
+	for key in current_status_effects:
+		var status: status_effect = current_status_effects.get(key)
+		if (status.data.abilities.has(timing)):
+			status.data.abilities[timing].execute(self, status)
+
 
 func is_full_health() -> bool:
 	if max_health == current_health:

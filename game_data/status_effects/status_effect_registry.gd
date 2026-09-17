@@ -6,8 +6,9 @@ static var status_effect_data_path: String = "res://game_data/status_effects/sta
 const CARD_DB: Dictionary = {
 	0001: "burning",
 	0002: "divine_favor"
+	0069: "haste"
 }
 
-static func get_status_effect_data(ID: COMMON_ENUMS.STATUS_EFFECT) -> status_effect_data:
+static func get_status_effect_data(ID: int) -> status_effect_data:
 	assert(CARD_DB.has(ID), "Effect not found in registry")
 	return load(status_effect_data_path+CARD_DB[ID]+".tres")
