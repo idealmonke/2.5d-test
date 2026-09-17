@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ch2ettxg1bc2v"]
 
 [ext_resource type="Script" uid="uid://dtosnq5o1su6r" path="res://game_data/enemies/enemy.gd" id="1_n0pnn"]
-[ext_resource type="Texture2D" uid="uid://b8jyxdir6bjj3" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="2_mde5d"]
+[ext_resource type="Texture2D" uid="uid://0m7um0amx7v2" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="2_mde5d"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="3_mde5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
@@ -25,9 +25,9 @@ shape = SubResource("RectangleShape2D_mja0g")
 
 [node name="health_bar" type="TextureProgressBar" parent="." unique_id=1149442455]
 offset_left = -100.0
-offset_top = 50.0
+offset_top = 178.00002
 offset_right = -36.0
-offset_bottom = 114.0
+offset_bottom = 242.00002
 scale = Vector2(3, 0.3)
 value = 100.0
 fill_mode = 6
@@ -35,19 +35,19 @@ texture_progress = SubResource("GradientTexture2D_u3tej")
 tint_progress = Color(0.99215686, 0, 0, 1)
 
 [node name="health_bar_text" type="Label" parent="." unique_id=641729111]
-offset_left = -50.0
-offset_top = 45.0
-offset_right = 50.0
-offset_bottom = 68.0
+offset_left = -49.999992
+offset_top = 173.0
+offset_right = 50.000008
+offset_bottom = 196.0
 text = "30 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stamina_bar" type="TextureProgressBar" parent="." unique_id=850431977]
 offset_left = -100.0
-offset_top = 75.0
+offset_top = 203.00002
 offset_right = -36.0
-offset_bottom = 139.00002
+offset_bottom = 267.00006
 scale = Vector2(3, 0.3)
 value = 100.0
 fill_mode = 6
@@ -55,19 +55,19 @@ texture_progress = SubResource("GradientTexture2D_u3tej")
 tint_progress = Color(0.8599168, 0.5781709, 0, 1)
 
 [node name="stamina_bar_text" type="Label" parent="." unique_id=1836693364]
-offset_left = -50.0
-offset_top = 70.0
-offset_right = 50.0
-offset_bottom = 93.0
+offset_left = -49.999992
+offset_top = 198.0
+offset_right = 50.000008
+offset_bottom = 221.0
 text = "5 / 10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="mana_bar" type="TextureProgressBar" parent="." unique_id=1285670159]
 offset_left = -100.0
-offset_top = 100.0
+offset_top = 228.00002
 offset_right = -36.0
-offset_bottom = 164.00002
+offset_bottom = 292.0
 scale = Vector2(3, 0.3)
 value = 100.0
 fill_mode = 6
@@ -75,19 +75,19 @@ texture_progress = SubResource("GradientTexture2D_u3tej")
 tint_progress = Color(0, 0, 1, 1)
 
 [node name="mana_bar_text" type="Label" parent="." unique_id=1084803537]
-offset_left = -50.0
-offset_top = 95.0
-offset_right = 50.0
-offset_bottom = 118.0
+offset_left = -49.999992
+offset_top = 223.0
+offset_right = 50.000008
+offset_bottom = 246.0
 text = "2 / 5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="status_effect_bar" type="FlowContainer" parent="." unique_id=2058616845]
 offset_left = -100.0
-offset_top = 120.0
+offset_top = 248.0
 offset_right = 92.0
-offset_bottom = 170.0
+offset_bottom = 298.0
 script = ExtResource("3_mde5d")
 metadata/_custom_type_script = "uid://t5qbjm3s8snw"
 

@@ -209,7 +209,7 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	sprite.texture = base_sprite
 	
 	#TODO: make image scaling / position automatic
-	var TEMP_SIZE = 400
+	var TEMP_SIZE = 300
 	
 	if(data.enemy_name=="goku"):
 		TEMP_SIZE = 200
