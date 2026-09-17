@@ -9,6 +9,7 @@ func execute(targets : targeting_info) -> void:
 	damage.add_damage(12, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
 	damage.source = BattleController.data.player
 	damage.is_strike = true
+	targets.single_target().take_damage(damage)
 	
 	if(BattleController.data.player.current_status_effects.has("Bloodthirsty")):
 		var data: status_effect_data = status_effect_registry.get_status_effect_data(2)
