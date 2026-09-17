@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://4hvpooxiaw6x"]
+
+[ext_resource type="Script" uid="uid://dqtucx4q4po6q" path="res://game_data/skill_cards/skill_card_abilities/battle_cry_ability.gd" id="1_v28uw"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_shnvm"]
+
+[sub_resource type="Resource" id="Resource_in72b"]
+script = ExtResource("1_v28uw")
+metadata/_custom_type_script = "uid://dqtucx4q4po6q"
+
+[resource]
+script = ExtResource("2_shnvm")
+stamina_cost = 2
+card_ability = SubResource("Resource_in72b")
+ability_desc = "Gain two stacks of bloodthirsty and 5 shields."
+card_name = "Battle Cry"
+card_id = 5001
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

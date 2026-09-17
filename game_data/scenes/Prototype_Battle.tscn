@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://8pldicdphy16" path="res://game_data/status_effects/status_effect_images/Burning.png" id="9_5ar1h"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
+[ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lpuuh"]
 blend_mode = 1
@@ -69,6 +70,9 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_mja0g"]
+font_color = Color(0, 0.23, 0.049833342, 1)
 
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_lpuuh")
@@ -275,6 +279,23 @@ offset_right = 505.0
 offset_bottom = 716.0
 script = ExtResource("11_lpuuh")
 metadata/_custom_type_script = "uid://t5qbjm3s8snw"
+
+[node name="shield" type="Node2D" parent="." unique_id=527885997]
+position = Vector2(180, 409)
+
+[node name="shield_icon" type="Sprite2D" parent="shield" unique_id=192834867]
+position = Vector2(126.5, 212)
+scale = Vector2(1.203125, 1.21875)
+texture = ExtResource("12_in72b")
+
+[node name="shield_label" type="Label" parent="shield" unique_id=840759309]
+offset_left = 107.0
+offset_top = 193.0
+offset_right = 147.0
+offset_bottom = 216.0
+text = "GTY"
+label_settings = SubResource("LabelSettings_mja0g")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]

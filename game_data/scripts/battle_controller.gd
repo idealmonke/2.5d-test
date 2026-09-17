@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 	#		for enem in data.enemies:
 	#			enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer, effect_bar: status_effect_display) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer, effect_bar: status_effect_display, shield_node : Node2D) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -67,6 +67,8 @@ func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : ta
 	end_turn_button = end_turn
 	
 	data.player.status_effect_bar = effect_bar
+	data.player.shield_node = shield_node
+	
 	#(must be run post enemy creation): _change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 # Immutable Game Actions (These are what we call elsewhere)
@@ -165,6 +167,9 @@ func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
 	data.player.process_statuses(COMMON_ENUMS.TIMING.START)
 	data.player._upkeep_regen_mana()
 	data.player._upkeep_regen_stamina()
+	
+	data.player.current_shield = int(data.player.current_shield * data.player.shield_retention)
+	data.player._update_stat_bars()
 	
 	var current_handsize = data.player.hand_size
 	for i in range(current_handsize):
