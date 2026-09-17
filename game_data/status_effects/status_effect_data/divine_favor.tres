@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_scao4"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="1_x7a4t"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_i7jm5"]
+[ext_resource type="Texture2D" uid="uid://cyc3juna0v0ma" path="res://game_data/status_effects/status_effect_images/Divine Favor.png" id="2_scao4"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="4_0ohak"]
 [ext_resource type="Script" uid="uid://cacj6u5jr8d8s" path="res://game_data/status_effects/status_effect_calculations/divine_favor_calculation.gd" id="5_h7kmv"]
 
@@ -15,7 +15,7 @@ script = ExtResource("1_x7a4t")
 name = "Divine Favor"
 desc = "Physical strikes deal additional 2 holy damage "
 id = 2
-display_image = ExtResource("2_i7jm5")
+display_image = ExtResource("2_scao4")
 stats_calculations = Dictionary[int, ExtResource("4_0ohak")]({
 6: SubResource("Resource_5ar1h")
 })
