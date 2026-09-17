@@ -18,8 +18,8 @@ var max_health: int
 var current_health: int
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 var current_shield: int
-var shield_retention: int
-var base_shield_retention: int
+var shield_retention: float = 0.25
+var base_shield_retention: float
 
 # immutable stats
 var enemy_name : String
@@ -244,6 +244,9 @@ func setup_library(lib : Array[enemy_card]) -> void:
 
 func process_turn() -> void:
 	BattleController.active_turn = self
+	
+	current_shield = int(current_shield * shield_retention)
+	_update_stat_bars()
 	
 	_process_active_status(COMMON_ENUMS.TIMING.START)
 	update_passive_effects()
