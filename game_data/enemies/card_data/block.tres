@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://cpwrwoqsrfb8u"]
+
+[ext_resource type="Script" uid="uid://c582j011nac6j" path="res://game_data/enemies/enemy_card_abilities/block_ability.gd" id="1_p11la"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_7c4qt"]
+[ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="3_pvxrg"]
+
+[sub_resource type="Resource" id="Resource_mja0g"]
+script = ExtResource("1_p11la")
+metadata/_custom_type_script = "uid://c582j011nac6j"
+
+[resource]
+script = ExtResource("3_pvxrg")
+stamina_cost = 2
+card_ability = SubResource("Resource_mja0g")
+ability_desc = "Gain a 5 shield."
+card_name = "block"
+card_art = ExtResource("2_7c4qt")
+card_id = 3
+metadata/_custom_type_script = "uid://dkt7p0jgp2uag"

@@ -1,9 +1,9 @@
 class_name battle_player_data
 extends RefCounted
 
-var base_max_health : int = 40
-var max_health: int = 40
-var current_health: int = 40
+var base_max_health : int = 50
+var max_health: int = 50
+var current_health: int = 50
 
 var base_defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
@@ -23,8 +23,8 @@ var current_shield: int
 var base_shield_rentention: int
 var shield_rentention: int
 
-var base_hand_size: int = 2
-var hand_size: int = 2
+var base_hand_size: int = 5
+var hand_size: int = 5
 
 var current_status_effects: Dictionary[String, status_effect]
 
@@ -99,6 +99,7 @@ func take_damage(damage: Damage) -> void:
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_status()
+	_update_stats_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):

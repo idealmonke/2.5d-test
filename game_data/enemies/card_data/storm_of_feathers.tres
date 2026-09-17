@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://blu6ddorxqg52"]
+
+[ext_resource type="Script" uid="uid://c63xp347mecgw" path="res://game_data/enemies/enemy_card_abilities/storm_of_feathers_ability.gd" id="1_cdd1i"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_k1ds2"]
+[ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="3_t1sdl"]
+
+[sub_resource type="Resource" id="Resource_dph4c"]
+script = ExtResource("1_cdd1i")
+metadata/_custom_type_script = "uid://c63xp347mecgw"
+
+[resource]
+script = ExtResource("3_t1sdl")
+stamina_cost = 5
+card_ability = SubResource("Resource_dph4c")
+ability_desc = "Strike three times for 10 physical damage."
+card_name = "storm_of_feathers"
+card_art = ExtResource("2_k1ds2")
+card_id = 4
+metadata/_custom_type_script = "uid://dkt7p0jgp2uag"

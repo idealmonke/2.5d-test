@@ -73,8 +73,8 @@ func _ready() -> void:
 	
 	# TEMPORARY VARIABLES
 	hand_location = Vector2(screen_size.x / 2.0, screen_size.y - 150)
-	discard_location = Vector2(200,screen_size.y - 200)
-	library_location = Vector2(screen_size.x - 200,200)
+	#discard_location = Vector2(200,screen_size.y - 200)
+	#library_location = Vector2(screen_size.x - 200,200)
 	
 	connect("input_event", _on_input_event)
 	$hover_area.connect("mouse_entered", _on_mouse_entered)
@@ -94,6 +94,9 @@ func _ready() -> void:
 	interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
 	set_back()
 
+func set_locs(library: Node2D, discard: Area2D):
+	library_location = library.get_node("base_sprite").position+Vector2(10,10)
+	discard_location = discard.position+Vector2(10,10)
 	
 func _process(delta: float) -> void:
 	z_index = base_z_index + z_index_modifier + z_index_hover

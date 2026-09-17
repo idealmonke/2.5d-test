@@ -5,7 +5,8 @@ static var status_effect_data_path: String = "res://game_data/status_effects/sta
 
 const CARD_DB: Dictionary = {
 	0001: "burning",
-	0069: "haste"
+	0069: "haste",
+	69420: "dazed"
 }
 
 static func get_status_effect_data(ID: int) -> status_effect_data:
