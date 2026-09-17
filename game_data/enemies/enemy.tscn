@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtosnq5o1su6r" path="res://game_data/enemies/enemy.gd" id="1_n0pnn"]
 [ext_resource type="Texture2D" uid="uid://0m7um0amx7v2" path="res://game_data/enemies/enemy_art/enemy_harpy.png" id="2_mde5d"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="3_mde5d"]
+[ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="4_xqs3r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mja0g"]
 size = Vector2(500, 500)
@@ -13,6 +14,9 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_u3tej"]
 gradient = SubResource("Gradient_md5fw")
+
+[sub_resource type="LabelSettings" id="LabelSettings_5g3yw"]
+font_color = Color(0, 0.23, 0.049833342, 1)
 
 [node name="enemy" type="Area2D" unique_id=239038922]
 script = ExtResource("1_n0pnn")
@@ -92,3 +96,19 @@ script = ExtResource("3_mde5d")
 metadata/_custom_type_script = "uid://t5qbjm3s8snw"
 
 [node name="enemy_card_container" type="Node2D" parent="." unique_id=1801170905]
+
+[node name="shield" type="Node2D" parent="." unique_id=1011721554]
+
+[node name="shield_icon" type="Sprite2D" parent="shield" unique_id=1900575741]
+position = Vector2(126.5, 212)
+scale = Vector2(1.203125, 1.21875)
+texture = ExtResource("4_xqs3r")
+
+[node name="shield_label" type="Label" parent="shield" unique_id=247064764]
+offset_left = 107.0
+offset_top = 193.0
+offset_right = 147.0
+offset_bottom = 216.0
+text = "GTY"
+label_settings = SubResource("LabelSettings_5g3yw")
+horizontal_alignment = 1

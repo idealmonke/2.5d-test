@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_xqp06"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_pq1su"]
-[ext_resource type="Texture2D" uid="uid://cokxdcj3sv5l0" path="res://game_data/status_effects/status_effect_data/dazed.png" id="2_tjr6p"]
+[ext_resource type="Texture2D" uid="uid://bcqxvk8wjv4ap" path="res://game_data/status_effects/status_effect_images/Daze.png" id="2_tjr6p"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_tjr6p"]
 [ext_resource type="Script" uid="uid://rd5dyjcchvf8" path="res://game_data/status_effects/status_effect_calculations/dazed_calculation.gd" id="5_tjr6p"]
 
