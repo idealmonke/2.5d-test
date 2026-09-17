@@ -12,6 +12,7 @@ func execute(targets : targeting_info) -> void:
 		var damage = Damage.new()
 		damage.add_damage(2, COMMON_ENUMS.DAMAGE_TYPE.FIRE)
 		damage.source = BattleController.data.player
+		damage.is_strike = true
 		
 		var status = status_effect.new(status_data)
 		enem.take_damage(damage)

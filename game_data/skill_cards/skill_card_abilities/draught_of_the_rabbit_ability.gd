@@ -1,0 +1,10 @@
+class_name draught_of_the_rabbit_ability
+extends skill_card_ability
+
+func _init() -> void:
+	target_type = COMMON_ENUMS.TARGET_TYPE.NONE
+
+func execute(targets : targeting_info) -> void:
+	var status_data = status_effect_registry.get_status_effect_data(69)
+	var status = status_effect.new(status_data)
+	BattleController.data.player.add_status_stacks(status, 2, 1.0)

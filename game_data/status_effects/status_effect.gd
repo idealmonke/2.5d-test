@@ -10,4 +10,4 @@ var duration_active: int
 func _init(status_data: status_effect_data) -> void:
 	data = status_data
 	stacks = 0
-	duration_active = 0
+	duration_active = 1

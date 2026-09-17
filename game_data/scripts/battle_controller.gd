@@ -52,7 +52,7 @@ func _input(event: InputEvent) -> void:
 	#		for enem in data.enemies:
 	#			enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer, effect_bar: status_effect_display) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -62,6 +62,8 @@ func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : ta
 	targeting_manager_instance = tm
 	display_grid = display
 	end_turn_button = end_turn
+	
+	data.player.status_effect_bar = effect_bar
 	#(must be run post enemy creation): _change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
 # Immutable Game Actions (These are what we call elsewhere)
@@ -147,23 +149,24 @@ func _default_discard_card(card: skill_card) -> void:
 	data.discard.add_card(card)
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 
-func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
-	for key in data.player.current_status_effects:
-		if data.player.current_status_effects.has(key) && data.player.current_status_effects.get(key).timing == timing:
-			data.player.current_status_effects.get(key).execute(self)
-			data.player.current_status_effects.get(key).stacks -= 1
-			if data.player.current_status_effects.get(key).stacks == 0:
-				data.player.current_status_effects.erase(key)
+#func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
+	#for key in data.player.current_status_effects:
+		#if data.player.current_status_effects.has(key) && data.player.current_status_effects.get(key).timing == timing:
+			#data.player.current_status_effects.get(key).execute(self)
+			#data.player.current_status_effects.get(key).stacks -= 1
+			#if data.player.current_status_effects.get(key).stacks == 0:
+				#data.player.current_status_effects.erase(key)
 
 func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
+	
+	data.player.process_statuses(COMMON_ENUMS.TIMING.START)
 	data.player._upkeep_regen_mana()
 	data.player._upkeep_regen_stamina()
 	
 	var current_handsize = data.player.hand_size
 	for i in range(current_handsize):
 		draw_card()
-
-	_process_active_status(COMMON_ENUMS.TIMING.START)
+	
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING
 
 func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
