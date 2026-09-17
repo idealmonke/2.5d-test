@@ -173,9 +173,9 @@ func _update_status():
 	status_effect_bar.reset(current_status_effects)
 
 func _update_stat_bars() -> void:
-	health_bar.value = float(current_health) / max_health * 100
-	stamina_bar.value = float(current_stamina) / max_stamina * 100
-	mana_bar.value = float(current_mana) / max_mana * 100
+	health_bar.value = current_health
+	stamina_bar.value = current_stamina
+	mana_bar.value = current_mana
 	
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina

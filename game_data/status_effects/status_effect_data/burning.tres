@@ -14,8 +14,9 @@ metadata/_custom_type_script = "uid://cbl86pfh536nh"
 script = ExtResource("1_5wx5m")
 name = "Burning"
 desc = "Take some damage!"
-id = 1
+id = 4
 display_image = ExtResource("3_8eigg")
+status_type = 1
 abilities = Dictionary[int, ExtResource("1_8eigg")]({
 0: SubResource("Resource_l4n2p")
 })

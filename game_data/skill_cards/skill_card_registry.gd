@@ -6,7 +6,10 @@ static var skill_card_data_path: String = "res://game_data/skill_cards/skill_car
 const CARD_DB: Dictionary = {
 	1001: "longsword",
 	1002: "rondel_dagger",
+	2001: "lesser_cleanse",
 	2002: "divine_favor",
+	2003: "judgement_bolt",
+	2004: "holy_light",
 	3004: "scavenge",
 	1003: "brief_respite",
 	7001: "molotov",
