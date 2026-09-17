@@ -6,7 +6,7 @@ func _init() -> void:
 
 func execute(targets : targeting_info) -> void:
 	
-	var status_data = status_effect_registry.get_status_effect_data(0001)
+	var status_data = status_effect_registry.get_status_effect_data(4)
 	
 	for enem in BattleController.data.enemies:
 		var damage = Damage.new()

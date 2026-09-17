@@ -1,9 +1,9 @@
 class_name battle_player_data
 extends RefCounted
 
-var base_max_health : int = 50
-var max_health: int = 50
-var current_health: int = 50
+var base_max_health : int = 100
+var max_health: int = 100
+var current_health: int = 100
 
 var base_defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
@@ -83,7 +83,6 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 
 func take_damage(damage: Damage) -> void:
-	
 	if damage.source != null:
 		damage.outgoing_update()
 		
@@ -123,6 +122,8 @@ func gain_shield(shield : int) -> void:
 	_update_stat_bars()
 
 func heal(healing: int) -> void:
+	print(healing)
+	
 	current_health += healing
 	if current_health > max_health:
 		current_health = max_health
