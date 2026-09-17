@@ -20,8 +20,8 @@ var base_mana_regen: int = 5
 var mana_regen: int
 
 var current_shield: int
-var base_shield_rentention: int
-var shield_rentention: int
+var base_shield_retention: int = 0.25
+var shield_retention: int = 0.25
 
 var base_hand_size: int = 5
 var hand_size: int = 5
@@ -38,6 +38,7 @@ var stamina_bar: TextureProgressBar
 var stamina_label: Label
 
 var status_effect_bar: status_effect_display
+var shield_node: Node2D
 
 func get_stamina() -> int:
 	return current_stamina
@@ -46,18 +47,18 @@ func expend_stamina(stamina: int) -> int:
 	current_stamina -= stamina
 	if current_stamina < 0:
 		current_stamina = 0
-	_update_stats_bars()
+	_update_stat_bars()
 	return current_stamina
 	
 func regen_stamina(stamina: int):
 	current_stamina += stamina
 	if current_stamina > max_stamina:
 		current_stamina = max_stamina
-	_update_stats_bars()
+	_update_stat_bars()
 		
 func _upkeep_regen_stamina() -> void:
 	regen_stamina(max_stamina)
-	_update_stats_bars()
+	_update_stat_bars()
 
 func get_mana() -> int:
 	return current_mana
@@ -66,20 +67,20 @@ func expend_mana(mana: int) -> int:
 	current_mana -= mana
 	if current_mana < 0:
 		current_mana = 0
-	_update_stats_bars()
+	_update_stat_bars()
 	return current_mana
 
 func regain_mana(mana: int) -> void:
 	current_mana += mana
 	if current_mana > max_mana:
 		current_mana = max_mana
-	_update_stats_bars()
+	_update_stat_bars()
 
 func _upkeep_regen_mana() -> void:
 	current_mana += mana_regen
 	if current_mana > max_mana:
 		current_mana = max_mana
-	_update_stats_bars()
+	_update_stat_bars()
 
 func take_damage(damage: Damage) -> void:
 	
@@ -88,10 +89,10 @@ func take_damage(damage: Damage) -> void:
 		
 	damage.incoming_update(self.current_status_effects)
 	
-	for key in current_status_effects:
-		var status: status_effect = current_status_effects.get(key)
-		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
-			status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage)
+	#for key in current_status_effects:
+		#var status: status_effect = current_status_effects.get(key)
+		#if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
+			#status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage, status)
 	
 	if current_shield > 0:
 		current_shield -= damage.damage_shield(current_shield, defense)
@@ -101,7 +102,7 @@ func take_damage(damage: Damage) -> void:
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_status()
-	_update_stats_bars()
+	_update_stat_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
@@ -115,17 +116,21 @@ func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> 
 		current_status_effects.set(status.data.name, status)
 	self.update_passive_effects()
 	_update_status()
-	_update_stats_bars()
+	_update_stat_bars()
 
 func _update_status():
 	status_effect_bar.setup(192)
 	status_effect_bar.reset(current_status_effects)
 
+func gain_shield(shield : int) -> void:
+	current_shield += shield
+	_update_stat_bars()
+
 func heal(healing: int) -> void:
 	current_health += healing
 	if current_health > max_health:
 		current_health = max_health
-	_update_stats_bars()
+	_update_stat_bars()
 	
 func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label, status_bars) -> void:
 	health_bar = hp_bar
@@ -142,9 +147,9 @@ func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label, status_bars) ->
 	
 	status_effect_bar = status_bars
 	
-	_update_stats_bars()
+	_update_stat_bars()
 	
-func _update_stats_bars() -> void:
+func _update_stat_bars() -> void:
 	
 	health_bar.value = current_health
 	health_label.text = str(current_health) + "/" + str(max_health)
@@ -158,6 +163,13 @@ func _update_stats_bars() -> void:
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
 	mana_bar.max_value = max_mana
+	
+	if(shield_node):
+		if(current_shield <= 0):
+			shield_node.hide()
+		else:
+			shield_node.show()
+			shield_node.get_node("shield_label").text = str(current_shield)
 
 func process_statuses(timing: COMMON_ENUMS.TIMING) -> void:
 	_process_active_status(timing)
@@ -166,7 +178,6 @@ func process_statuses(timing: COMMON_ENUMS.TIMING) -> void:
 	_update_status()
 
 func update_passive_effects() -> void:
-	print("Daniel Sucks")
 	max_health = base_max_health
 	max_mana = base_max_mana
 	max_stamina = base_max_stamina

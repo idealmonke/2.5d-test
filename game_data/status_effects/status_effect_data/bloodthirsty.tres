@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://dmq0teinegcef"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_dybfd"]
+[ext_resource type="Script" uid="uid://cbl86pfh536nh" path="res://game_data/status_effects/status_effect_abilities/burning_ability.gd" id="2_h5frx"]
+[ext_resource type="Texture2D" uid="uid://dqhm0dxd5wq6d" path="res://game_data/status_effects/status_effect_images/Bloodthirsty.png" id="3_h5frx"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="4_q8er1"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="5_n4x7r"]
+[ext_resource type="Script" uid="uid://bvc0cnua1282n" path="res://game_data/status_effects/status_effect_calculations/bloodthirsty_calculation.gd" id="6_h5frx"]
+
+[sub_resource type="Resource" id="Resource_l4n2p"]
+script = ExtResource("2_h5frx")
+metadata/_custom_type_script = "uid://cbl86pfh536nh"
+
+[sub_resource type="Resource" id="Resource_h5frx"]
+script = ExtResource("6_h5frx")
+metadata/_custom_type_script = "uid://bvc0cnua1282n"
+
+[sub_resource type="Resource" id="Resource_d4tbx"]
+script = ExtResource("6_h5frx")
+metadata/_custom_type_script = "uid://bvc0cnua1282n"
+
+[resource]
+script = ExtResource("4_q8er1")
+name = "Bloodthirsty"
+desc = "For each stack of bloodthirsty, your physical strikes deal an additional 1 damage and physical strikes against you deal an additional 1 damage."
+id = 2
+display_image = ExtResource("3_h5frx")
+abilities = Dictionary[int, ExtResource("1_dybfd")]({
+0: SubResource("Resource_l4n2p")
+})
+stats_calculations = Dictionary[int, ExtResource("5_n4x7r")]({
+6: SubResource("Resource_d4tbx"),
+7: SubResource("Resource_h5frx")
+})
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"

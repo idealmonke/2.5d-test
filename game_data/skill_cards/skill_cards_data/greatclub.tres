@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://b7exfrxm5hb1a"]
+
+[ext_resource type="Script" uid="uid://cfx4slvlrx8d5" path="res://game_data/skill_cards/skill_card_abilities/greatclub_ability.gd" id="1_6086p"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_k3ydw"]
+
+[sub_resource type="Resource" id="Resource_mja0g"]
+script = ExtResource("1_6086p")
+metadata/_custom_type_script = "uid://cfx4slvlrx8d5"
+
+[resource]
+script = ExtResource("2_k3ydw")
+stamina_cost = 5
+card_ability = SubResource("Resource_mja0g")
+ability_desc = "Strike once for 12 physical damage, if you have bloodthirsty stacks gain an additional stack."
+target_type = 1
+card_name = "Greatclub"
+card_id = 5002
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"
