@@ -161,8 +161,8 @@ func _default_discard_card(card: skill_card) -> void:
 				#data.player.current_status_effects.erase(key)
 
 func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
-	data.player.process_statuses()
 	
+	data.player.process_statuses(COMMON_ENUMS.TIMING.START)
 	data.player._upkeep_regen_mana()
 	data.player._upkeep_regen_stamina()
 	

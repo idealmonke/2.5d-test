@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0xhj7txxqvb7"
-path="res://.godot/imported/haste.png-701f2c482886b2464ceb3f3013058cb6.ctex"
+uid="uid://cmt2kbyoybsm2"
+path="res://.godot/imported/Regeneration.png-efcc2e7f94de4fa48288bc9553e00525.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_data/status_effects/status_effect_data/haste.png"
-dest_files=["res://.godot/imported/haste.png-701f2c482886b2464ceb3f3013058cb6.ctex"]
+source_file="res://game_data/status_effects/status_effect_images/Regeneration.png"
+dest_files=["res://.godot/imported/Regeneration.png-efcc2e7f94de4fa48288bc9553e00525.ctex"]
 
 [params]
 

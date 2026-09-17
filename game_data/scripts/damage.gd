@@ -16,21 +16,22 @@ func add_damage(amount: int, type: COMMON_ENUMS.DAMAGE_TYPE):
 		damages.set(type, damages.get(type) + amount)
 	else:
 		damages.set(type, amount)
-	
+
 func modify_all_damage(calculation: Callable):
 	for key in damages:
 		damages.set(key, calculation.call(damages.get(key)))
 	
+## Calculation in the form func(int) -> int:
 func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 	if damages.has(type):
 		damages.set(type, calculation.call(damages.get(type)))
 
 # Checks if a player status adds to the outgoing damage
 func outgoing_update() -> void:
-	for status_key in source.current_status_effects:
-		var status: status_effect = source.current_status_effects.get(status_key)
+	for status_key in self.source.current_status_effects:
+		var status: status_effect = self.source.current_status_effects.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
-			self.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE).calculate.call(self)
 			
 func incoming_update(statuses: Dictionary[String, status_effect]) -> void:
 	for status_key in statuses:
