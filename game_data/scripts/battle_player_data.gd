@@ -85,11 +85,13 @@ func take_damage(damage: Damage) -> void:
 	
 	if damage.source != null:
 		damage.outgoing_update()
+		
+	damage.incoming_update(self.current_status_effects)
 	
 	for key in current_status_effects:
 		var status: status_effect = current_status_effects.get(key)
-		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
-			damage.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
+			status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage)
 	
 	if current_shield > 0:
 		current_shield -= damage.damage_shield(current_shield, defense)
@@ -99,6 +101,7 @@ func take_damage(damage: Damage) -> void:
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_status()
+	_update_stats_bars()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
@@ -110,7 +113,9 @@ func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> 
 		status.stacks = stacks
 		status.magnitude = magnitude
 		current_status_effects.set(status.data.name, status)
+	self.update_passive_effects()
 	_update_status()
+	_update_stats_bars()
 
 func _update_status():
 	status_effect_bar.setup(192)
@@ -149,14 +154,19 @@ func _update_stats_bars() -> void:
 	
 	stamina_bar.value = current_stamina
 	stamina_label.text = str(current_stamina) + "/" + str(max_stamina)
+	
+	health_bar.max_value = max_health
+	stamina_bar.max_value = max_stamina
+	mana_bar.max_value = max_mana
 
-func process_statuses() -> void:
-	_process_active_status(COMMON_ENUMS.TIMING.START)
+func process_statuses(timing: COMMON_ENUMS.TIMING) -> void:
+	_process_active_status(timing)
 	update_passive_effects()
 	_process_status_stacks()
 	_update_status()
 
 func update_passive_effects() -> void:
+	print("Daniel Sucks")
 	max_health = base_max_health
 	max_mana = base_max_mana
 	max_stamina = base_max_stamina

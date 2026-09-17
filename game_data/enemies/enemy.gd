@@ -128,8 +128,8 @@ func take_damage(damage: Damage) -> void:
 	
 	for key in current_status_effects:
 		var status: status_effect = current_status_effects.get(key)
-		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
-			damage.modify_all_damage(status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE].calculate)
+		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
+			status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage)
 	
 	if current_shield > 0:
 		current_shield -= damage.damage_shield(current_shield, defense)
@@ -139,6 +139,7 @@ func take_damage(damage: Damage) -> void:
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
 	_update_stat_bars()
+	_update_status()
 
 func is_dead() -> bool:
 	return current_health<=0
@@ -153,7 +154,9 @@ func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> 
 		status.stacks = stacks
 		status.magnitude = magnitude
 		current_status_effects.set(status.data.name, status)
+	self.update_passive_effects()
 	_update_status()
+	_update_stat_bars()
 
 func _update_status():
 	status_effect_bar.setup(192)
@@ -163,6 +166,10 @@ func _update_stat_bars() -> void:
 	health_bar.value = float(current_health) / max_health * 100
 	stamina_bar.value = float(current_stamina) / max_stamina * 100
 	mana_bar.value = float(current_mana) / max_mana * 100
+	
+	health_bar.max_value = max_health
+	stamina_bar.max_value = max_stamina
+	stamina_bar.max_value = max_mana
 	
 	health_bar_text.text = str(current_health)+"/"+str(max_health)
 	stamina_bar_text.text = str(current_stamina)+"/"+str(max_stamina)
