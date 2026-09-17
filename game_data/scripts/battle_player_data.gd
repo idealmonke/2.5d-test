@@ -89,20 +89,16 @@ func take_damage(damage: Damage) -> void:
 		
 	damage.incoming_update(self.current_status_effects)
 	
-	#for key in current_status_effects:
-		#var status: status_effect = current_status_effects.get(key)
-		#if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
-			#status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage, status)
-	
-	if current_shield > 0:
-		current_shield -= damage.damage_shield(current_shield, defense)
+	if current_shield > 0 && !damage.ignore_shield:
+		var variable = damage.damage_shield(current_shield, defense)
+		current_shield -= variable
 	current_health -= damage.damage_health(defense)
 	
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
-	_update_status()
 	_update_stat_bars()
+	_update_status()
 	
 func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
