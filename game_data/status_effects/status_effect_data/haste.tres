@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://bgxau2v1nwdx4"
 script = ExtResource("2_qt3ri")
 name = "Haste"
 desc = "+2 max stamina"
-id = 69
+id = 7
 display_image = ExtResource("2_dbiwf")
 stats_calculations = Dictionary[int, ExtResource("3_dbiwf")]({
 1: SubResource("Resource_qt3ri")

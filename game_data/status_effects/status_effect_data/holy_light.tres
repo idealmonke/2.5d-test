@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://cmm87vet00vch"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_ac00o"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_4mpya"]
+[ext_resource type="Script" uid="uid://dt22ymdkxy8hf" path="res://game_data/status_effects/status_effect_abilities/holy_light_ability.gd" id="2_bfkm2"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="3_4ds16"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_bfkm2"]
+
+[sub_resource type="Resource" id="Resource_4ds16"]
+script = ExtResource("2_bfkm2")
+metadata/_custom_type_script = "uid://dt22ymdkxy8hf"
+
+[resource]
+script = ExtResource("2_4mpya")
+name = "Holy Light"
+desc = "Take 3 Holy Damage at start of turn"
+id = 9
+display_image = ExtResource("3_4ds16")
+status_type = 1
+abilities = Dictionary[int, ExtResource("1_ac00o")]({
+0: SubResource("Resource_4ds16")
+})
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"
