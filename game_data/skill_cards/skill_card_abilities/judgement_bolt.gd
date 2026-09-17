@@ -6,12 +6,12 @@ func _init() -> void:
 
 func execute(targets : targeting_info) -> void:
 	
-	var status_data = status_effect_registry.get_status_effect_data(0006)
+	var status_data = status_effect_registry.get_status_effect_data(0003)
 	
 	var damage = Damage.new()
 	damage.add_damage(6, COMMON_ENUMS.DAMAGE_TYPE.HOLY)
 	damage.source = BattleController.data.player
-	damage.is_strike = false
+	damage.is_strike = true
 	
 	var status = status_effect.new(status_data)
 	targets.single_target().take_damage(damage)

@@ -7,6 +7,8 @@ var source: Variant
 
 var is_strike: bool = false
 
+var ignore_shield: bool = false
+
 # Pass in Lambda, int parameter and return int.
 var shield_multipliers: Array[Callable] = []
 var health_multipliers: Array[Callable] = []
@@ -28,12 +30,21 @@ func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 
 # Checks if a player status adds to the outgoing damage
 func outgoing_update() -> void:
+	if self.source.current_status_effects.has("Blindness"):
+		print("Checking")
+		if randi() % 2 == 1:
+			print("Blinded!")
+			damages.clear()
+			health_multipliers.clear()
+			shield_multipliers.clear()
+			return
+
 	for status_key in self.source.current_status_effects:
 		var status: status_effect = self.source.current_status_effects.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
 			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE).calculate.call(self, status)
 			
-func incoming_update(statuses: Dictionary[String, status_effect]) -> void:
+func incoming_update(statuses: Dictionary[String, status_effect]) -> void:	
 	for status_key in statuses:
 		var status: status_effect = statuses.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):

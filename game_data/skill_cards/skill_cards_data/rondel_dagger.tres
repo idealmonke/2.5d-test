@@ -16,5 +16,5 @@ ability_desc = "Strike one target for 2 physical damage per card in discard, twi
 target_type = 1
 card_name = "Rondel Dagger"
 card_art = ExtResource("1_lao5g")
-card_id = 1002
+card_id = 3001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"
