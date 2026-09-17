@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://3m8wmv25xp6r"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_nrxv3"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_nmxdf"]
+[ext_resource type="Texture2D" uid="uid://yvsegaa3aqrs" path="res://game_data/status_effects/status_effect_images/Blindness.png" id="2_oapyt"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_oapyt"]
+
+[resource]
+script = ExtResource("2_nmxdf")
+name = "Blindness"
+desc = "50% for strike to miss"
+id = 1
+display_image = ExtResource("2_oapyt")
+status_type = 1
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"

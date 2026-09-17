@@ -12,3 +12,4 @@ func execute(targets : targeting_info) -> void:
 			status.stacks -= 1
 			if status.stacks == 0:
 				BattleController.data.player.current_status_effects.erase(key)
+	BattleController.data.player._update_status()

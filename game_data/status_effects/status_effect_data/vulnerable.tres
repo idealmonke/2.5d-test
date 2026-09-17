@@ -4,6 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bk7byq3btm2v3" path="res://game_data/status_effects/status_effect_images/Broken Shield.png" id="2_ggl8j"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_uhcgg"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_ggl8j"]
+[ext_resource type="Script" uid="uid://0isduybkrmpc" path="res://game_data/status_effects/status_effect_calculations/vulnerable_calculation.gd" id="5_ggl8j"]
+
+[sub_resource type="Resource" id="Resource_d87u7"]
+script = ExtResource("5_ggl8j")
+metadata/_custom_type_script = "uid://0isduybkrmpc"
 
 [resource]
 script = ExtResource("2_uhcgg")
@@ -12,4 +17,7 @@ desc = "Increases damage taken by 20%"
 id = 3
 display_image = ExtResource("2_ggl8j")
 status_type = 1
+stats_calculations = Dictionary[int, ExtResource("3_ggl8j")]({
+7: SubResource("Resource_d87u7")
+})
 metadata/_custom_type_script = "uid://ckat7g3sy3t70"
