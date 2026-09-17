@@ -48,6 +48,8 @@ var health_bar: TextureProgressBar
 var stamina_bar: TextureProgressBar
 var mana_bar: TextureProgressBar
 
+var shield_node: Node2D
+
 var enemy_card_container : Node2D
 
 var health_bar_text : Label
@@ -77,6 +79,8 @@ func _ready() -> void:
 	enemy_card_container = $enemy_card_container
 	
 	status_effect_bar = $status_effect_bar
+	
+	shield_node = $shield
 
 func get_stamina() -> int:
 	return current_stamina
@@ -132,7 +136,9 @@ func take_damage(damage: Damage) -> void:
 			status.data.stats_calculations[COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE].calculate.call(damage)
 	
 	if current_shield > 0:
-		current_shield -= damage.damage_shield(current_shield, defense)
+		var variable = damage.damage_shield(current_shield, defense)
+		current_shield -= variable
+		print("TYELRHKEJSKLJFDDKFJKFKJFD TURD"+ str(variable))
 	current_health -= damage.damage_health(defense)
 	
 	if (damage.is_strike):
@@ -140,6 +146,10 @@ func take_damage(damage: Damage) -> void:
 	
 	_update_stat_bars()
 	_update_status()
+
+func gain_shield(shield : int) -> void:
+	current_shield += shield
+	_update_stat_bars()
 
 func is_dead() -> bool:
 	return current_health<=0
@@ -175,6 +185,11 @@ func _update_stat_bars() -> void:
 	stamina_bar_text.text = str(current_stamina)+"/"+str(max_stamina)
 	mana_bar_text.text = str(current_mana)+"/"+str(max_mana)
 	
+	if(current_shield <= 0):
+		shield_node.hide()
+	else:
+		shield_node.show()
+		shield_node.get_node("shield_label").text = str(current_shield)
 	
 func initialize_data(data: enemy_data, cur_idx : int) -> void:
 	enemy_name = data.enemy_name

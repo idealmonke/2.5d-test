@@ -7,8 +7,7 @@ const CARD_DB: Dictionary = {
 	0001: "burning",
 	0069: "haste",
 	69420: "dazed",
-	0002: "divine_favor",
-	0069: "haste"
+	0002: "divine_favor"
 }
 
 static func get_status_effect_data(ID: int) -> status_effect_data:

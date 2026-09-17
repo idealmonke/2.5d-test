@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://ef76bmulu7gf"]
+[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://bscpiuhrkw4a7"]
 
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_1hd5p"]
 [ext_resource type="Script" uid="uid://dvlvlpxdfn5og" path="res://game_data/skill_cards/skill_card_abilities/longsword_ability.gd" id="1_d87u7"]

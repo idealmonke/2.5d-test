@@ -59,6 +59,7 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 				min_damage = equation.call(min_damage)
 				
 			damages[key] -= min_damage
+			total_damage_applied += min_damage
 			break
 						
 		else:
