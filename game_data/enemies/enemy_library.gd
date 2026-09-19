@@ -3,12 +3,6 @@ extends Node
 
 var library: Array[EnemyCard]
 
-func _ready() -> void:
-	pass
-
-#func init(ids : Array[int]):
-#	pass
-
 func draw_card() -> EnemyCard:
 	if library.is_empty():
 		return

@@ -2,7 +2,7 @@ extends HBoxContainer
 
 const battle_config_path = "res://game_data/battle_config.tres"
 var idx_to_id : Dictionary
-var config : battle_config
+var config : BattleConfig
 
 func _ready() -> void:
 	config = load(battle_config_path)

@@ -20,8 +20,6 @@ var card_stamina_cost_label: Label
 var card_mana_cost_label: Label
 
 # Card Control Data
-var controller: battle_controller
-var data: BattleData
 var interactable_state: COMMON_ENUMS.ENEMY_CARD_STATE
 var hand_location: Vector2
 var library_location: Vector2
@@ -30,24 +28,13 @@ var library_location: Vector2
 @export var rotate_lerp: int = 12
 var location_offset: Vector2
 var playing_target: Vector2
+var rotation_offset : float = 0
 
-var rotation_offset
 
-# tyler's bleh variables
-var screen_size: Vector2
-
-func _ready() -> void:
-	screen_size = get_viewport().get_visible_rect().size
-	rotation_offset = 0
-	
-	#TEMP
-	#hand_location = Vector2(screen_size.x / 2.0, screen_size.y - 150)
-	#library_location = Vector2(screen_size.x - 200,200)
-	
+func _ready() -> void:	
 	card_main_frame = $Sprite2D
 	
 	change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
-	#interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
 	
 	card_name_label = $card_name
 	card_ability_label = $card_ability
@@ -82,10 +69,6 @@ func _create_tween(pos : Vector2, rot: float):
 	tween.tween_property(self, "position", pos, 0.2)
 	tween.parallel().tween_property(self, "rotation", rot, 0.2)
 
-func _late_setup() -> void:
-	#intialize controller and data
-	pass
-
 func set_back() -> void:
 	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Card_Back.png")
 	card_name_label.hide()
@@ -102,14 +85,13 @@ func set_front() -> void:
 	card_ability_label.show()
 
 func _update_text() -> void:
-	# Change to actual propertes once they initialize correctly
 	card_name_label.text = card_name
 	card_ability_label.text = ability_desc
 	card_stamina_cost_label.text = str(stamina_cost)
 	card_mana_cost_label.text = str(mana_cost)
 
-func initialize_card(resource_data: EnemyCardData, idx : int) -> void:
-	#temp (hi tyler >:D)
+func initialize_card(resource_data: EnemyCardData) -> void:
+	#TEMP SCALE
 	scale = Vector2(0.5,0.5)
 	
 	card_name = resource_data.card_name
@@ -123,7 +105,6 @@ func initialize_card(resource_data: EnemyCardData, idx : int) -> void:
 	stamina_cost = resource_data.stamina_cost
 	
 	#HARDCODED LOCATIONS
-	
 	library_location = Vector2(-200,0)
 	hand_location = Vector2(-100,400)
 	playing_target  =  Vector2(0,500)

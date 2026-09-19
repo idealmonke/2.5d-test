@@ -21,8 +21,6 @@ var card_mana_cost_label: Label
 var card_stamina_cost_label: Label
 
 # Card Control Data
-var controller: battle_controller
-var data: BattleData
 var interactable_state: COMMON_ENUMS.INTERACT_STATE:
 	set(value):
 		interactable_state = value
@@ -49,13 +47,11 @@ var exhaust_material: ShaderMaterial
 var tween_scale: Tween
 var base_scale: Vector2
 
-var base_z_index : float
-var z_index_modifier: float
-var z_index_hover: float
-
+var base_z_index : int
+var z_index_modifier: int
+var z_index_hover: int
 
 var hover : bool
-
 
 # Card State
 var exhausted: bool:
@@ -145,8 +141,6 @@ func initialize_card(resource_data: SkillCardData) -> void:
 	stamina_cost = resource_data.stamina_cost
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
-	
-	# Temporarily disable until we figure this out
 	ability = resource_data.card_ability
 	# classes = resource_data.card_classes
 	_update_text()

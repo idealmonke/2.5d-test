@@ -8,20 +8,20 @@ var current_health: int = 100
 var base_defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
-var base_max_stamina: int = 10
-var max_stamina: int = 10
-var current_stamina: int = 10
+var base_max_stamina: int = 100
+var max_stamina: int = 100
+var current_stamina: int = 100
 
-var base_max_mana: int = 15
-var max_mana: int = 15
-var current_mana: int = 15
+var base_max_mana: int = 150
+var max_mana: int = 150
+var current_mana: int = 150
 
 var base_mana_regen: int = 5
 var mana_regen: int
 
 var current_shield: int
-var base_shield_retention: int = 0.25
-var shield_retention: int = 0.25
+var base_shield_retention: float = 0.25
+var shield_retention: float = 0.25
 
 var base_hand_size: int = 5
 var hand_size: int = 5
@@ -206,9 +206,7 @@ func _process_status_stacks():
 	for key in current_status_effects.duplicate():
 		var status: StatusEffect = current_status_effects.get(key)
 		
-		#print(status.data.name+" / stacks: "+str(status.stacks))	
 		status.stacks -= 1
-		#print(status.data.name+" / (post) stacks: "+str(status.stacks))	
 		status.duration_active += 1
 		
 		if status.stacks == 0:

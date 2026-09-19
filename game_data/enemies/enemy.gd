@@ -122,7 +122,6 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 	
 func take_damage(damage: Damage) -> void:
-	
 	if damage.source != null:
 		damage.outgoing_update()
 		
@@ -161,7 +160,6 @@ func add_status_stacks(status: StatusEffect, stacks: int, magnitude: float) -> v
 	_update_stat_bars()
 
 func _update_status():
-	status_effect_bar.setup(192)
 	status_effect_bar.reset(current_status_effects)
 
 func _update_stat_bars() -> void:
@@ -223,12 +221,6 @@ func initialize_data(data: EnemyData, cur_idx : int) -> void:
 		sprite.position.y -= 100
 	
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
-	
-	#activate_goku_mode(data.card_ids)
-
-#func activate_goku_mode(ids : Array[int]):
-#	library = EnemyLibrary.new()
-#	library.init(ids)
 
 func setup_library(lib : Array[EnemyCard]) -> void:
 	hand = EnemyHand.new()
@@ -247,7 +239,6 @@ func process_turn() -> void:
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
-	
 	
 	if(current_health<=0):
 		return
@@ -299,8 +290,3 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
 			status.data.abilities[timing].execute(self, status)
-
-func is_full_health() -> bool:
-	if max_health == current_health:
-		return true
-	return false

@@ -4,17 +4,6 @@ extends FlowContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-	#setup(200)
-	#var status = status_effect.new(StatusEffectRegistry.get_status_effect_data(1001))
-	#status.stacks = 5
-	#_add_effect(status)
-	#_add_effect(status)
-	#_add_effect(status)
-	#_add_effect(status)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func setup(min_width: int):
 	custom_minimum_size.x = min_width

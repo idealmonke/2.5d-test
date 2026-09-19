@@ -1,30 +1,25 @@
 class_name TargetingManager
 extends Node2D
 
-var _targeting : bool = false
-
-var _cur_arrow : Line2D
-var _placed_arrows : Array[Line2D]
-var _arrow_head : Sprite2D
-var _placed_arrowheads : Array[Sprite2D]
-
+#UI elements
 var arrow_head_texture = preload("res://game_data/arrowhead.png")
-
-var res : Enemy
-
-var OFFSETS : Array[int]
-
-var cur_card : SkillCard
-var cur_type : COMMON_ENUMS.TARGET_TYPE
-
+var _cur_arrow : Line2D
+var _arrow_head : Sprite2D
 var cancel_button : Button
 var confirm_button : Button
 
+#card info
+var cur_card : SkillCard
+var cur_type : COMMON_ENUMS.TARGET_TYPE
+
+var _targeting : bool = false
+var _num_arrows : int = 0
+var res : Enemy
+
+var OFFSETS : Array[int]
 var cur_targets : TargetingInfo
 
 func _ready() -> void:
-	_placed_arrows = []
-	_placed_arrowheads = []
 	OFFSETS = [0,0,0]
 	
 	cancel_button = $cancel_button
@@ -40,16 +35,13 @@ func select_targets(card: SkillCard) -> TargetingInfo:
 	cur_targets = TargetingInfo.new()
 	
 	cancel_button.visible = true
-	#confirm_button.visible = true
 	
 	_create_arrow()
 	
-	#targeting UI
-	#player inputs
 	return await targeting_finished
 
 func _get_color() -> Color:
-	var hue = float(len(_placed_arrows))/9.0
+	var hue = float(_num_arrows)/9.0
 	return Color.from_hsv(hue, 0.45, 0.9)
 
 func _create_arrow():
@@ -81,7 +73,6 @@ func _process(_delta: float) -> void:
 func _display_arrow():
 	var screen_size = get_viewport().get_visible_rect().size
 	var start = (screen_size/2)
-	#var end = get_global_mouse_position()
 	var end = BattleController.data.enemy_locations[res.idx]
 	
 	_cur_arrow.clear_points()
@@ -113,9 +104,6 @@ func _input(event):
 		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_placed_arrows.append(_cur_arrow)
-			_placed_arrowheads.append(_arrow_head)
-			
 			cur_targets.add_target(res)
 			
 			_create_arrow()
@@ -138,19 +126,15 @@ func check_targets():
 		_targeting = false
 
 func _reset():
-	for arrow in _placed_arrows:
-		arrow.queue_free()
-	_cur_arrow.queue_free()
-	_placed_arrows.clear()
-	
-	for arrow_head in _placed_arrowheads:
-		arrow_head.queue_free()
-	_arrow_head.queue_free()
-	_placed_arrowheads.clear()
+	for child in get_children():
+		if(not child is Button):
+			child.queue_free()
 	
 	cancel_button.visible = false
 	confirm_button.visible = false
 	
+	OFFSETS = [0,0,0]
+	_num_arrows = 0
 	_targeting = false
 
 func get_enemy_under_mouse():
