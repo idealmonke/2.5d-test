@@ -1,5 +1,5 @@
-class_name status_effect_ability
+class_name StatusEffectAbility
 extends Resource
 
-func execute(target: Variant, status: status_effect) -> void:
+func execute(target: Variant, status: StatusEffect) -> void:
 	pass

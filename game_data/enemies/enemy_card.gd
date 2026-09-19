@@ -1,4 +1,4 @@
-class_name enemy_card
+class_name EnemyCard
 extends Area2D
 
 # Card Details
@@ -8,7 +8,7 @@ var card_art: Texture2D
 var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
-var ability: enemy_card_ability
+var ability: EnemyCardAbility
 
 # Card Sprites
 var card_main_frame: Sprite2D
@@ -21,7 +21,7 @@ var card_mana_cost_label: Label
 
 # Card Control Data
 var controller: battle_controller
-var data: battle_data
+var data: BattleData
 var interactable_state: COMMON_ENUMS.ENEMY_CARD_STATE
 var hand_location: Vector2
 var library_location: Vector2
@@ -108,7 +108,7 @@ func _update_text() -> void:
 	card_stamina_cost_label.text = str(stamina_cost)
 	card_mana_cost_label.text = str(mana_cost)
 
-func initialize_card(resource_data: enemy_card_data, idx : int) -> void:
+func initialize_card(resource_data: EnemyCardData, idx : int) -> void:
 	#temp (hi tyler >:D)
 	scale = Vector2(0.5,0.5)
 	

@@ -1,4 +1,4 @@
-class_name status_effect_data
+class_name StatusEffectData
 extends Resource
 
 @export var name: String
@@ -8,7 +8,7 @@ extends Resource
 @export var status_type: COMMON_ENUMS.STATUS_TYPE
 
 ## APPLIES WHEN STATUS IS ACTIVE
-@export var abilities: Dictionary[COMMON_ENUMS.TIMING, status_effect_ability]
+@export var abilities: Dictionary[COMMON_ENUMS.TIMING, StatusEffectAbility]
 
 ## APPLIES WHEN STATUS IS PASSIVE
-@export var stats_calculations: Dictionary[COMMON_ENUMS.PLAYER_STATS, status_effect_calculation]
+@export var stats_calculations: Dictionary[COMMON_ENUMS.PLAYER_STATS, StatusEffectCalculation]

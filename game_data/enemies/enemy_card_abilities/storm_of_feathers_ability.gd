@@ -1,5 +1,5 @@
 class_name storm_of_feathers_ability
-extends enemy_card_ability
+extends EnemyCardAbility
 
 func execute() -> void:
 	for i in range(3):

@@ -1,7 +1,7 @@
 class_name battle_controller
 extends Node
 
-var data: battle_data
+var data: BattleData
 var active_turn: Variant
 
 # Lambda Functions for game events, modified by perks
@@ -10,21 +10,21 @@ var current_discard_card: Callable
 
 var current_state: COMMON_ENUMS.BATTLE_STATE = COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE
 
-var display_grid: skill_card_display_grid
+var display_grid: SkillCardDisplayGrid
 
 # Necessary UI Stuff
 var end_turn_button: Button
 var win_screen : PanelContainer
 
 #Targeting Manager
-var targeting_manager_instance : targeting_manager
+var targeting_manager_instance : TargetingManager
 
 signal display_signal
 
 # Init Battle Controller
 func _ready() -> void:
-	data = battle_data.new()
-	data.player = battle_player_data.new()
+	data = BattleData.new()
+	data.player = BattlePlayerData.new()
 	data.player.base_defense.set(COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL, 6)
 	data.player.defense = data.player.base_defense.duplicate()
 	
@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 	#		for enem in data.enemies:
 	#			enem.process_turn()
 				
-func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : targeting_manager, end_turn, display: skill_card_display_grid, win: PanelContainer, effect_bar: status_effect_display, shield_node : Node2D) -> void:
+func setup(battle_scene: Node, discard: Node, hand: Node, library: Node, tm : TargetingManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -79,7 +79,7 @@ func draw_card() -> void:
 	current_draw_card.call()
 	# Some More Stuff
 	
-func discard_card(card: skill_card) -> void:
+func discard_card(card: SkillCard) -> void:
 	# Some Stuff
 	current_discard_card.call(card)
 	# Some More Stuff
@@ -100,7 +100,7 @@ func replenish_discard() -> void:
 		card.set_back()
 	data.library.shuffle()
 	
-func replenish_single(card: skill_card) -> void:
+func replenish_single(card: SkillCard) -> void:
 	var temp = data.discard.pop_card(card)
 	if temp == null:
 		return
@@ -116,7 +116,7 @@ func discard_front() -> void:
 	data.discard.add_card(temp)
 	temp.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 	
-func play_card(card: skill_card) -> void:
+func play_card(card: SkillCard) -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING)
 	data.hand.pop_card(card)
 	card.z_index_modifier = 10
@@ -149,7 +149,7 @@ func _default_draw_card() -> void:
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.HAND
 	card.set_front()
 
-func _default_discard_card(card: skill_card) -> void:
+func _default_discard_card(card: SkillCard) -> void:
 	data.hand.pop_card(card)
 	data.discard.add_card(card)
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
@@ -178,7 +178,7 @@ func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING
 
 func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
-	var old_cards: Array[skill_card] = data.hand.pop_each()
+	var old_cards: Array[SkillCard] = data.hand.pop_each()
 	old_cards.append_array(data.discard.pop_exhausted())
 	
 	data.discard.exhaust_cards()

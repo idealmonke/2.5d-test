@@ -1,12 +1,12 @@
 class_name molotov_ability
-extends skill_card_ability
+extends SkillCardAbility
 
 func _init() -> void:
 	target_type = COMMON_ENUMS.TARGET_TYPE.NONE
 
-func execute(targets : targeting_info) -> void:
+func execute(targets : TargetingInfo) -> void:
 	
-	var status_data = status_effect_registry.get_status_effect_data(4)
+	var status_data = StatusEffectRegistry.get_status_effect_data(4)
 	
 	for enem in BattleController.data.enemies:
 		var damage = Damage.new()
@@ -14,6 +14,6 @@ func execute(targets : targeting_info) -> void:
 		damage.source = BattleController.data.player
 		damage.is_strike = true
 		
-		var status = status_effect.new(status_data)
+		var status = StatusEffect.new(status_data)
 		enem.take_damage(damage)
 		enem.add_status_stacks(status, 3, 1.0)

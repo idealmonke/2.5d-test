@@ -1,5 +1,5 @@
-class_name status_effect_calculation
+class_name StatusEffectCalculation
 extends Resource
 
-func calculate(value: Variant, status : status_effect = null) -> Variant:
+func calculate(value: Variant, status : StatusEffect = null) -> Variant:
 	return null

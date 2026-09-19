@@ -1,5 +1,5 @@
 class_name claws_ability
-extends enemy_card_ability
+extends EnemyCardAbility
 
 func execute() -> void:
 	for i in range(2):

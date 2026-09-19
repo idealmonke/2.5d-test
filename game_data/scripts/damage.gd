@@ -40,13 +40,13 @@ func outgoing_update() -> void:
 			return
 
 	for status_key in self.source.current_status_effects:
-		var status: status_effect = self.source.current_status_effects.get(status_key)
+		var status: StatusEffect = self.source.current_status_effects.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
 			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE).calculate.call(self, status)
 			
-func incoming_update(statuses: Dictionary[String, status_effect]) -> void:	
+func incoming_update(statuses: Dictionary[String, StatusEffect]) -> void:	
 	for status_key in statuses:
-		var status: status_effect = statuses.get(status_key)
+		var status: StatusEffect = statuses.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE):
 			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE).calculate.call(self, status)
 			

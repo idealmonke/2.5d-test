@@ -1,4 +1,4 @@
-class_name targeting_manager
+class_name TargetingManager
 extends Node2D
 
 var _targeting : bool = false
@@ -10,17 +10,17 @@ var _placed_arrowheads : Array[Sprite2D]
 
 var arrow_head_texture = preload("res://game_data/arrowhead.png")
 
-var res : enemy
+var res : Enemy
 
 var OFFSETS : Array[int]
 
-var cur_card : skill_card
+var cur_card : SkillCard
 var cur_type : COMMON_ENUMS.TARGET_TYPE
 
 var cancel_button : Button
 var confirm_button : Button
 
-var cur_targets : targeting_info
+var cur_targets : TargetingInfo
 
 func _ready() -> void:
 	_placed_arrows = []
@@ -30,14 +30,14 @@ func _ready() -> void:
 	cancel_button = $cancel_button
 	confirm_button = $confirm_button
 
-signal targeting_finished(targets: targeting_info)
+signal targeting_finished(targets: TargetingInfo)
 
-func select_targets(card: skill_card) -> targeting_info:
+func select_targets(card: SkillCard) -> TargetingInfo:
 	_targeting = true
 	cur_card = card
 	cur_type = card.ability.target_type
 	
-	cur_targets = targeting_info.new()
+	cur_targets = TargetingInfo.new()
 	
 	cancel_button.visible = true
 	#confirm_button.visible = true
@@ -161,7 +161,7 @@ func get_enemy_under_mouse():
 	
 	var results = get_world_2d().direct_space_state.intersect_point(query)
 	for result in results:
-		if result.collider is enemy:
+		if result.collider is Enemy:
 			return result.collider
 
 func bezier(start: Vector2, control: Vector2, end: Vector2, t: float) -> Vector2:

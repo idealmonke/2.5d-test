@@ -1,17 +1,17 @@
-class_name targeting_info
+class_name TargetingInfo
 extends RefCounted
 
 enum POSITIONS {LEFT, MIDDLE, RIGHT}
 
-var targets : Array[enemy]
+var targets : Array[Enemy]
 
-func add_target(enem : enemy):
+func add_target(enem : Enemy):
 	targets.append(enem)
 	
-func single_target() -> enemy:
+func single_target() -> Enemy:
 	return targets[0]
 	
-func all_targets() -> Array[enemy]:
+func all_targets() -> Array[Enemy]:
 	var enemies = []
 	for enem in targets:
 		enemies.append(enem)

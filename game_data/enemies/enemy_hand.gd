@@ -1,9 +1,9 @@
-class_name enemy_hand
+class_name EnemyHand
 extends Node
 
-var enemy_self: enemy
-var hand: Array[enemy_card]
-var library: enemy_library
+var enemy_self: Enemy
+var hand: Array[EnemyCard]
+var library: EnemyLibrary
 
 @export var card_width: int = 200
 @export var max_hand_width: int = 350
@@ -13,11 +13,11 @@ var library: enemy_library
 func _ready() -> void:
 	pass
 
-func init(enem : enemy, lib : Array[enemy_card]) -> void:
+func init(enem : Enemy, lib : Array[EnemyCard]) -> void:
 	enemy_self = enem
 	hand = []
 	
-	library = enemy_library.new()
+	library = EnemyLibrary.new()
 	library.library = lib
 
 func draw_hand(hand_size: int) -> void:
@@ -43,18 +43,18 @@ func replenish_hand() -> void:
 	library.replenish_cards(hand)
 	hand.clear()
 
-func replenish_card(card: enemy_card) -> void:
+func replenish_card(card: EnemyCard) -> void:
 	card.set_back()
 	card.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY)
 	#card.interactable_state = COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY
 	library.replenish_card(card)
 	#hand.pop_at(hand.find(card))
 
-func play_card() -> enemy_card:
-	var valid_cards: Array[enemy_card] = hand.filter(func(card: enemy_card): return card.stamina_cost <= enemy_self.get_stamina() && card.mana_cost <= enemy_self.get_mana())
+func play_card() -> EnemyCard:
+	var valid_cards: Array[EnemyCard] = hand.filter(func(card: EnemyCard): return card.stamina_cost <= enemy_self.get_stamina() && card.mana_cost <= enemy_self.get_mana())
 	if valid_cards.is_empty():
 		return null
-	var card_to_play: enemy_card = valid_cards.pick_random()
+	var card_to_play: EnemyCard = valid_cards.pick_random()
 	
 	#hand.erase(card_to_play)
 	hand.erase(card_to_play)

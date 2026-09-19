@@ -1,10 +1,10 @@
 class_name shoulder_check_ability
-extends skill_card_ability
+extends SkillCardAbility
 
 func _init() -> void:
 	target_type = COMMON_ENUMS.TARGET_TYPE.SINGLE
 
-func execute(targets : targeting_info) -> void:
+func execute(targets : TargetingInfo) -> void:
 	var damage = Damage.new()
 	damage.add_damage(6, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
 	damage.source = BattleController.data.player
@@ -12,6 +12,6 @@ func execute(targets : targeting_info) -> void:
 	targets.single_target().take_damage(damage)
 	
 	if(BattleController.data.player.current_status_effects.has("Bloodthirsty")):
-		var data: status_effect_data = status_effect_registry.get_status_effect_data(5)
-		var status: status_effect = status_effect.new(data)
+		var data: StatusEffectData = StatusEffectRegistry.get_status_effect_data(5)
+		var status: StatusEffect = StatusEffect.new(data)
 		targets.single_target().add_status_stacks(status, 1, 1)

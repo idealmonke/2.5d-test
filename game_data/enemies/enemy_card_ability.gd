@@ -1,4 +1,4 @@
-class_name enemy_card_ability
+class_name EnemyCardAbility
 extends Resource
 
 func execute() -> void:

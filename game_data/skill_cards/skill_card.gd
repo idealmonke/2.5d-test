@@ -1,4 +1,4 @@
-class_name skill_card
+class_name SkillCard
 extends Area2D
 
 # Card Details
@@ -8,7 +8,7 @@ var card_art: Texture2D
 var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
-var ability: skill_card_ability
+var ability: SkillCardAbility
 var classes: Array[String]
 
 # Card Sprites
@@ -22,7 +22,7 @@ var card_stamina_cost_label: Label
 
 # Card Control Data
 var controller: battle_controller
-var data: battle_data
+var data: BattleData
 var interactable_state: COMMON_ENUMS.INTERACT_STATE:
 	set(value):
 		interactable_state = value
@@ -138,7 +138,7 @@ func _process(delta: float) -> void:
 			else:
 				global_position = target
 			
-func initialize_card(resource_data: skill_card_data) -> void:
+func initialize_card(resource_data: SkillCardData) -> void:
 	card_name = resource_data.card_name
 	card_id = resource_data.card_id
 	card_art = resource_data.card_art

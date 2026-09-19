@@ -1,9 +1,9 @@
-class_name skill_card_discard
+class_name SkillCardDiscard
 extends Area2D
 
-var discard: Array[skill_card] = []
+var discard: Array[SkillCard] = []
 var detection: Area2D
-var display_grid: skill_card_display_grid
+var display_grid: SkillCardDisplayGrid
 
 func _ready() -> void:
 	connect("input_event", _on_input_event)
@@ -21,16 +21,16 @@ func _on_input_event(_viewport, event, _shape_idx) -> void:
 func get_size() -> int:
 	return discard.size()
 
-func pop_front_card() -> skill_card:
+func pop_front_card() -> SkillCard:
 	return discard.pop_front()
 
-func pop_card(card: skill_card) -> skill_card:
+func pop_card(card: SkillCard) -> SkillCard:
 	var index := discard.find(card)
 	if index == -1:
 		return null
 	return discard.pop_at(index)
 
-func add_card(card: skill_card) -> void:
+func add_card(card: SkillCard) -> void:
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 	discard.push_front(card)
 	
@@ -40,8 +40,8 @@ func add_many(cards: Array) -> void:
 func is_empty() -> bool:
 	return discard.is_empty()
 
-func pop_exhausted() -> Array[skill_card]:
-	var exhausted_cards: Array[skill_card] = []
+func pop_exhausted() -> Array[SkillCard]:
+	var exhausted_cards: Array[SkillCard] = []
 	for card in discard.duplicate():
 		if card.exhausted:
 			exhausted_cards.push_front(pop_card(card))
@@ -59,6 +59,6 @@ func _custom_display_discard(custom_func: Callable) -> void:
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.DISPLAYING)
 	display_grid.load_cards(discard, custom_func, "Discard")
 
-func _close_display(card: skill_card) -> skill_card:
+func _close_display(card: SkillCard) -> SkillCard:
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 	return card

@@ -32,7 +32,7 @@ func _on_selected(option_idx: int, enemy_idx: int) -> void:
 	
 
 func _add_enemies(button : OptionButton, cur_id: int):
-	var registry : Dictionary = enemy_registry.ENEMY_DB
+	var registry : Dictionary = EnemyRegistry.ENEMY_DB
 	var cur_idx : int = 1
 	
 	for id in registry:
