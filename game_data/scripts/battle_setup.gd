@@ -82,9 +82,9 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 	var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 	var handsize: int = 0
 	
-	var characters: Array[character_data] = []
+	var characters: Array[CharacterData] = []
 	for id in character_ids:
-		characters.append(character_registry.get_character_data(id))
+		characters.append(CharacterRegistry.get_character_data(id))
 	
 	for character in characters:
 		max_health += character.hp
@@ -100,7 +100,7 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 			else:
 				defense.set(key, character.defense[key])
 	
-	var player: battle_player_data = BattleController.data.player
+	var player: BattlePlayerData = BattleController.data.player
 	player.base_max_health = max_health
 	player.max_health = max_health
 	player.current_health = max_health
@@ -126,4 +126,7 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 	player.base_defense = defense
 	player.defense = defense
 	
+	player.current_status_effects.clear()
+	
 	player._update_stat_bars()
+	player._update_status()
