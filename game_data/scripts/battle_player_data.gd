@@ -1,30 +1,30 @@
 class_name BattlePlayerData
 extends RefCounted
 
-var base_max_health : int = 100
-var max_health: int = 100
-var current_health: int = 100
+var base_max_health : int 
+var max_health: int
+var current_health: int 
 
 var base_defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
-var base_max_stamina: int = 100
-var max_stamina: int = 100
-var current_stamina: int = 100
+var base_max_stamina: int 
+var max_stamina: int 
+var current_stamina: int 
 
-var base_max_mana: int = 150
-var max_mana: int = 150
-var current_mana: int = 150
+var base_max_mana: int 
+var max_mana: int 
+var current_mana: int 
 
-var base_mana_regen: int = 5
+var base_mana_regen: int 
 var mana_regen: int
 
 var current_shield: int
-var base_shield_retention: float = 0.25
-var shield_retention: float = 0.25
+var base_shield_retention: float 
+var shield_retention: float 
 
-var base_hand_size: int = 5
-var hand_size: int = 5
+var base_hand_size: int
+var hand_size: int
 
 var current_status_effects: Dictionary[String, StatusEffect]
 

@@ -155,7 +155,7 @@ func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
 	var current_handsize = data.player.hand_size
 	for i in range(current_handsize):
 		draw_card()
-	
+			
 	return COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING
 
 func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
