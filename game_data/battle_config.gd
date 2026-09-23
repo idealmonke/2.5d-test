@@ -1,4 +1,4 @@
-class_name battle_config
+class_name BattleConfig
 extends Resource
 
 @export var enemyIDs : Array[int]

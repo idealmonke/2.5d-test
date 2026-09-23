@@ -1,7 +1,5 @@
-class_name enemy
+class_name Enemy
 extends Area2D
-
-var controller: battle_controller
 
 # cur idx
 var idx : int
@@ -10,8 +8,8 @@ var idx : int
 const ENEMY_SPRITE_SIZE = 200
 
 # Locations
-var hand: enemy_hand
-var library: enemy_library
+var hand: EnemyHand
+var library: EnemyLibrary
 
 # Enemy Stats
 var max_health: int
@@ -39,7 +37,7 @@ var max_mana: int
 var current_mana: int
 var mana_regen: int
 
-var current_status_effects: Dictionary[String, status_effect]
+var current_status_effects: Dictionary[String, StatusEffect]
 
 # Child Nodes for UI control
 var sprite: Sprite2D
@@ -56,7 +54,7 @@ var health_bar_text : Label
 var stamina_bar_text : Label
 var mana_bar_text : Label
 
-var status_effect_bar : status_effect_display
+var status_effect_bar : StatusEffectDisplay
 
 # Card Arts
 var base_sprite: Texture2D
@@ -124,7 +122,6 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 	
 func take_damage(damage: Damage) -> void:
-	
 	if damage.source != null:
 		damage.outgoing_update()
 		
@@ -148,7 +145,7 @@ func gain_shield(shield : int) -> void:
 func is_dead() -> bool:
 	return current_health<=0
 	
-func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
+func add_status_stacks(status: StatusEffect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
 		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
@@ -163,7 +160,6 @@ func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> 
 	_update_stat_bars()
 
 func _update_status():
-	status_effect_bar.setup(192)
 	status_effect_bar.reset(current_status_effects)
 
 func _update_stat_bars() -> void:
@@ -185,7 +181,7 @@ func _update_stat_bars() -> void:
 		shield_node.show()
 		shield_node.get_node("shield_label").text = str(current_shield)
 	
-func initialize_data(data: enemy_data, cur_idx : int) -> void:
+func initialize_data(data: EnemyData, cur_idx : int) -> void:
 	enemy_name = data.enemy_name
 	idx = cur_idx
 	
@@ -225,15 +221,9 @@ func initialize_data(data: enemy_data, cur_idx : int) -> void:
 		sprite.position.y -= 100
 	
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
-	
-	#activate_goku_mode(data.card_ids)
 
-#func activate_goku_mode(ids : Array[int]):
-#	library = enemy_library.new()
-#	library.init(ids)
-
-func setup_library(lib : Array[enemy_card]) -> void:
-	hand = enemy_hand.new()
+func setup_library(lib : Array[EnemyCard]) -> void:
+	hand = EnemyHand.new()
 	hand.init(self, lib)
 
 func process_turn() -> void:
@@ -249,7 +239,6 @@ func process_turn() -> void:
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
-	
 	
 	if(current_health<=0):
 		return
@@ -268,7 +257,7 @@ func update_passive_effects() -> void:
 	defense = base_defense.duplicate()
 	
 	for effect_name in current_status_effects:
-		var effect  : status_effect = current_status_effects[effect_name]
+		var effect  : StatusEffect = current_status_effects[effect_name]
 		var stat_calcs = effect.data.stats_calculations
 		for stat in stat_calcs:
 			var calc = stat_calcs[stat]
@@ -288,7 +277,7 @@ func update_passive_effects() -> void:
 
 func _process_status_stacks():
 	for key in current_status_effects.duplicate():
-		var status: status_effect = current_status_effects.get(key)
+		var status: StatusEffect = current_status_effects.get(key)
 		status.stacks -= 1
 		status.duration_active += 1
 		
@@ -298,12 +287,6 @@ func _process_status_stacks():
 	_update_status()
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
-		var status: status_effect = current_status_effects.get(key)
+		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
 			status.data.abilities[timing].execute(self, status)
-
-
-func is_full_health() -> bool:
-	if max_health == current_health:
-		return true
-	return false

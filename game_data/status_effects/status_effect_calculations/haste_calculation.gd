@@ -1,5 +1,5 @@
 class_name haste_calculation
-extends status_effect_calculation
+extends StatusEffectCalculation
 
-func calculate(value: Variant, status: status_effect = null) -> Variant:
+func calculate(value: Variant, status: StatusEffect = null) -> Variant:
 	return value + 2

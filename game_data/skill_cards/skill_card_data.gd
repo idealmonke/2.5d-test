@@ -1,9 +1,9 @@
-class_name skill_card_data
-extends card_data
+class_name SkillCardData
+extends CardData
 
 @export var mana_cost: int = 0
 @export var stamina_cost: int = 0
-@export var card_ability: skill_card_ability
+@export var card_ability: SkillCardAbility
 ## A formatted string using integer string identifiers to insert numbers onto the card where required. 
 @export var ability_desc: String
 ## An Array containing either one or two classes. 

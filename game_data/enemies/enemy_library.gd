@@ -1,15 +1,9 @@
-class_name enemy_library
+class_name EnemyLibrary
 extends Node
 
-var library: Array[enemy_card]
+var library: Array[EnemyCard]
 
-func _ready() -> void:
-	pass
-
-#func init(ids : Array[int]):
-#	pass
-
-func draw_card() -> enemy_card:
+func draw_card() -> EnemyCard:
 	if library.is_empty():
 		return
 	return library.pop_front()
@@ -17,10 +11,10 @@ func draw_card() -> enemy_card:
 func is_empty() -> bool:
 	return library.is_empty()
 
-func replenish_card(card: enemy_card) -> void:
+func replenish_card(card: EnemyCard) -> void:
 	library.push_front(card)
 	library.shuffle()
 
-func replenish_cards(cards: Array[enemy_card]) -> void:
+func replenish_cards(cards: Array[EnemyCard]) -> void:
 	library.append_array(cards)
 	library.shuffle()

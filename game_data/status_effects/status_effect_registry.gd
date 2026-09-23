@@ -1,4 +1,4 @@
-class_name status_effect_registry
+class_name StatusEffectRegistry
 extends RefCounted
 
 static var status_effect_data_path: String = "res://game_data/status_effects/status_effect_data/"
@@ -15,6 +15,6 @@ const CARD_DB: Dictionary = {
 	0009: "holy_light",
 }
 
-static func get_status_effect_data(ID: int) -> status_effect_data:
+static func get_status_effect_data(ID: int) -> StatusEffectData:
 	assert(CARD_DB.has(ID), "Effect not found in registry")
 	return load(status_effect_data_path+CARD_DB[ID]+".tres")

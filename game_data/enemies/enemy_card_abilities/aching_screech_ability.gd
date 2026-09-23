@@ -1,7 +1,7 @@
 class_name aching_screech_ability
-extends enemy_card_ability
+extends EnemyCardAbility
 
 func execute() -> void:
-	var status_data = status_effect_registry.get_status_effect_data(5)
-	var status = status_effect.new(status_data)
+	var status_data = StatusEffectRegistry.get_status_effect_data(5)
+	var status = StatusEffect.new(status_data)
 	BattleController.data.player.add_status_stacks(status, 1, 1)

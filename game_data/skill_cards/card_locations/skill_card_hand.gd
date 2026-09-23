@@ -1,22 +1,22 @@
-class_name skill_card_hand
+class_name SkillCardHand
 extends Node2D
 
-var hand: Array[skill_card] = []
-var pending_pickup: Array[skill_card] = []
+var hand: Array[SkillCard] = []
+var pending_pickup: Array[SkillCard] = []
 
 @export var card_width: int = 200
 @export var max_hand_width: int = 550
 @export var arc_height: int = 50
 @export var max_tilt_degrees: int = 15
 
-func add_card(card: skill_card) -> void:
+func add_card(card: SkillCard) -> void:
 	hand.append(card)
 	_set_hand_offset()
 	
 func get_hand_size() -> int:
 	return hand.size()
 
-func pop_card(card: skill_card) -> skill_card:
+func pop_card(card: SkillCard) -> SkillCard:
 	var index := hand.find(card)
 	if index == -1:
 		return null
@@ -25,7 +25,7 @@ func pop_card(card: skill_card) -> skill_card:
 	_set_hand_offset()
 	return popping
 	
-func pop_front() -> skill_card:
+func pop_front() -> SkillCard:
 	if hand.is_empty():
 		return
 	return pop_card(hand[0])
@@ -44,7 +44,7 @@ func is_empty() -> bool:
 	return hand.is_empty()
 
 func _resolve_hover() -> void:
-	var hovered : skill_card;
+	var hovered : SkillCard;
 	
 	for card in hand:
 		if(card.hover):
@@ -54,7 +54,7 @@ func _resolve_hover() -> void:
 	if hovered:
 		hovered.player_highlight_card()
 
-func register_pickup(card: skill_card) -> void:
+func register_pickup(card: SkillCard) -> void:
 	pending_pickup.append(card)
 	call_deferred("_resolve_pickup")
 	
@@ -66,7 +66,7 @@ func _resolve_pickup() -> void:
 	winner.begin_drag()
 	pending_pickup.clear()
 	
-func _reset_offset(card: skill_card) -> void:
+func _reset_offset(card: SkillCard) -> void:
 		card.location_offset = Vector2.ZERO
 		card.rotation_offset = 0.0
 		card.rotation = 0.0
