@@ -1,4 +1,4 @@
-class_name enemy_data
+class_name EnemyData
 extends Resource
 
 @export var enemy_id: int
@@ -13,6 +13,6 @@ extends Resource
 
 @export var defense : Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 
-var deck: Array[enemy_card]
+var deck: Array[EnemyCard]
 
 @export var art: Texture2D

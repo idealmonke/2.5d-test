@@ -25,11 +25,11 @@ func reset() -> void:
 
 func display(id : int, mode: MODE) -> void:
 	if mode == MODE.SKILL_CARD:
-		cur_data = skill_card_registry.get_card_data(id)
+		cur_data = SkillCardRegistry.get_card_data(id)
 	elif mode == MODE.ENEMY_CARD:
-		cur_data = enemy_card_registry.get_card_data(id)
+		cur_data = EnemyCardRegistry.get_card_data(id)
 	elif mode == MODE.ENEMY:
-		cur_data = enemy_registry.get_enemy_data(id)
+		cur_data = EnemyRegistry.get_enemy_data(id)
 	
 	reset()
 	
@@ -102,14 +102,14 @@ func _on_save_button_pressed() -> void:
 			return
 	card_editor_output.text+="successful save, good job :D \n"
 	
-	if cur_data is skill_card_data:
-		skill_card_registry.save_data(cur_data)
+	if cur_data is SkillCardData:
+		SkillCardRegistry.save_data(cur_data)
 		display(cur_data.card_id, MODE.SKILL_CARD)
-	elif cur_data is enemy_card_data:
-		enemy_card_registry.save_data(cur_data)
+	elif cur_data is EnemyCardData:
+		EnemyCardRegistry.save_data(cur_data)
 		display(cur_data.card_id, MODE.ENEMY_CARD)
-	elif cur_data is enemy_data:
-		enemy_registry.save_data(cur_data)
+	elif cur_data is EnemyData:
+		EnemyRegistry.save_data(cur_data)
 		display(cur_data.enemy_id, MODE.ENEMY)
 	card_button_container.reset_buttons()
 	panel.visible = true

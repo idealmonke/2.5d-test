@@ -1,4 +1,4 @@
-class_name battle_player_data
+class_name BattlePlayerData
 extends RefCounted
 
 var base_max_health : int 
@@ -26,7 +26,7 @@ var shield_retention: float
 var base_hand_size: int
 var hand_size: int
 
-var current_status_effects: Dictionary[String, status_effect]
+var current_status_effects: Dictionary[String, StatusEffect]
 
 var health_bar: TextureProgressBar
 var health_label: Label
@@ -37,7 +37,7 @@ var mana_label: Label
 var stamina_bar: TextureProgressBar
 var stamina_label: Label
 
-var status_effect_bar: status_effect_display
+var status_effect_bar: StatusEffectDisplay
 var shield_node: Node2D
 
 func get_stamina() -> int:
@@ -83,7 +83,6 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 
 func take_damage(damage: Damage) -> void:
-	
 	if damage.source != null:
 		damage.outgoing_update()
 		
@@ -100,7 +99,7 @@ func take_damage(damage: Damage) -> void:
 	_update_stat_bars()
 	_update_status()
 	
-func add_status_stacks(status: status_effect, stacks: int, magnitude: float) -> void:
+func add_status_stacks(status: StatusEffect, stacks: int, magnitude: float) -> void:
 	if current_status_effects.has(status.data.name):
 		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
@@ -123,6 +122,8 @@ func gain_shield(shield : int) -> void:
 	_update_stat_bars()
 
 func heal(healing: int) -> void:
+	print(healing)
+	
 	current_health += healing
 	if current_health > max_health:
 		current_health = max_health
@@ -183,7 +184,7 @@ func update_passive_effects() -> void:
 	defense = base_defense.duplicate()
 	
 	for effect_name in current_status_effects:
-		var effect  : status_effect = current_status_effects[effect_name]
+		var effect  : StatusEffect = current_status_effects[effect_name]
 		var stat_calcs = effect.data.stats_calculations
 		for stat in stat_calcs:
 			var calc = stat_calcs[stat]
@@ -203,11 +204,9 @@ func update_passive_effects() -> void:
 
 func _process_status_stacks():
 	for key in current_status_effects.duplicate():
-		var status: status_effect = current_status_effects.get(key)
+		var status: StatusEffect = current_status_effects.get(key)
 		
-		#print(status.data.name+" / stacks: "+str(status.stacks))	
 		status.stacks -= 1
-		#print(status.data.name+" / (post) stacks: "+str(status.stacks))	
 		status.duration_active += 1
 		
 		if status.stacks == 0:
@@ -215,6 +214,6 @@ func _process_status_stacks():
 
 func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
-		var status: status_effect = current_status_effects.get(key)
+		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
 			status.data.abilities[timing].execute(self, status)

@@ -1,31 +1,20 @@
-class_name status_effect_display
+class_name StatusEffectDisplay
 extends FlowContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-	#setup(200)
-	#var status = status_effect.new(status_effect_registry.get_status_effect_data(1001))
-	#status.stacks = 5
-	#_add_effect(status)
-	#_add_effect(status)
-	#_add_effect(status)
-	#_add_effect(status)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func setup(min_width: int):
 	custom_minimum_size.x = min_width
 
-func reset(status_effects : Dictionary[String, status_effect]):
+func reset(status_effects : Dictionary[String, StatusEffect]):
 	_reset_children()
 	for effect in status_effects:
 		_add_effect(status_effects[effect])
 
-func _add_effect(effect : status_effect):
-	var data : status_effect_data = effect.data
+func _add_effect(effect : StatusEffect):
+	var data : StatusEffectData = effect.data
 	
 	var item = Control.new()
 	item.custom_minimum_size = Vector2(64, 64)

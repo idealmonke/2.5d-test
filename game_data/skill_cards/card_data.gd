@@ -1,4 +1,4 @@
-class_name card_data
+class_name CardData
 extends Resource
 
 @export var card_name: String = ""

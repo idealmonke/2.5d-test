@@ -1,10 +1,10 @@
 class_name regeneration_potion_ability
-extends skill_card_ability
+extends SkillCardAbility
 
 func _init() -> void:
 	target_type = COMMON_ENUMS.TARGET_TYPE.NONE
 
-func execute(targets : targeting_info) -> void:
-	var data: status_effect_data = status_effect_registry.get_status_effect_data(8)
-	var status: status_effect = status_effect.new(data)
+func execute(targets : TargetingInfo) -> void:
+	var data: StatusEffectData = StatusEffectRegistry.get_status_effect_data(8)
+	var status: StatusEffect = StatusEffect.new(data)
 	BattleController.data.player.add_status_stacks(status, 3, 1)

@@ -1,7 +1,7 @@
-class_name skill_card_library
+class_name SkillCardLibrary
 extends Node2D
 
-var library: Array[skill_card] = []
+var library: Array[SkillCard] = []
 var shuffle_func: Callable
 
 func _ready() -> void:
@@ -9,8 +9,8 @@ func _ready() -> void:
 
 func load_cards_from_party(party: Party) -> void:
 	for i in range(party.card_ids):
-		var data := skill_card_registry.get_card_data(party.card_ids[i])
-		var card := skill_card.new()
+		var data := SkillCardRegistry.get_card_data(party.card_ids[i])
+		var card := SkillCard.new()
 		card.initialize_card(data)
 		library.append(card)
 	self.shuffle()
@@ -18,7 +18,7 @@ func load_cards_from_party(party: Party) -> void:
 func get_size() -> int:
 	return library.size()
 
-func pop_top_card() -> skill_card:
+func pop_top_card() -> SkillCard:
 	if library.is_empty():
 		return null
 	return	library.pop_front()
@@ -26,10 +26,10 @@ func pop_top_card() -> skill_card:
 func shuffle() -> void:
 	shuffle_func.call()
 	
-func push_to_top(card: skill_card) -> void:
+func push_to_top(card: SkillCard) -> void:
 	library.push_front(card)
 
-func push_each(cards: Array[skill_card]) -> void:
+func push_each(cards: Array[SkillCard]) -> void:
 	library.append_array(cards)
 	library.shuffle()
 

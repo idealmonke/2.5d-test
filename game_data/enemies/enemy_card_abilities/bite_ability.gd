@@ -1,5 +1,5 @@
 class_name bite_ability
-extends enemy_card_ability
+extends EnemyCardAbility
 
 func execute() -> void:
 	var damage = Damage.new()

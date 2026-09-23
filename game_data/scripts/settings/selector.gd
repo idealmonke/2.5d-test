@@ -2,7 +2,7 @@ extends HBoxContainer
 
 const battle_config_path = "res://game_data/battle_config.tres"
 var idx_to_id : Dictionary
-var config : battle_config
+var config : BattleConfig
 
 func _ready() -> void:
 	config = load(battle_config_path)
@@ -32,7 +32,7 @@ func _on_selected(option_idx: int, enemy_idx: int) -> void:
 	
 
 func _add_enemies(button : OptionButton, cur_id: int):
-	var registry : Dictionary = enemy_registry.ENEMY_DB
+	var registry : Dictionary = EnemyRegistry.ENEMY_DB
 	var cur_idx : int = 1
 	
 	for id in registry:

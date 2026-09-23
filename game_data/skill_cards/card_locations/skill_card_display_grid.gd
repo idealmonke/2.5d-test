@@ -1,7 +1,7 @@
-class_name skill_card_display_grid
+class_name SkillCardDisplayGrid
 extends Node2D
 
-var cards: Array[skill_card]
+var cards: Array[SkillCard]
 var exit_func: Callable
 var screen_size: Vector2 
 var starting_grid: Vector2 = Vector2.ZERO
@@ -19,7 +19,7 @@ var old_state: COMMON_ENUMS.INTERACT_STATE
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
 
-func load_cards(payload: Array[skill_card], exit: Callable, text: String) -> void:
+func load_cards(payload: Array[SkillCard], exit: Callable, text: String) -> void:
 	if not cards.is_empty():
 		_clear_cards()
 	cards.append_array(payload)
@@ -31,7 +31,7 @@ func load_cards(payload: Array[skill_card], exit: Callable, text: String) -> voi
 		card.base_z_index = 50
 	_calculate_grid()
 
-func _select_card(card: skill_card):
+func _select_card(card: SkillCard):
 	_clear_cards()
 	exit_func.call(card)
 	BattleController.display_signal.emit()

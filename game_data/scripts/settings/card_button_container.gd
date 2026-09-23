@@ -39,11 +39,11 @@ func _instantiate_buttons(filter: String) -> void:
 	filter = filter.to_lower()
 	
 	if mode == MODE.SKILL_CARD:
-		_instantiate_button_helper(skill_card_registry, MODE.SKILL_CARD, filter)
+		_instantiate_button_helper(SkillCardRegistry, MODE.SKILL_CARD, filter)
 	elif mode == MODE.ENEMY_CARD:
-		_instantiate_button_helper(enemy_card_registry, MODE.ENEMY_CARD, filter)
+		_instantiate_button_helper(EnemyCardRegistry, MODE.ENEMY_CARD, filter)
 	elif mode == MODE.ENEMY:
-		_instantiate_button_helper(enemy_registry, MODE.ENEMY, filter)
+		_instantiate_button_helper(EnemyRegistry, MODE.ENEMY, filter)
 	
 func _instantiate_button_helper(registry: Variant, to_mode: MODE, filter: String) -> void:
 	var DB : Dictionary

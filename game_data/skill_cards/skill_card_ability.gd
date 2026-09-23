@@ -1,4 +1,4 @@
-class_name skill_card_ability
+class_name SkillCardAbility
 extends Resource
 
 enum POSITIONS {LEFT, MIDDLE, RIGHT}
@@ -7,6 +7,6 @@ enum POSITIONS {LEFT, MIDDLE, RIGHT}
 var target_type = COMMON_ENUMS.TARGET_TYPE.NONE
 
 # Targets go into array in order chosen, index 0 is first target and so on
-func execute(targets : targeting_info) -> void:
+func execute(targets : TargetingInfo) -> void:
 	print(targets)
 	

@@ -1,10 +1,10 @@
 class_name hand_crossbow_ability
-extends skill_card_ability
+extends SkillCardAbility
 
 func _init() -> void:
 	target_type = COMMON_ENUMS.TARGET_TYPE.SINGLE
 
-func execute( targets : targeting_info) -> void:
+func execute( targets : TargetingInfo) -> void:
 	
 	var damage = Damage.new()
 	damage.add_damage(BattleController.data.discard.get_size(), COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
