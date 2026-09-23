@@ -1,11 +1,13 @@
 class_name character_registry
 extends RefCounted
 
-static var character_data_path: String = "res://game_data/enemies/card_data/"
+static var character_data_path: String = "res://game_data/characters/character_data/"
 
 const CHARACTER_DB: Dictionary = {
-	1: "John",
-	2: "Sally"
+	1: "starter_berserker",
+	2: "starter_alchemist",
+	3: "starter_cleric",
+	4: "starter_knave",
 }
 
 static func get_character_data(ID: int) -> character_data:

@@ -61,10 +61,13 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 		var max_calculated_damage = base_max_damage
 		for equation in shield_multipliers:
 			max_calculated_damage = equation.call(max_calculated_damage)
+		max_calculated_damage -= defense.get(key,0)
+		if max_calculated_damage < 0:
+			max_calculated_damage = 0
 			
 		if max_calculated_damage + total_damage_applied > shield:
 			var remaining_shield = shield - total_damage_applied
-			var min_damage = _binary_search_min_damage(shield)
+			var min_damage = _binary_search_min_damage(shield, defense.get(key,0))
 			
 			for equation in shield_multipliers:
 				min_damage = equation.call(min_damage)
@@ -89,15 +92,16 @@ func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
 		
 		for equation in health_multipliers:
 			calculated_damage = equation.call(calculated_damage)
+		calculated_damage -= defense.get(key,0)
 		
 		total_damage_applied += calculated_damage
 	
 	damages.clear()
 	return total_damage_applied
 	
-func _binary_search_min_damage(shield_hp: int) -> int:
+func _binary_search_min_damage(shield_hp: int, defense: int) -> int:
 	var low: int = 0
-	var high: int = shield_hp * 2
+	var high: int = (shield_hp + defense) * 2
 	
 	while low < high:
 		var mid: int = (low + high) / 2
@@ -106,6 +110,9 @@ func _binary_search_min_damage(shield_hp: int) -> int:
 		# Apply all modifiers in timestamp order
 		for equation in shield_multipliers:
 			calculated_damage = equation.call(calculated_damage)
+		calculated_damage -= defense
+		if calculated_damage < 0:
+			calculated_damage = 0
 		
 		if calculated_damage < shield_hp:
 			low = mid + 1  # Always increment to prevent infinite loop

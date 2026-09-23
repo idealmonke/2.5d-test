@@ -2,9 +2,7 @@ extends Node
 
 const SKILL_CARD_SCENE = preload("res://game_data/skill_cards/skill_card.tscn")
 const BATTLE_CONFIG = preload("res://game_data/battle_config.tres")
-
 const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
-
 const ENEMY_CARD_SCENE = preload("res://game_data/enemies/enemy_card.tscn")
 
 func _ready() -> void:
@@ -21,6 +19,7 @@ func _ready() -> void:
 	
 	_init_player_cards()
 	_init_enemies()
+	_init_player_stats(BATTLE_CONFIG.party.character_ids)
 	
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP)
 
@@ -74,3 +73,58 @@ func _init_enemies() -> void:
 		#BattleController.data.enemies[idx] = enemy_instance
 		BattleController.data.enemies.append(enemy_instance)
 		enemy_instance.position = BattleController.data.enemy_locations[idx]
+
+func _init_player_stats(character_ids: Array[int]) -> void:
+	var max_health: int = 0
+	var max_mana: int = 0
+	var mana_regen: int = 0
+	var max_stamina: int = 0
+	var shield_retention: float = 0
+	var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+	var handsize: int = 0
+	
+	var characters: Array[character_data] = []
+	for id in character_ids:
+		characters.append(character_registry.get_character_data(id))
+	
+	for character in characters:
+		max_health += character.hp
+		max_mana += character.max_mana
+		mana_regen += character.mana_regen
+		max_stamina += character.stamina
+		shield_retention += character.shield_retention
+		handsize += character.hand_size
+		
+		for key in character.defense:
+			if defense.has(key):
+				defense[key] += character.defense[key]
+			else:
+				defense.set(key, character.defense[key])
+	
+	var player: battle_player_data = BattleController.data.player
+	player.base_max_health = max_health
+	player.max_health = max_health
+	player.current_health = max_health
+	
+	player.base_max_mana = max_mana
+	player.max_mana = max_mana
+	player.current_mana = max_mana
+	
+	player.base_mana_regen = mana_regen
+	player.mana_regen = mana_regen
+	
+	player.base_max_stamina = max_stamina
+	player.max_stamina = max_stamina
+	player.current_stamina = max_stamina
+
+	player.base_shield_retention = shield_retention
+	player.shield_retention = shield_retention
+	player.current_shield = 0
+	
+	player.base_hand_size = handsize
+	player.hand_size = handsize
+	
+	player.base_defense = defense
+	player.defense = defense
+	
+	player._update_stat_bars()
