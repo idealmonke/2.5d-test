@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bh2sy7ubj3ujh"]
+
+[node name="devlog" type="PanelContainer" unique_id=1890242823]
+offset_left = 1300.0
+offset_top = 44.0
+offset_right = 1900.0
+offset_bottom = 706.0
+
+[node name="vbox" type="VBoxContainer" parent="." unique_id=1532867098]
+layout_mode = 2
+
+[node name="header" type="Label" parent="vbox" unique_id=1024373389]
+layout_mode = 2
+text = "Devlog:"
+
+[node name="scroll_container" type="ScrollContainer" parent="vbox" unique_id=652356921]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="messages" type="VBoxContainer" parent="vbox/scroll_container" unique_id=89952291]
+layout_mode = 2
+
+[node name="command" type="LineEdit" parent="vbox" unique_id=731780651]
+layout_mode = 2
+placeholder_text = ">"
+
+[connection signal="text_submitted" from="vbox/command" to="." method="_on_command_text_submitted"]

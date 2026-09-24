@@ -37,9 +37,15 @@ func _input(event: InputEvent) -> void:
 	if  scene != null and scene.name != "PrototypeBattle":
 		return
 	
+	
+	
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_Q:
 			draw_card()
+	
+	#testing purposes
+	return;
+	
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_W:
 			dredge_card()
@@ -126,6 +132,8 @@ func play_card(card: SkillCard) -> void:
 		BattleController.data.player.regen_stamina(card.stamina_cost)
 		BattleController.data.player.regain_mana(card.mana_cost)
 	else:
+		DevConsole.add_message("skillcard: "+card.card_name, Color.SKY_BLUE)
+		
 		card.ability.execute(targets)
 		data.discard.add_card(card)
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
@@ -243,6 +251,9 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	_on_exit_state(current_state)
 	current_state = new_state
+	var state_to_string = COMMON_ENUMS.BATTLE_STATE.keys()[new_state];
+	print("should add "+state_to_string);
+	DevConsole.add_message("state: "+state_to_string, Color.YELLOW)
 	if current_state != COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN and _process_deaths():
 		_change_state(COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN)
 		return
