@@ -134,7 +134,7 @@ func play_card(card: SkillCard) -> void:
 	else:
 		DevConsole.add_message("skillcard: "+card.card_name, Color.SKY_BLUE)
 		
-		card.ability.execute(targets)
+		await card.ability.execute(targets)
 		data.discard.add_card(card)
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 
