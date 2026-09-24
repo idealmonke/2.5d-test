@@ -87,11 +87,17 @@ func take_damage(damage: Damage) -> void:
 		damage.outgoing_update()
 		
 	damage.incoming_update(self.current_status_effects)
-	
+	var strOut = "player|damage:";
 	if current_shield > 0 && !damage.ignore_shield:
 		var variable = damage.damage_shield(current_shield, defense)
 		current_shield -= variable
-	current_health -= damage.damage_health(defense)
+		
+		strOut += " shield: "+str(variable);
+	var healthLost = damage.damage_health(defense);
+	current_health -= healthLost
+	strOut += " health: "+str(healthLost);
+	
+	DevConsole.add_message(strOut, Color.GREEN);
 	
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
@@ -100,6 +106,8 @@ func take_damage(damage: Damage) -> void:
 	_update_status()
 	
 func add_status_stacks(status: StatusEffect, stacks: int, magnitude: float) -> void:
+	DevConsole.add_message("player|status: +"+status.data.name+" x"+str(int(magnitude)), Color.GREEN)
+	
 	if current_status_effects.has(status.data.name):
 		var cur = current_status_effects.get(status.data.name)
 		cur.stacks += stacks
@@ -119,10 +127,13 @@ func _update_status():
 
 func gain_shield(shield : int) -> void:
 	current_shield += shield
+	
+	DevConsole.add_message("player|shield: +"+str(shield), Color.GREEN)
+	
 	_update_stat_bars()
 
 func heal(healing: int) -> void:
-	print(healing)
+	DevConsole.add_message("player|health: +"+str(healing), Color.GREEN)
 	
 	current_health += healing
 	if current_health > max_health:
@@ -216,4 +227,5 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 	for key in current_status_effects:
 		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
+			DevConsole.add_message("player|process status "+status.data.name, Color.GREEN_YELLOW)
 			status.data.abilities[timing].execute(self, status)

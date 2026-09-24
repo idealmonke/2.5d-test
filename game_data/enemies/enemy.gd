@@ -127,10 +127,16 @@ func take_damage(damage: Damage) -> void:
 		
 	damage.incoming_update(self.current_status_effects)
 	
+	var strOut = "enemy"+str(idx)+"|damage:";
 	if current_shield > 0 && !damage.ignore_shield:
 		var variable = damage.damage_shield(current_shield, defense)
 		current_shield -= variable
-	current_health -= damage.damage_health(defense)
+		strOut += " shield: "+str(variable);
+	var healthLost = damage.damage_health(defense);
+	current_health -= healthLost
+	strOut += " health: "+str(healthLost);
+	
+	DevConsole.add_message(strOut, Color.ORANGE_RED);
 	
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
@@ -243,6 +249,7 @@ func process_turn() -> void:
 	if(current_health<=0):
 		return
 	
+	DevConsole.add_message("enemy"+str(idx)+": processing turn", Color.RED);
 	hand.draw_hand(hand_size)
 	await hand.play_hand()
 	hand.replenish_hand()

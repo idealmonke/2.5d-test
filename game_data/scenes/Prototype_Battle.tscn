@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 [ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
+[ext_resource type="PackedScene" uid="uid://bh2sy7ubj3ujh" path="res://game_data/scenes/devlog.tscn" id="13_mja0g"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lpuuh"]
 blend_mode = 1
@@ -305,6 +306,8 @@ offset_bottom = 216.0
 text = "GTY"
 label_settings = SubResource("LabelSettings_mja0g")
 horizontal_alignment = 1
+
+[node name="devlog" parent="." unique_id=1890242823 instance=ExtResource("13_mja0g")]
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]

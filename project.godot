@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 BattleController="*uid://ce0bib1kd6yoj"
+DevConsole="*uid://b8kkr2qfv5dov"
 
 [display]
 

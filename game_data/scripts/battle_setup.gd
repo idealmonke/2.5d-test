@@ -6,7 +6,7 @@ const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
 const ENEMY_CARD_SCENE = preload("res://game_data/enemies/enemy_card.tscn")
 
 func _ready() -> void:
-	
+	DevConsole.setup($devlog)
 	BattleController.data.player.init_bars(	$player_stat_bars/health_bar, 
 										$player_stat_bars/health_bar/health_label,
 										$player_stat_bars/mana_bar,

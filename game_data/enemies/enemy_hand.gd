@@ -57,6 +57,7 @@ func play_card() -> EnemyCard:
 	card_to_play.change_state(COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING)
 	_set_hand_offset()
 	
+	DevConsole.add_message("enemycard: "+card_to_play.card_name, Color.RED);
 	card_to_play.ability.execute()
 	
 	return card_to_play
