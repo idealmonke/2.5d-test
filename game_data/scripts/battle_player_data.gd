@@ -40,6 +40,10 @@ var stamina_label: Label
 var status_effect_bar: StatusEffectDisplay
 var shield_node: Node2D
 
+var health_tween: Tween
+var stamina_tween: Tween
+var mana_tween: Tween
+
 func get_stamina() -> int:
 	return current_stamina
 
@@ -159,18 +163,26 @@ func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label, status_bars) ->
 	
 func _update_stat_bars() -> void:
 	
-	health_bar.value = current_health
-	health_label.text = str(current_health) + "/" + str(max_health)
-	
-	mana_bar.value = current_mana
-	mana_label.text = str(current_mana) + "/" + str(max_mana)
-	
-	stamina_bar.value = current_stamina
-	stamina_label.text = str(current_stamina) + "/" + str(max_stamina)
-	
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
 	mana_bar.max_value = max_mana
+	
+	if health_tween and health_tween.is_running():
+		health_tween.kill()
+	if stamina_tween and stamina_tween.is_running():
+		stamina_tween.kill()
+	if mana_tween and mana_tween.is_running():
+		mana_tween.kill()
+	
+	health_tween = _bar_tween(health_bar, current_health, 0.5)
+	stamina_tween = _bar_tween(stamina_bar, current_stamina, 0.5)
+	mana_tween = _bar_tween(mana_bar, current_mana, 0.5)
+	
+	health_label.text = str(current_health) + "/" + str(max_health)
+	
+	mana_label.text = str(current_mana) + "/" + str(max_mana)
+	
+	stamina_label.text = str(current_stamina) + "/" + str(max_stamina)
 	
 	if(shield_node):
 		if(current_shield <= 0):
@@ -229,3 +241,12 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 		if (status.data.abilities.has(timing)):
 			DevConsole.add_message("player|process status "+status.data.name, Color.GREEN_YELLOW)
 			status.data.abilities[timing].execute(self, status)
+			
+func _bar_tween(target: TextureProgressBar, value: int, duration: float) -> Tween:
+	var tween: Tween
+	tween = health_bar.create_tween()
+	tween.tween_property(target, "value", value, duration)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	return tween
+	

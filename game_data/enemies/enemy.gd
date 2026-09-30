@@ -54,6 +54,10 @@ var health_bar_text : Label
 var stamina_bar_text : Label
 var mana_bar_text : Label
 
+var health_tween: Tween
+var stamina_tween: Tween
+var mana_tween: Tween
+
 var status_effect_bar : StatusEffectDisplay
 
 # Card Arts
@@ -169,23 +173,32 @@ func _update_status():
 	status_effect_bar.reset(current_status_effects)
 
 func _update_stat_bars() -> void:
-	health_bar.value = current_health
-	stamina_bar.value = current_stamina
-	mana_bar.value = current_mana
 	
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
-	stamina_bar.max_value = max_mana
+	mana_bar.max_value = max_mana
 	
-	health_bar_text.text = str(current_health)+"/"+str(max_health)
-	stamina_bar_text.text = str(current_stamina)+"/"+str(max_stamina)
-	mana_bar_text.text = str(current_mana)+"/"+str(max_mana)
+	if health_tween and health_tween.is_running():
+		health_tween.kill()
+	if stamina_tween and stamina_tween.is_running():
+		stamina_tween.kill()
+	if mana_tween and mana_tween.is_running():
+		mana_tween.kill()
 	
-	if(current_shield <= 0):
-		shield_node.hide()
-	else:
-		shield_node.show()
-		shield_node.get_node("shield_label").text = str(current_shield)
+	health_tween = _bar_tween(health_bar, current_health, 0.5)
+	stamina_tween = _bar_tween(stamina_bar, current_stamina, 0.5)
+	mana_tween = _bar_tween(mana_bar, current_mana, 0.5)
+	
+	health_bar_text.text = str(current_health) + "/" + str(max_health)
+	mana_bar_text.text = str(current_mana) + "/" + str(max_mana)
+	stamina_bar_text.text = str(current_stamina) + "/" + str(max_stamina)
+	
+	if(shield_node):
+		if(current_shield <= 0):
+			shield_node.hide()
+		else:
+			shield_node.show()
+			shield_node.get_node("shield_label").text = str(current_shield)
 	
 func initialize_data(data: EnemyData, cur_idx : int) -> void:
 	enemy_name = data.enemy_name
@@ -297,3 +310,12 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
 			status.data.abilities[timing].execute(self, status)
+			
+func _bar_tween(target: TextureProgressBar, value: int, duration: float) -> Tween:
+	var tween: Tween
+	tween = health_bar.create_tween()
+	tween.tween_property(target, "value", value, duration)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+	return tween
+	
