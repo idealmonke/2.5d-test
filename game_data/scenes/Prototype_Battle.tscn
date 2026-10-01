@@ -97,10 +97,6 @@ metadata/_custom_type_script = "uid://d02qag4sjnwd8"
 
 [node name="hand" type="Node2D" parent="." unique_id=495395319]
 script = ExtResource("3_wxjty")
-card_width = null
-max_hand_width = null
-arc_height = null
-max_tilt_degrees = null
 
 [node name="library" type="Node2D" parent="." unique_id=808325488]
 script = ExtResource("4_h35sd")

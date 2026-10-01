@@ -62,3 +62,7 @@ func _custom_display_discard(custom_func: Callable) -> void:
 func _close_display(card: SkillCard) -> SkillCard:
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
 	return card
+
+func _set_z_index() -> void:
+	for index in range(discard.size()):
+		discard[index].z_index = index * 2

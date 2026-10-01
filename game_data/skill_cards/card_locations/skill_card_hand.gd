@@ -99,4 +99,4 @@ func _set_hand_offset() -> void:
 
 		hand[index].location_offset = Vector2(x, y)
 		hand[index].rotation_offset = tilt
-		hand[index].z_index_modifier = index
+		hand[index].z_index_modifier = index * 2 # Multiply by 2 for spacing between cards
