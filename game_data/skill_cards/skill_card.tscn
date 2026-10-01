@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="1_qx01e"]
 [ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_art/exhausted_card.gdshader" id="2_nujpf"]
-[ext_resource type="Texture2D" uid="uid://dq27uwoxutmax" path="res://game_data/skill_cards/card_art/Blank_Card.png" id="3_c1cq6"]
+[ext_resource type="Texture2D" uid="uid://byum0wfyrxtdg" path="res://game_data/card_frames/Front_Card.png" id="3_qx01e"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="4_nujpf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
 shader = ExtResource("2_nujpf")
@@ -34,49 +35,56 @@ script = ExtResource("1_qx01e")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593555912]
 material = SubResource("ShaderMaterial_5ar1h")
-texture = ExtResource("3_c1cq6")
+texture = ExtResource("3_qx01e")
+
+[node name="CardArt" type="Sprite2D" parent="Sprite2D" unique_id=1397708594]
+z_index = -1
+position = Vector2(0, -90)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("4_nujpf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055926202]
-position = Vector2(-17, -35)
+scale = Vector2(0.9, 1)
 shape = SubResource("RectangleShape2D_l4n2p")
 
 [node name="hover_area" type="Area2D" parent="." unique_id=2101019855]
 
 [node name="hover_area_collision" type="CollisionShape2D" parent="hover_area" unique_id=1595753072]
-position = Vector2(-18, -61)
+position = Vector2(0, -15)
+scale = Vector2(0.9, 0.8)
 shape = SubResource("RectangleShape2D_72g67")
 
 [node name="card_name" type="Label" parent="." unique_id=1982668748]
-offset_left = -92.0
-offset_top = -256.0
-offset_right = 60.0
-offset_bottom = -214.0
+offset_left = -74.0
+offset_top = -238.0
+offset_right = 78.0
+offset_bottom = -196.0
 label_settings = SubResource("LabelSettings_wxjty")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="card_ability" type="Label" parent="." unique_id=469903765]
-offset_left = -154.0
-offset_top = 34.0
-offset_right = 122.0
-offset_bottom = 122.0
+offset_left = -136.0
+offset_top = 66.0
+offset_right = 138.0
+offset_bottom = 216.0
 label_settings = SubResource("LabelSettings_c1dyx")
 autowrap_mode = 3
 
 [node name="mana_cost" type="Label" parent="." unique_id=758448026]
-offset_left = 42.0
-offset_top = 144.0
-offset_right = 90.0
-offset_bottom = 202.0
+offset_left = 102.0
+offset_top = -232.0
+offset_right = 150.0
+offset_bottom = -174.0
 label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stamina_cost" type="Label" parent="." unique_id=1530469752]
-offset_left = -132.0
-offset_top = 142.0
-offset_right = -72.0
-offset_bottom = 200.0
+offset_left = -156.0
+offset_top = -230.0
+offset_right = -96.0
+offset_bottom = -172.0
 label_settings = SubResource("LabelSettings_aonjl")
 horizontal_alignment = 1
 vertical_alignment = 1
