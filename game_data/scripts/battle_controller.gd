@@ -19,6 +19,9 @@ var win_screen : PanelContainer
 #Targeting Manager
 var targeting_manager_instance : TargetingManager
 
+#Devlog
+var devlog: PanelContainer
+
 @warning_ignore("unused_signal")
 signal display_signal
 
@@ -37,11 +40,13 @@ func _input(event: InputEvent) -> void:
 	if  scene != null and scene.name != "PrototypeBattle":
 		return
 	
-	
-	
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_Q:
 			draw_card()
+			
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_SLASH:
+			devlog.visible = !devlog.visible
 	
 	#testing purposes
 	return;
@@ -56,11 +61,12 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_R:
 			discard_front()
 				
-func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D) -> void:
+func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D, devlog: PanelContainer) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
 	
+	self.devlog = devlog
 	win_screen = win
 	
 	targeting_manager_instance = tm

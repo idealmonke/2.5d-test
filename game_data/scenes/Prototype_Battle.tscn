@@ -142,15 +142,12 @@ text = "END TURN"
 
 [node name="Label" type="Label" parent="." unique_id=763715797]
 offset_left = 1640.0
-offset_top = 779.0
+offset_top = 862.0
 offset_right = 1872.0
 offset_bottom = 932.0
 text = "Testing Controls:
 q = draw card
-w = dredge card
-e = replenish discard
-r = discard front card
-p = process enemy turns"
+/ = toggle devlog"
 label_settings = SubResource("LabelSettings_h35sd")
 
 [node name="targeting_manager" type="Node2D" parent="." unique_id=1590630605]
@@ -319,6 +316,7 @@ label_settings = SubResource("LabelSettings_mja0g")
 horizontal_alignment = 1
 
 [node name="devlog" parent="." unique_id=1890242823 instance=ExtResource("13_mja0g")]
+z_index = 100
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]

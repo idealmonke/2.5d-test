@@ -154,14 +154,14 @@ func begin_drag() -> void:
 	drag_offset = global_position - get_global_mouse_position()
 	
 func set_back() -> void:
-	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Card_Back.png")
+	card_main_frame.texture = load("res://game_data/card_frames/Back_Skill.png")
 	card_name_label.hide()
 	card_mana_cost_label.hide()
 	card_stamina_cost_label.hide()
 	card_ability_label.hide()
 	
 func set_front() -> void:
-	card_main_frame.texture = load("res://game_data/skill_cards/card_art/Blank_Card.png")
+	card_main_frame.texture = load("res://game_data/card_frames/Front_Card.png")
 	card_name_label.show()
 	card_mana_cost_label.show()
 	card_stamina_cost_label.show()
