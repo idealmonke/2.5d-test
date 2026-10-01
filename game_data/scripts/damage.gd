@@ -74,6 +74,7 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 				
 			damages[key] -= min_damage # Mark the used damage
 			min_damage -= defense.get(key,0) # Apply defense to the damage used
+			min_damage = max(0, min_damage*2)
 			total_damage_applied += min_damage # Add to running total
 			
 			break
@@ -96,6 +97,7 @@ func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
 			calculated_damage = equation.call(calculated_damage)
 			
 		calculated_damage -= defense.get(key,0)
+		calculated_damage = max(0, calculated_damage*2)
 		
 		total_damage_applied += calculated_damage
 	
