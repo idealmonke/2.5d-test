@@ -53,8 +53,8 @@ func incoming_update(statuses: Dictionary[String, StatusEffect]) -> void:
 			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.INCOMING_DAMAGE).calculate.call(self, status)
 			
 ## Returns amount of damage done to shield, and decrements values within the object
-func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
-	
+func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> Array:
+	var damage_number_ui_values: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int] = {}
 	var total_damage_applied: int = 0
 	for key in self.damages:
 		var base_max_damage = damages.get(key)
@@ -80,17 +80,20 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 			damages[key] -= min_damage # Mark the used damage
 			min_damage = max(0, min_damage)
 			total_damage_applied += min_damage # Add to running total
+			damage_number_ui_values[key] = min_damage
 			
 			break
 						
 		else:
 			total_damage_applied += max_calculated_damage
+			damage_number_ui_values[key] = max_calculated_damage
 			damages.erase(key)
 	
-	return total_damage_applied
+	return [total_damage_applied, damage_number_ui_values]
 	
 ## Returns amount of damage done to health, and decrements values within the object
-func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
+func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> Array:
+	var damage_number_ui_values: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int] = {}
 	var total_damage_applied: int = 0
 	
 	for key in self.damages:
@@ -108,9 +111,11 @@ func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
 		calculated_damage = max(0, calculated_damage)
 		
 		total_damage_applied += calculated_damage
+		damage_number_ui_values[key] = calculated_damage
+		
 	
 	damages.clear()
-	return total_damage_applied
+	return [total_damage_applied, damage_number_ui_values]
 	
 func _binary_search_min_damage(shield_hp: int) -> int:
 	var low: int = 0

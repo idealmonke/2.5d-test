@@ -6,6 +6,7 @@ var idx : int
 
 # Size of Texture
 const ENEMY_SPRITE_SIZE = 200
+const DAMAGE_NUMBER = preload("res://game_data/scenes/scene_resources/damage_numbers/damage_number.tscn")
 
 # Locations
 var hand: EnemyHand
@@ -126,6 +127,11 @@ func _upkeep_regen_mana() -> void:
 	_update_stat_bars()
 	
 func take_damage(damage: Damage) -> void:
+	# This is for storing so the proper effects can be displayed after damage
+	var final_damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
+	var shield_array: Array = []
+	var health_array: Array = []
+	
 	if damage.source != null:
 		damage.outgoing_update()
 		
@@ -133,17 +139,23 @@ func take_damage(damage: Damage) -> void:
 	
 	var strOut = "enemy"+str(idx)+"|damage:";
 	if current_shield > 0 && !damage.ignore_shield:
-		var variable = damage.damage_shield(current_shield, defense)
-		current_shield -= variable
-		strOut += " shield: "+str(variable);
-	var healthLost = damage.damage_health(defense);
-	current_health -= healthLost
-	strOut += " health: "+str(healthLost);
+		shield_array = damage.damage_shield(current_shield, defense)
+		current_shield -= shield_array[0]
+		strOut += " shield: "+str(shield_array[0]);
+	health_array = damage.damage_health(defense)
+	current_health -= health_array[0]
+	strOut += " health: "+str(health_array[0]);
 	
 	DevConsole.add_message(strOut, Color.ORANGE_RED);
 	
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
+	
+	damage_flash()
+	shake()
+	if shield_array != null && !shield_array.is_empty():
+		damage_numbers(shield_array[1])
+	damage_numbers(health_array[1])
 	
 	_update_stat_bars()
 	_update_status()
@@ -319,3 +331,30 @@ func _bar_tween(target: TextureProgressBar, value: int, duration: float) -> Twee
 	tween.set_ease(Tween.EASE_OUT)
 	return tween
 	
+func shake(intensity: float = 10.0, duration: float = 0.3, shakes: int = 8) -> void:
+	var origin: Vector2 = sprite.position
+	var tween: Tween = create_tween()
+	for i in shakes:
+		var falloff: float = 1.0 - float(i) / shakes
+		var offset: Vector2 = Vector2(
+			randf_range(-intensity, intensity),
+			randf_range(-intensity, intensity)
+		) * falloff
+		tween.tween_property(sprite, "position", origin + offset, duration / shakes)
+	tween.tween_property(sprite, "position", origin, 0.02)
+
+func damage_flash() -> void:
+	sprite.modulate = Color(1, 0.3, 0.3)
+	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.25)
+	
+func heal_flash() -> void:
+	sprite.modulate = Color(0.3, 1, 0.3)
+	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.25)
+	
+func damage_numbers(damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> void:
+	for key in damages:
+		var number = DAMAGE_NUMBER.instantiate()
+		number.z_index = 25
+		number.global_position = global_position + Vector2(randf_range(-75, 75), -40)
+		number.setup(damages[key], key)
+		get_tree().current_scene.add_child(number)
