@@ -1,25 +1,30 @@
 [gd_scene format=3 uid="uid://bqeiaw7piq6ut"]
 
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_mw5y4"]
+[ext_resource type="Texture2D" uid="uid://b4lyed0ldpfyh" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/lacquered_cherry_wood_diff_4k.jpg" id="1_8bcsd"]
+[ext_resource type="FontFile" uid="uid://bh7aeluipo1m5" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/RoughenCornerRegular-7RjV.ttf" id="2_ipwea"]
 [ext_resource type="Script" uid="uid://djas34mrbinks" path="res://game_data/scripts/main_menu/play_button.gd" id="2_vrr0r"]
 [ext_resource type="Script" uid="uid://chvttn1knhgcb" path="res://game_data/scripts/main_menu/settings_button.gd" id="3_kslts"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_iinrh"]
+font = ExtResource("2_ipwea")
+font_size = 175
+
 [node name="Node2D" type="Node2D" unique_id=1508738771]
 
+[node name="LacqueredCherryWoodDiff4k" type="Sprite2D" parent="." unique_id=1221120106]
+z_index = -1
+position = Vector2(704, 914)
+texture = ExtResource("1_8bcsd")
+
 [node name="name_text" type="Label" parent="." unique_id=1791617102]
-offset_left = 482.0
-offset_top = 91.0
-offset_right = 1407.0
-offset_bottom = 353.0
+offset_top = 100.0
+offset_right = 1920.0
+offset_bottom = 432.0
 theme_override_font_sizes/font_size = 120
-text = "Reclaiming Arca"
+text = "Reclaiming Arca Demo"
+label_settings = SubResource("LabelSettings_iinrh")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="logo" type="Sprite2D" parent="." unique_id=956750061]
-position = Vector2(1716.0001, 215)
-scale = Vector2(2.5468755, 2.5468755)
-texture = ExtResource("1_mw5y4")
 
 [node name="play_button" type="Button" parent="." unique_id=1173965733]
 offset_left = 670.0

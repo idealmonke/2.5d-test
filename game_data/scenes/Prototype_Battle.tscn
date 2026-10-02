@@ -15,9 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bh2sy7ubj3ujh" path="res://game_data/scenes/devlog.tscn" id="13_mja0g"]
 [ext_resource type="Texture2D" uid="uid://b4lyed0ldpfyh" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/lacquered_cherry_wood_diff_4k.jpg" id="14_md5fw"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lpuuh"]
-blend_mode = 1
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_in72b"]
 blend_mode = 2
 
@@ -102,8 +99,8 @@ script = ExtResource("3_wxjty")
 script = ExtResource("4_h35sd")
 
 [node name="base_sprite" type="Sprite2D" parent="library" unique_id=12149178]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
 z_index = -100
-material = SubResource("CanvasItemMaterial_lpuuh")
 position = Vector2(148, 848)
 scale = Vector2(1.74, 2.488)
 texture = ExtResource("5_h35sd")
@@ -312,6 +309,7 @@ label_settings = SubResource("LabelSettings_mja0g")
 horizontal_alignment = 1
 
 [node name="devlog" parent="." unique_id=1890242823 instance=ExtResource("13_mja0g")]
+visible = false
 z_index = 100
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
