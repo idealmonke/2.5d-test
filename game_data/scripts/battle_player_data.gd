@@ -93,11 +93,11 @@ func take_damage(damage: Damage) -> void:
 	damage.incoming_update(self.current_status_effects)
 	var strOut = "player|damage:";
 	if current_shield > 0 && !damage.ignore_shield:
-		var variable = damage.damage_shield(current_shield, defense)
+		var variable = damage.damage_shield(current_shield, defense)[0]
 		current_shield -= variable
 		
 		strOut += " shield: "+str(variable);
-	var healthLost = damage.damage_health(defense);
+	var healthLost = damage.damage_health(defense)[0]
 	current_health -= healthLost
 	strOut += " health: "+str(healthLost);
 	

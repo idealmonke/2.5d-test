@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cok7523jvribi"]
+
+[ext_resource type="FontFile" uid="uid://dw81biysx307i" path="res://game_data/scenes/scene_resources/damage_numbers/IMPACTED.ttf" id="1_qeqid"]
+[ext_resource type="Script" uid="uid://di53fpuw3gc4b" path="res://game_data/scenes/scene_resources/damage_numbers/damage_number.gd" id="2_m5tve"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tlhdu"]
+font = ExtResource("1_qeqid")
+font_size = 40
+
+[node name="damage_number" type="Label" unique_id=133289661]
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 46.0
+offset_bottom = 35.0
+text = "12"
+label_settings = SubResource("LabelSettings_tlhdu")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_m5tve")
