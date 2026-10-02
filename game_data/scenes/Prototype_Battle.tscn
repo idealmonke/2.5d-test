@@ -172,9 +172,10 @@ position = Vector2(289, 577)
 shape = SubResource("RectangleShape2D_5g3yw")
 
 [node name="click" type="Label" parent="targeting_manager/player_select" unique_id=473898251]
+visible = false
 offset_right = 246.0
 offset_bottom = 23.0
-text = "CLICK HERER TO SELECT PLAYER"
+text = "CLICK HERE TO SELECT PLAYER"
 
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
 position = Vector2(-30, 480)
