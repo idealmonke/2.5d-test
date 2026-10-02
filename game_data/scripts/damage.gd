@@ -9,6 +9,8 @@ var is_strike: bool = false
 
 var ignore_shield: bool = false
 
+var scaling_constant: int = 12
+
 # Pass in Lambda, int parameter and return int.
 var shield_multipliers: Array[Callable] = []
 var health_multipliers: Array[Callable] = []
@@ -56,12 +58,15 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 	var total_damage_applied: int = 0
 	for key in self.damages:
 		var base_max_damage = damages.get(key)
+		var armor_percentage: float = 1
+		if defense.get(key, 0) != 0:
+			armor_percentage = (scaling_constant as float) / ((scaling_constant as float) + (defense.get(key) as float))
 		
 		# Performance check, go next if max is not enough to break shield
-		var max_calculated_damage = base_max_damage
+		var max_calculated_damage = base_max_damage * armor_percentage
 		for equation in shield_multipliers:
 			max_calculated_damage = equation.call(max_calculated_damage)
-		max_calculated_damage -= defense.get(key,0)
+
 		if max_calculated_damage < 0:
 			max_calculated_damage = 0
 			
@@ -73,8 +78,7 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 				min_damage = equation.call(min_damage)
 				
 			damages[key] -= min_damage # Mark the used damage
-			min_damage -= defense.get(key,0) # Apply defense to the damage used
-			min_damage = max(0, min_damage*2)
+			min_damage = max(0, min_damage)
 			total_damage_applied += min_damage # Add to running total
 			
 			break
@@ -90,14 +94,18 @@ func damage_health(defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> int:
 	var total_damage_applied: int = 0
 	
 	for key in self.damages:
+		var armor_percentage: float = 1
 		var base_damage = damages[key]
-		var calculated_damage = base_damage
+		
+		if defense.get(key, 0) != 0:
+			armor_percentage = (scaling_constant as float) / ((scaling_constant as float) + (defense.get(key) as float))
+		
+		var calculated_damage = base_damage * armor_percentage
 		
 		for equation in health_multipliers:
 			calculated_damage = equation.call(calculated_damage)
 			
-		calculated_damage -= defense.get(key,0)
-		calculated_damage = max(0, calculated_damage*2)
+		calculated_damage = max(0, calculated_damage)
 		
 		total_damage_applied += calculated_damage
 	
