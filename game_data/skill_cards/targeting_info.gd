@@ -3,15 +3,15 @@ extends RefCounted
 
 enum POSITIONS {LEFT, MIDDLE, RIGHT}
 
-var targets : Array[Enemy]
+var targets : Array[Variant]
 
-func add_target(enem : Enemy):
+func add_target(enem : Variant):
 	targets.append(enem)
 	
-func single_target() -> Enemy:
+func single_target() -> Variant:
 	return targets[0]
 	
-func all_targets() -> Array[Enemy]:
+func all_targets() -> Array[Variant]:
 	var enemies = []
 	for enem in targets:
 		enemies.append(enem)

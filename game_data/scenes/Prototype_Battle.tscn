@@ -25,6 +25,9 @@ blend_mode = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5g3yw"]
+size = Vector2(518.5, 158)
+
 [sub_resource type="Gradient" id="Gradient_wxjty"]
 colors = PackedColorArray(0.18717596, 0.1871762, 0.18717608, 1, 0.60122615, 0.6012221, 0.6012204, 1)
 
@@ -164,6 +167,17 @@ offset_top = 685.0
 offset_right = 1082.0
 offset_bottom = 716.0
 text = "Confirm Targets"
+
+[node name="player_select" type="Area2D" parent="targeting_manager" unique_id=537654760]
+position = Vector2(289, 577)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targeting_manager/player_select" unique_id=1167311740]
+shape = SubResource("RectangleShape2D_5g3yw")
+
+[node name="click" type="Label" parent="targeting_manager/player_select" unique_id=473898251]
+offset_right = 246.0
+offset_bottom = 23.0
+text = "CLICK HERER TO SELECT PLAYER"
 
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
 position = Vector2(-30, 480)

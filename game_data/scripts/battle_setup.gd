@@ -32,6 +32,8 @@ func _init_player_cards() -> void:
 	
 	for card in cards:
 		var data: CardData = SkillCardRegistry.get_card_data(card)
+		#if(data.card_id!=7004):
+			#continue;
 		var card_instance: SkillCard = SKILL_CARD_SCENE.instantiate()
 		
 		card_instance.set_locs($library, $discard);

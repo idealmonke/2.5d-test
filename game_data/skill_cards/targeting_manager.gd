@@ -14,16 +14,20 @@ var cur_type : COMMON_ENUMS.TARGET_TYPE
 
 var _targeting : bool = false
 var _num_arrows : int = 0
-var res : Enemy
+var res : Variant
+var res_idx: int
 
 var OFFSETS : Array[int]
 var cur_targets : TargetingInfo
 
+var player_select : Area2D;
+
 func _ready() -> void:
-	OFFSETS = [0,0,0]
+	OFFSETS = [0,0,0,0]
 	
 	cancel_button = $cancel_button
 	confirm_button = $confirm_button
+	player_select = $player_select;
 
 signal targeting_finished(targets: TargetingInfo)
 
@@ -31,6 +35,7 @@ func select_targets(card: SkillCard) -> TargetingInfo:
 	_targeting = true
 	cur_card = card
 	cur_type = card.ability.target_type
+	player_select.get_node("click").show()
 	
 	cur_targets = TargetingInfo.new()
 	
@@ -73,16 +78,17 @@ func _process(_delta: float) -> void:
 func _display_arrow():
 	var screen_size = get_viewport().get_visible_rect().size
 	var start = (screen_size/2)
-	var end = BattleController.data.enemy_locations[res.idx]
+	var end = res.position;
+	#BattleController.data.enemy_locations[res_idx]
 	
 	_cur_arrow.clear_points()
 	
 	var midpoint = (start + end) * 0.5
 	
 	var bend = clamp(start.distance_to(end)*0.25,50,200)
-	var control = midpoint + Vector2(0,-bend) + Vector2(0,-OFFSETS[res.idx])
-	if res.idx==1:
-		control = midpoint + Vector2(0,-bend) + Vector2(OFFSETS[res.idx],0)
+	var control = midpoint + Vector2(0,-bend) + Vector2(0,-OFFSETS[res_idx])
+	if res_idx==1:
+		control = midpoint + Vector2(0,-bend) + Vector2(OFFSETS[res_idx],0)
 	
 	var store : Vector2
 	
@@ -107,7 +113,7 @@ func _input(event):
 			cur_targets.add_target(res)
 			
 			_create_arrow()
-			OFFSETS[res.idx] += 100
+			OFFSETS[res_idx] += 100
 
 func check_targets():
 	var done = false
@@ -127,15 +133,17 @@ func check_targets():
 
 func _reset():
 	for child in get_children():
-		if(not child is Button):
+		if(not child is Button and not child==player_select):
 			child.queue_free()
 	
 	cancel_button.visible = false
 	confirm_button.visible = false
 	
-	OFFSETS = [0,0,0]
+	OFFSETS = [0,0,0,0]
 	_num_arrows = 0
 	_targeting = false
+	
+	player_select.get_node("click").hide()
 
 func get_enemy_under_mouse():
 	var query = PhysicsPointQueryParameters2D.new()
@@ -145,7 +153,13 @@ func get_enemy_under_mouse():
 	
 	var results = get_world_2d().direct_space_state.intersect_point(query)
 	for result in results:
-		if result.collider is Enemy:
+		var collider = result.collider;
+		
+		if collider is Enemy:
+			res_idx = collider.idx;
+			return result.collider
+		if result.collider==player_select:
+			res_idx = 3;
 			return result.collider
 
 func bezier(start: Vector2, control: Vector2, end: Vector2, t: float) -> Vector2:
