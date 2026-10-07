@@ -1,0 +1,366 @@
+[gd_scene format=3 uid="uid://rml0uowto1u1"]
+
+[ext_resource type="Script" uid="uid://corc8hs0rus56" path="res://game_data/scripts/battle_setup.gd" id="1_lpuuh"]
+[ext_resource type="Script" uid="uid://byomycld6ah0h" path="res://game_data/skill_cards/card_locations/skill_card_discard.gd" id="2_72g67"]
+[ext_resource type="Script" uid="uid://d02qag4sjnwd8" path="res://game_data/skill_cards/card_locations/skill_card_display_grid.gd" id="2_l4n2p"]
+[ext_resource type="Script" uid="uid://brkdlre72oirh" path="res://game_data/skill_cards/card_locations/skill_card_hand.gd" id="3_wxjty"]
+[ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/skill_cards/card_locations/skill_card_library.gd" id="4_h35sd"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="5_h35sd"]
+[ext_resource type="Script" uid="uid://dwo633dwu4swd" path="res://game_data/skill_cards/targeting_manager.gd" id="7_wxjty"]
+[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="8_l4n2p"]
+[ext_resource type="Texture2D" uid="uid://8pldicdphy16" path="res://game_data/status_effects/status_effect_images/Burning.png" id="9_5ar1h"]
+[ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
+[ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
+[ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
+[ext_resource type="PackedScene" uid="uid://bh2sy7ubj3ujh" path="res://game_data/scenes/devlog.tscn" id="13_mja0g"]
+[ext_resource type="Texture2D" uid="uid://b4lyed0ldpfyh" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/lacquered_cherry_wood_diff_4k.jpg" id="14_md5fw"]
+[ext_resource type="Script" uid="uid://cv6l6xdwhg7we" path="res://game_data/scenes/scene_resources/banner/animated_banner.gd" id="15_3dppl"]
+[ext_resource type="Texture2D" uid="uid://c6diyt1j7dixc" path="res://game_data/scenes/scene_resources/banner/Banner.png" id="16_6iy56"]
+[ext_resource type="FontFile" uid="uid://dw81biysx307i" path="res://game_data/scenes/scene_resources/damage_numbers/IMPACTED.ttf" id="17_3n6h2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_in72b"]
+blend_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxjty"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5g3yw"]
+size = Vector2(518.5, 158)
+
+[sub_resource type="Gradient" id="Gradient_wxjty"]
+colors = PackedColorArray(0.18717596, 0.1871762, 0.18717608, 1, 0.60122615, 0.6012221, 0.6012204, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h35sd"]
+gradient = SubResource("Gradient_wxjty")
+width = 200
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_l4n2p"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ar1h"]
+gradient = SubResource("Gradient_l4n2p")
+width = 200
+height = 40
+fill_to = Vector2(0.98913044, 0)
+
+[sub_resource type="Gradient" id="Gradient_h35sd"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l4n2p"]
+gradient = SubResource("Gradient_h35sd")
+width = 200
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_5ar1h"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0.6392157, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lpuuh"]
+gradient = SubResource("Gradient_5ar1h")
+width = 200
+height = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4n2p"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.18, 0.18, 0.18, 0.9254902)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_mja0g"]
+font_color = Color(0, 0.23, 0.049833342, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iinrh"]
+font = ExtResource("17_3n6h2")
+font_size = 80
+font_color = Color(0, 0, 0, 1)
+
+[node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
+script = ExtResource("1_lpuuh")
+
+[node name="LacqueredCherryWoodDiff4k" type="Sprite2D" parent="." unique_id=766423573]
+modulate = Color(1, 1, 1, 0.8117647)
+z_index = -999
+position = Vector2(947, 521)
+scale = Vector2(0.555, 0.555)
+texture = ExtResource("14_md5fw")
+
+[node name="skill_card_display_grid" type="Node2D" parent="." unique_id=47632237]
+script = ExtResource("2_l4n2p")
+card_width = null
+card_height = null
+max_display_width = null
+separation_width = null
+separation_height = null
+metadata/_custom_type_script = "uid://d02qag4sjnwd8"
+
+[node name="hand" type="Node2D" parent="." unique_id=495395319]
+script = ExtResource("3_wxjty")
+
+[node name="library" type="Node2D" parent="." unique_id=808325488]
+script = ExtResource("4_h35sd")
+
+[node name="base_sprite" type="Sprite2D" parent="library" unique_id=12149178]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+z_index = -100
+position = Vector2(148, 848)
+scale = Vector2(1.74, 2.488)
+texture = ExtResource("5_h35sd")
+flip_h = true
+flip_v = true
+
+[node name="discard" type="Area2D" parent="." unique_id=215352113]
+z_index = -1
+position = Vector2(405, 845)
+script = ExtResource("2_72g67")
+
+[node name="base_sprite" type="Sprite2D" parent="discard" unique_id=2013087415]
+z_index = -100
+material = SubResource("CanvasItemMaterial_in72b")
+scale = Vector2(1.74, 2.488)
+texture = ExtResource("5_h35sd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="discard" unique_id=477968306]
+scale = Vector2(11.025, 15.82)
+shape = SubResource("RectangleShape2D_wxjty")
+
+[node name="card_storage" type="Node2D" parent="." unique_id=149255123]
+
+[node name="enemy_storage" type="Node2D" parent="." unique_id=380014281]
+
+[node name="end_turn" type="Button" parent="." unique_id=1149504803]
+offset_left = 1620.0
+offset_top = 948.0
+offset_right = 1870.0
+offset_bottom = 1048.0
+text = "END TURN"
+
+[node name="Label" type="Label" parent="." unique_id=763715797]
+offset_left = 1640.0
+offset_top = 862.0
+offset_right = 1872.0
+offset_bottom = 932.0
+text = "Testing Controls:
+q = draw card
+/ = toggle devlog"
+label_settings = SubResource("LabelSettings_h35sd")
+
+[node name="targeting_manager" type="Node2D" parent="." unique_id=1590630605]
+script = ExtResource("7_wxjty")
+
+[node name="cancel_button" type="Button" parent="targeting_manager" unique_id=1911464007]
+visible = false
+offset_left = 826.0
+offset_top = 684.0
+offset_right = 890.0
+offset_bottom = 715.0
+text = "Cancel "
+
+[node name="confirm_button" type="Button" parent="targeting_manager" unique_id=1031402798]
+visible = false
+offset_left = 949.0
+offset_top = 685.0
+offset_right = 1082.0
+offset_bottom = 716.0
+text = "Confirm Targets"
+
+[node name="player_select" type="Area2D" parent="targeting_manager" unique_id=537654760]
+position = Vector2(289, 577)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targeting_manager/player_select" unique_id=1167311740]
+shape = SubResource("RectangleShape2D_5g3yw")
+
+[node name="click" type="Label" parent="targeting_manager/player_select" unique_id=473898251]
+visible = false
+offset_right = 246.0
+offset_bottom = 23.0
+text = "CLICK HERE TO SELECT PLAYER"
+
+[node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
+position = Vector2(-30, 480)
+
+[node name="health_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1190676496]
+z_index = 150
+offset_left = 80.0
+offset_top = 40.0
+offset_right = 280.0
+offset_bottom = 80.0
+step = 0.01
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_5ar1h")
+
+[node name="health_label" type="Label" parent="player_stat_bars/health_bar" unique_id=621116592]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mana_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1617729946]
+z_index = 150
+offset_left = 80.0
+offset_top = 90.0
+offset_right = 280.0
+offset_bottom = 130.0
+step = 0.01
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_l4n2p")
+
+[node name="mana_label" type="Label" parent="player_stat_bars/mana_bar" unique_id=1893524866]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stamina_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1752691136]
+z_index = 150
+offset_left = 80.0
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 180.0
+step = 0.01
+value = 100.0
+texture_under = SubResource("GradientTexture2D_h35sd")
+texture_progress = SubResource("GradientTexture2D_lpuuh")
+
+[node name="stamina_label" type="Label" parent="player_stat_bars/stamina_bar" unique_id=2046305648]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="status_effect_display" type="FlowContainer" parent="player_stat_bars" unique_id=373507238]
+offset_left = 103.0
+offset_top = 402.0
+offset_right = 284.0
+offset_bottom = 502.0
+script = ExtResource("11_lpuuh")
+metadata/_custom_type_script = "uid://t5qbjm3s8snw"
+
+[node name="win_panel" type="PanelContainer" parent="." unique_id=1328969556]
+visible = false
+z_index = 100
+offset_left = 368.0
+offset_top = 162.0
+offset_right = 1568.0
+offset_bottom = 862.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4n2p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="win_panel" unique_id=1700531472]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="win_panel/VBoxContainer" unique_id=1291657476]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "You defeated all the enemies and won!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=1881463621]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=2116977307]
+layout_mode = 2
+texture = ExtResource("9_5ar1h")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=562751620]
+layout_mode = 2
+texture = ExtResource("8_l4n2p")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=358608751]
+layout_mode = 2
+texture = ExtResource("5_h35sd")
+
+[node name="Control" type="Control" parent="win_panel/VBoxContainer" unique_id=1724168836]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="exit_button" type="Button" parent="win_panel/VBoxContainer" unique_id=397749773]
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 60
+text = "Exit"
+script = ExtResource("10_5ar1h")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=588068581]
+layout_mode = 2
+alignment = 2
+
+[node name="status_effect_display" type="FlowContainer" parent="." unique_id=1636289337]
+offset_left = 305.0
+offset_top = 516.0
+offset_right = 505.0
+offset_bottom = 716.0
+script = ExtResource("11_lpuuh")
+metadata/_custom_type_script = "uid://t5qbjm3s8snw"
+
+[node name="shield" type="Node2D" parent="." unique_id=527885997]
+position = Vector2(180, 409)
+
+[node name="shield_icon" type="Sprite2D" parent="shield" unique_id=192834867]
+position = Vector2(126.5, 212)
+scale = Vector2(1.203125, 1.21875)
+texture = ExtResource("12_in72b")
+
+[node name="shield_label" type="Label" parent="shield" unique_id=840759309]
+offset_left = 107.0
+offset_top = 193.0
+offset_right = 147.0
+offset_bottom = 216.0
+text = "GTY"
+label_settings = SubResource("LabelSettings_mja0g")
+horizontal_alignment = 1
+
+[node name="devlog" parent="." unique_id=1890242823 instance=ExtResource("13_mja0g")]
+visible = false
+z_index = 100
+
+[node name="banner" type="Control" parent="." unique_id=1801027116]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_3dppl")
+
+[node name="banner" type="TextureRect" parent="banner" unique_id=363313983]
+layout_mode = 0
+offset_left = -1206.0
+offset_right = -206.0
+offset_bottom = 1000.0
+texture = ExtResource("16_6iy56")
+
+[node name="banner_text" type="Label" parent="banner" unique_id=674792406]
+layout_mode = 0
+offset_left = -928.0
+offset_top = 328.0
+offset_right = -497.0
+offset_bottom = 467.0
+text = "Player Turn"
+label_settings = SubResource("LabelSettings_iinrh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
+[connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="targeting_manager/confirm_button" to="targeting_manager" method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="win_panel/VBoxContainer/exit_button" to="win_panel/VBoxContainer/exit_button" method="_on_pressed"]

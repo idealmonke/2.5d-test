@@ -15,7 +15,7 @@ func _ready() -> void:
 										$player_stat_bars/stamina_bar/stamina_label,
 										$player_stat_bars/status_effect_display)
 	
-	BattleController.setup($discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog)
+	BattleController.setup($discard, $hand, $library, $targeting_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog, $banner)
 	
 	_init_player_cards()
 	_init_enemies()

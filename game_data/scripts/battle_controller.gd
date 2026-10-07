@@ -22,6 +22,8 @@ var targeting_manager_instance : TargetingManager
 #Devlog
 var devlog: PanelContainer
 
+var banner: AnimatedBanner
+
 @warning_ignore("unused_signal")
 signal display_signal
 
@@ -61,7 +63,7 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_R:
 			discard_front()
 				
-func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D, devlog: PanelContainer) -> void:
+func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D, devlog: PanelContainer, banner: AnimatedBanner) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -75,6 +77,7 @@ func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, end_
 	
 	data.player.status_effect_bar = effect_bar
 	data.player.shield_node = shield_node
+	self.banner = banner
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
@@ -225,6 +228,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			end_turn_button.hide()
+			await banner.play_banner("ENEMY TURNS", Color.DARK_RED, Color.AZURE)
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
@@ -245,17 +249,16 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.hide()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
-			pass
+			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
-			# DO NOTHING HERE
-			pass
+			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
 
 func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
-	_on_exit_state(current_state)
+	await _on_exit_state(current_state)
 	current_state = new_state
 	var state_to_string = COMMON_ENUMS.BATTLE_STATE.keys()[new_state];
 	print("should add "+state_to_string);
@@ -263,7 +266,7 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	if current_state != COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN and _process_deaths():
 		_change_state(COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN)
 		return
-	_on_enter_state(current_state)
+	await _on_enter_state(current_state)
 	match current_state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
 			_change_state(_player_upkeep())
