@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
 [ext_resource type="PackedScene" uid="uid://bh2sy7ubj3ujh" path="res://game_data/scenes/devlog.tscn" id="13_mja0g"]
 [ext_resource type="Texture2D" uid="uid://b4lyed0ldpfyh" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/lacquered_cherry_wood_diff_4k.jpg" id="14_md5fw"]
+[ext_resource type="Script" uid="uid://cv6l6xdwhg7we" path="res://game_data/scenes/scene_resources/banner/animated_banner.gd" id="15_3dppl"]
+[ext_resource type="Texture2D" uid="uid://c6diyt1j7dixc" path="res://game_data/scenes/scene_resources/banner/Banner.png" id="16_6iy56"]
+[ext_resource type="FontFile" uid="uid://dw81biysx307i" path="res://game_data/scenes/scene_resources/damage_numbers/IMPACTED.ttf" id="17_3n6h2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_in72b"]
 blend_mode = 2
@@ -75,6 +78,11 @@ corner_detail = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_mja0g"]
 font_color = Color(0, 0.23, 0.049833342, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iinrh"]
+font = ExtResource("17_3n6h2")
+font_size = 80
+font_color = Color(0, 0, 0, 1)
 
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_lpuuh")
@@ -326,6 +334,31 @@ horizontal_alignment = 1
 [node name="devlog" parent="." unique_id=1890242823 instance=ExtResource("13_mja0g")]
 visible = false
 z_index = 100
+
+[node name="banner" type="Control" parent="." unique_id=1801027116]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_3dppl")
+
+[node name="banner" type="TextureRect" parent="banner" unique_id=363313983]
+layout_mode = 0
+offset_left = -1206.0
+offset_right = -206.0
+offset_bottom = 1000.0
+texture = ExtResource("16_6iy56")
+
+[node name="banner_text" type="Label" parent="banner/banner" unique_id=674792406]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 328.0
+offset_right = 709.0
+offset_bottom = 467.0
+text = "Player Turn"
+label_settings = SubResource("LabelSettings_iinrh")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]
