@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://ct1mfpp4oeirh"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://ct1mfpp4oeirh"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_ikxfx"]
 [ext_resource type="Texture2D" uid="uid://cmt2kbyoybsm2" path="res://game_data/status_effects/status_effect_images/Regeneration.png" id="2_fft85"]
@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://cfm76ev5l62fy"
 [resource]
 script = ExtResource("4_mgd6v")
 name = "Regeneration"
-desc = "For each stack of bloodthirsty, your physical strikes deal an additional 1 damage and physical strikes against you deal an additional 1 damage."
+desc = "Heal 5 health at the start of turn."
 id = 8
 display_image = ExtResource("2_fft85")
 abilities = Dictionary[int, ExtResource("1_ikxfx")]({

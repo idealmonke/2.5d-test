@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://q4cgnemnaqe5"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://q4cgnemnaqe5"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_6a4ly"]
 [ext_resource type="Texture2D" uid="uid://uijofusptcfp" path="res://game_data/status_effects/status_effect_images/Haste.png" id="2_dbiwf"]
@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bgxau2v1nwdx4"
 [resource]
 script = ExtResource("2_qt3ri")
 name = "Haste"
-desc = "+2 max stamina"
+desc = "+2 Max Stamina"
 id = 7
 display_image = ExtResource("2_dbiwf")
 stats_calculations = Dictionary[int, ExtResource("3_dbiwf")]({
