@@ -5,7 +5,8 @@ static var enemy_data_path: String = "res://game_data/enemies/enemy_data/"
 
 const ENEMY_DB: Dictionary = {
 	0001: "harpy",
-	888: "goku"
+	888: "goku",
+	0002: "knife_kobold"
 }
 
 static func get_enemy_data(ID: int) -> EnemyData:

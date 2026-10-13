@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyCardData" format=3 uid="uid://br3vp7ogielxr"]
+
+[ext_resource type="Script" uid="uid://bq0cpyu3e1608" path="res://game_data/enemies/enemy_card_abilities/spit_ability.gd" id="1_5lnlg"]
+[ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="1_uucg5"]
+
+[sub_resource type="Resource" id="Resource_5lnlg"]
+script = ExtResource("1_5lnlg")
+metadata/_custom_type_script = "uid://bq0cpyu3e1608"
+
+[resource]
+script = ExtResource("1_uucg5")
+stamina_cost = 2
+card_ability = SubResource("Resource_5lnlg")
+ability_desc = "Strike once for 8 fore damage."
+card_name = "Spit"
+card_id = 6
+metadata/_custom_type_script = "uid://dkt7p0jgp2uag"
