@@ -11,6 +11,7 @@ var confirm_button : Button
 #card info
 var cur_card : SkillCard
 var cur_type : COMMON_ENUMS.TARGET_TYPE
+var cur_flag : COMMON_ENUMS.TARGET_FLAG
 
 var _targeting : bool = false
 var _num_arrows : int = 0
@@ -35,7 +36,10 @@ func select_targets(card: SkillCard) -> TargetingInfo:
 	_targeting = true
 	cur_card = card
 	cur_type = card.ability.target_type
-	player_select.get_node("click").show()
+	cur_flag = card.ability.target_flag
+	
+	if(cur_flag==COMMON_ENUMS.TARGET_FLAG.PLAYER):
+		player_select.get_node("click").show()
 	
 	cur_targets = TargetingInfo.new()
 	
@@ -158,7 +162,7 @@ func get_enemy_under_mouse():
 		if collider is Enemy:
 			res_idx = collider.idx;
 			return result.collider
-		if result.collider==player_select:
+		if cur_flag == COMMON_ENUMS.TARGET_FLAG.PLAYER and result.collider==player_select:
 			res_idx = 3;
 			return result.collider
 
