@@ -3,6 +3,7 @@ extends SkillCardAbility
 
 func _init() -> void:
 	target_type = COMMON_ENUMS.TARGET_TYPE.SINGLE
+	target_flag = COMMON_ENUMS.TARGET_FLAG.PLAYER
 
 func execute(targets : TargetingInfo) -> void:
 	var target = targets.single_target();
