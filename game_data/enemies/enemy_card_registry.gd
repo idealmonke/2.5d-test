@@ -8,7 +8,10 @@ const CARD_DB: Dictionary = {
 	2: "claws",
 	3: "block",
 	4: "aching_screech",
-	5: "storm_of_feathers"
+	5: "storm_of_feathers",
+	6: "spit",
+	7: "rally!",
+	8: "bone_knife",
 }
 
 static func get_card_data(ID: int) -> EnemyCardData:

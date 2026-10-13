@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://cacj6u5jr8d8s"
 [resource]
 script = ExtResource("1_x7a4t")
 name = "Divine Favor"
-desc = "Physical strikes deal additional 2 holy damage "
+desc = "Physical strikes deal additional 2 holy damage."
 id = 6
 display_image = ExtResource("2_scao4")
 stats_calculations = Dictionary[int, ExtResource("4_0ohak")]({

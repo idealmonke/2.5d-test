@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dt22ymdkxy8hf"
 [resource]
 script = ExtResource("2_4mpya")
 name = "Holy Light"
-desc = "Take 3 Holy Damage at start of turn"
+desc = "Take 3 Holy Damage at start of turn."
 id = 9
 display_image = ExtResource("3_4ds16")
 status_type = 1

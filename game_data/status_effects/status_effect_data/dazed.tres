@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://d26s41446i042"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://d26s41446i042"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_xqp06"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_pq1su"]
@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://rd5dyjcchvf8"
 [resource]
 script = ExtResource("2_pq1su")
 name = "Dazed"
-desc = "-1 Decreased Hand Size"
+desc = "-1 Decreased Max Hand Size"
 id = 5
 display_image = ExtResource("2_tjr6p")
 status_type = 1

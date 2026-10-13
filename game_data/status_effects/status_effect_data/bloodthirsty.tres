@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://dmq0teinegcef"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://dmq0teinegcef"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_dybfd"]
 [ext_resource type="Texture2D" uid="uid://dqhm0dxd5wq6d" path="res://game_data/status_effects/status_effect_images/Bloodthirsty.png" id="3_h5frx"]
@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="5_n4x7r"]
 [ext_resource type="Script" uid="uid://bvc0cnua1282n" path="res://game_data/status_effects/status_effect_calculations/bloodthirsty_calculation.gd" id="6_h5frx"]
 
-[sub_resource type="Resource" id="Resource_h5frx"]
+[sub_resource type="Resource" id="Resource_d4tbx"]
 script = ExtResource("6_h5frx")
 metadata/_custom_type_script = "uid://bvc0cnua1282n"
 
-[sub_resource type="Resource" id="Resource_d4tbx"]
+[sub_resource type="Resource" id="Resource_h5frx"]
 script = ExtResource("6_h5frx")
 metadata/_custom_type_script = "uid://bvc0cnua1282n"
 
