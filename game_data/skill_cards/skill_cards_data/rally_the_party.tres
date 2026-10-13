@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://dei67tsefygfu"]
+
+[ext_resource type="Script" uid="uid://bfr2lthiu10g6" path="res://game_data/skill_cards/skill_card_abilities/rally_the_party_ability.gd" id="1_2lbqn"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_snd8p"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_qgway"]
+
+[sub_resource type="Resource" id="Resource_qsgnp"]
+script = ExtResource("1_2lbqn")
+metadata/_custom_type_script = "uid://bfr2lthiu10g6"
+
+[resource]
+script = ExtResource("1_snd8p")
+stamina_cost = 4
+card_ability = SubResource("Resource_qsgnp")
+ability_desc = "Draw cards equal to the number of classes among your party."
+card_name = "Rally the Party"
+card_art = ExtResource("2_qgway")
+card_id = 1004
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

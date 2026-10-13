@@ -1,6 +1,8 @@
 class_name BattlePlayerData
 extends Entity
 
+var character_classes: Array[COMMON_ENUMS.CHARACTER_CLASSES]
+
 func init_bars(hp_bar, hp_label, m_bar, m_label, s_bar, s_label, status_bars) -> void:
 	health_bar = hp_bar
 	health_bar_text = hp_label
