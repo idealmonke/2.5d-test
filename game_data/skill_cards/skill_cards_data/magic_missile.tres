@@ -2,12 +2,19 @@
 
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_k0clp"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_nge83"]
+[ext_resource type="Script" uid="uid://c72p7fkox458" path="res://game_data/skill_cards/skill_card_abilities/magic_missile_ability.gd" id="1_uyqj2"]
+
+[sub_resource type="Resource" id="Resource_6iy56"]
+script = ExtResource("1_uyqj2")
+metadata/_custom_type_script = "uid://c72p7fkox458"
 
 [resource]
 script = ExtResource("1_k0clp")
 mana_cost = 3
 stamina_cost = 3
+card_ability = SubResource("Resource_6iy56")
 ability_desc = "(3) strikes for (3) magic damage"
+card_classes = Array[int]([5])
 target_type = 2
 card_name = "Magic Missile"
 card_art = ExtResource("1_nge83")

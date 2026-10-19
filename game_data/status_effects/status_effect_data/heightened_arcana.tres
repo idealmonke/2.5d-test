@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://c1chpieirau0c"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_gmkuv"]
+[ext_resource type="Texture2D" uid="uid://cyc3juna0v0ma" path="res://game_data/status_effects/status_effect_images/Divine Favor.png" id="2_b5qol"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="3_a6nkl"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="4_s1jwy"]
+[ext_resource type="Script" uid="uid://dd4q58ynsxwhi" path="res://game_data/status_effects/status_effect_calculations/heightened_arcana_calculation.gd" id="5_gmkuv"]
+
+[sub_resource type="Resource" id="Resource_qqhxv"]
+script = ExtResource("5_gmkuv")
+metadata/_custom_type_script = "uid://dd4q58ynsxwhi"
+
+[resource]
+script = ExtResource("3_a6nkl")
+name = "Heightened Arcana"
+desc = "Deal an extra (2) damage each time you deal magic, fire, lightning or ice damage."
+id = 13
+display_image = ExtResource("2_b5qol")
+stats_calculations = Dictionary[int, ExtResource("4_s1jwy")]({
+6: SubResource("Resource_qqhxv")
+})
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"
