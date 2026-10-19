@@ -1,6 +1,10 @@
-[gd_resource type="Resource" script_class="Party" format=3 uid="uid://bfow5mjt2qwkc"]
+[gd_resource type="Resource" script_class="PartyData" format=3 uid="uid://bgrq1rqt10q4f"]
 
+<<<<<<<< HEAD:game_data/player_data/party_data/party_starter.tres
+[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_q0e4e"]
+========
 [ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/skill_cards/party.gd" id="1_mtr5n"]
+>>>>>>>> origin/main:game_data/player_data/party_data/party_001.tres
 
 [resource]
 script = ExtResource("1_mtr5n")

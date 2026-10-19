@@ -130,6 +130,9 @@ func check_targets():
 	if(cur_type == COMMON_ENUMS.TARGET_TYPE.DOUBLE):
 		if cur_targets.check_length(2):
 			done = true
+	if(cur_type == COMMON_ENUMS.TARGET_TYPE.TRIPLE):
+		if cur_targets.check_length(3):
+			done = true
 	
 	if(done):
 		confirm_button.visible = true

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://caq0ylurqj6un" path="res://game_data/scripts/settings/card_button_container.gd" id="2_uqg7b"]
 [ext_resource type="Script" uid="uid://btsaxc8lj6ukt" path="res://game_data/scripts/settings/selector.gd" id="3_l5jsw"]
 [ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/card_data_editor.gd" id="3_sqjrh"]
+[ext_resource type="Script" uid="uid://dr28ar5e1u7lo" path="res://game_data/scripts/settings/party_selector.gd" id="4_g8tyr"]
 [ext_resource type="Script" uid="uid://ec8wy6rx0hv1" path="res://game_data/scripts/settings/exit_button.gd" id="4_wrmvb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8tyr"]
@@ -87,7 +88,78 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 script = ExtResource("3_l5jsw")
 
+[node name="Party \\ Deck Selector" type="TabBar" parent="tab_container" unique_id=1784532654]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="party_selector" type="Node2D" parent="tab_container/Party \\ Deck Selector" unique_id=974629357]
+script = ExtResource("4_g8tyr")
+
+[node name="add_party_edit" type="LineEdit" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=170361769]
+offset_left = 26.0
+offset_top = 22.0
+offset_right = 129.0
+offset_bottom = 53.0
+placeholder_text = "ID"
+
+[node name="add_party_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1833585300]
+offset_left = 146.0
+offset_top = 22.0
+offset_right = 290.0
+offset_bottom = 53.0
+text = "Create New Party"
+
+[node name="card_button_scroll_container" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1820509940]
+offset_left = 19.0
+offset_top = 95.0
+offset_right = 291.0
+offset_bottom = 895.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5jsw")
+
+[node name="card_button_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_button_scroll_container" unique_id=702454990]
+layout_mode = 2
+
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_button_scroll_container/card_button_container" unique_id=991243422]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+
+[node name="inner_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_button_scroll_container/card_button_container/margin_container" unique_id=1528542212]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=561754434]
+offset_left = 28.0
+offset_top = 65.0
+offset_right = 151.0
+offset_bottom = 88.0
+text = "Current Parties:"
+
+[node name="card_panel" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1391219214]
+offset_left = 338.0
+offset_top = 44.0
+offset_right = 1486.0
+offset_bottom = 535.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5sndr")
+
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel" unique_id=942203875]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container" unique_id=407486563]
+layout_mode = 2
+
+[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox" unique_id=1781862006]
+layout_mode = 2
+
+[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox" unique_id=167222287]
+layout_mode = 2
+
 [node name="card_editor" type="Control" parent="." unique_id=708963454]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 9.0
@@ -102,7 +174,7 @@ position = Vector2(827, 98)
 layout_mode = 0
 offset_left = 19.0
 offset_top = 95.0
-offset_right = 219.0
+offset_right = 291.0
 offset_bottom = 895.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_l5jsw")
 
@@ -120,10 +192,10 @@ layout_mode = 2
 
 [node name="card_data_editor_panel" type="PanelContainer" parent="card_editor" unique_id=1884680401]
 layout_mode = 0
-offset_left = 267.0
-offset_top = 41.0
-offset_right = 352.0
-offset_bottom = 81.0
+offset_left = 338.0
+offset_top = 44.0
+offset_right = 463.0
+offset_bottom = 119.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5sndr")
 
 [node name="margin_container" type="MarginContainer" parent="card_editor/card_data_editor_panel" unique_id=1921524532]
