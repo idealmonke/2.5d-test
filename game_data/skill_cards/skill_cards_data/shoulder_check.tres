@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://br70skyvlurii"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://br70skyvlurii"]
 
 [ext_resource type="Script" uid="uid://dlhhwy1506o3o" path="res://game_data/skill_cards/skill_card_abilities/shoulder_check_abili.gd" id="1_oe5ou"]
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_bugu3"]

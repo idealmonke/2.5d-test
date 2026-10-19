@@ -24,7 +24,8 @@ func pop_top_card() -> SkillCard:
 	return	library.pop_front()
 
 func shuffle() -> void:
-	shuffle_func.call()
+	library.shuffle()
+	#shuffle_func.call()
 	
 func push_to_top(card: SkillCard) -> void:
 	library.push_front(card)
