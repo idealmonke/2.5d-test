@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://debpem1sh7b04"]
+
+[ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_2yij0"]
+[ext_resource type="Texture2D" uid="uid://cueg6demsmy4v" path="res://game_data/arrowhead.png" id="2_d6fot"]
+[ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_iuxk0"]
+[ext_resource type="Script" uid="uid://fkpjrk0k0fia" path="res://game_data/status_effects/status_effect_abilities/natures_recourse_ability.gd" id="2_ufgb6"]
+[ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_d6fot"]
+
+[sub_resource type="Resource" id="Resource_3dppl"]
+script = ExtResource("2_ufgb6")
+metadata/_custom_type_script = "uid://fkpjrk0k0fia"
+
+[resource]
+script = ExtResource("2_iuxk0")
+name = "Nature's Recourse"
+desc = "The next time you are hit, gain that much shield."
+id = 10
+display_image = ExtResource("2_d6fot")
+abilities = Dictionary[int, ExtResource("1_2yij0")]({
+3: SubResource("Resource_3dppl")
+})
+metadata/_custom_type_script = "uid://ckat7g3sy3t70"

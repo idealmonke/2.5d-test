@@ -6,6 +6,6 @@
 script = ExtResource("1_qqhxv")
 name = "Starter Deck 2"
 party_id = 2
-card_ids = Array[int]([1001, 1002, 1003, 1004, 1005, 1001, 1001, 1001, 1001])
+card_ids = Array[int]([1001, 1002, 1003, 1004, 1005, 6001, 6003, 6004, 6005])
 character_ids = Array[int]([5, 6, 7, 8])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://4hvpooxiaw6x"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://4hvpooxiaw6x"]
 
 [ext_resource type="Script" uid="uid://dqtucx4q4po6q" path="res://game_data/skill_cards/skill_card_abilities/battle_cry_ability.gd" id="1_v28uw"]
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_shnvm"]

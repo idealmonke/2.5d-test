@@ -8,6 +8,7 @@ var color_map: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, Color] = {
 	COMMON_ENUMS.DAMAGE_TYPE.LIGHTNING: Color(0.997, 0.787, 0.0, 1.0),
 	COMMON_ENUMS.DAMAGE_TYPE.POISON: Color(0.462, 0.506, 0.047, 1.0),
 	COMMON_ENUMS.DAMAGE_TYPE.HOLY: Color(1.0, 1.0, 0.0, 1.0),
+	COMMON_ENUMS.DAMAGE_TYPE.MAGIC: Color(0.161, 0.188, 0.537, 1.0)
 }
 
 # Called when the node enters the scene tree for the first time.
