@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://bbqdtyao1m1qf"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://bbqdtyao1m1qf"]
 
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="1_5wx5m"]
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_8eigg"]
@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://cbl86pfh536nh"
 [resource]
 script = ExtResource("1_5wx5m")
 name = "Burning"
-desc = "Take some damage!"
+desc = "At the start of turn, deal 2 damage for each turn burning."
 id = 4
 display_image = ExtResource("3_8eigg")
 status_type = 1

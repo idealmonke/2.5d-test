@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://drbadn5ht480r"]
+
+[ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="1_dt8eg"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_v3emo"]
+
+[resource]
+script = ExtResource("1_dt8eg")
+enemy_id = 2
+enemy_name = "Knife Kobold"
+max_health = 20
+max_stamina = 4
+card_ids = Array[int]([6, 7, 8, 8])
+hand_size = 2
+art = ExtResource("1_v3emo")
+tags = Array[String](["Kobold"])
+metadata/_custom_type_script = "uid://cms41786xgnrv"

@@ -1,6 +1,12 @@
 class_name Entity
 extends Area2D
 
+"""
+Metadata for Entities:
+	previous_damage: int = The total number of damage from the last take_damage
+	previous_damage_source: Entity = Source of the most recent damage that had a source.
+"""
+
 var max_health: int
 var base_max_health: int
 var current_health: int
@@ -100,9 +106,11 @@ func take_damage(damage: Damage) -> void:
 	var final_damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
 	var shield_array: Array = []
 	var health_array: Array = []
+	var total_damage: int = 0
 	
 	if damage.source != null:
 		damage.outgoing_update()
+		self.set_meta("previous_damage_source", damage.source)
 		
 	damage.incoming_update(self.current_status_effects)
 	
@@ -110,12 +118,15 @@ func take_damage(damage: Damage) -> void:
 	if current_shield > 0 && !damage.ignore_shield:
 		shield_array = damage.damage_shield(current_shield, defense)
 		current_shield -= shield_array[0]
+		total_damage += shield_array[0]
 		strOut += " shield: "+str(shield_array[0]);
 	health_array = damage.damage_health(defense)
 	current_health -= health_array[0]
+	total_damage += health_array[0]
 	strOut += " health: "+str(health_array[0]);
 	
 	DevConsole.add_message(strOut, Color.ORANGE_RED);
+	self.set_meta("previous_damage", total_damage)
 	
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
@@ -167,7 +178,7 @@ func _update_status():
 	status_effect_bar.reset(current_status_effects)
 
 func _update_stat_bars() -> void:
-	
+		
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
 	mana_bar.max_value = max_mana

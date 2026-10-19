@@ -86,7 +86,7 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 	
 	var characters: Array[CharacterData] = []
 	for id in character_ids:
-		characters.append(CharacterRegistry.get_character_data(id))
+		characters.append(CharacterDataRegistry.get_character_data(id))
 	
 	for character in characters:
 		max_health += character.hp
@@ -103,6 +103,13 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 				defense.set(key, character.defense[key])
 	
 	var player: BattlePlayerData = BattleController.data.player
+	
+	for character in characters:
+		if character.main_class not in player.character_classes:
+			player.character_classes.push_back(character.main_class)
+		if character.multi_class not in player.character_classes:
+			player.character_classes.push_back(character.main_class)
+	
 	player.base_max_health = max_health
 	player.max_health = max_health
 	player.current_health = max_health

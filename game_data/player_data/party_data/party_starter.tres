@@ -1,9 +1,14 @@
 [gd_resource type="Resource" script_class="PartyData" format=3 uid="uid://bfow5mjt2qwkc"]
 
+<<<<<<<< HEAD:game_data/player_data/party_data/party_starter.tres
 [ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_q0e4e"]
+========
+[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/skill_cards/party.gd" id="1_mtr5n"]
+>>>>>>>> origin/main:game_data/player_data/party_data/party_001.tres
 
 [resource]
-script = ExtResource("1_q0e4e")
+script = ExtResource("1_mtr5n")
+name = "Starter Deck 1"
 party_id = 1
 card_ids = Array[int]([2001, 2002, 2003, 2004, 3001, 3002, 3003, 3004, 5001, 5002, 5003, 5004, 7001, 7002, 7003, 7004])
 character_ids = Array[int]([1, 2, 3, 4])

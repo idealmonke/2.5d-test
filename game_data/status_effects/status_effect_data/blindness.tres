@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="status_effect_data" format=3 uid="uid://3m8wmv25xp6r"]
+[gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://3m8wmv25xp6r"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_nrxv3"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_nmxdf"]
@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("2_nmxdf")
 name = "Blindness"
-desc = "50% for strike to miss"
+desc = "50% for strikes to miss"
 id = 1
 display_image = ExtResource("2_oapyt")
 status_type = 1

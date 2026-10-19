@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://xcw2evn48kkp"]
+
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_5hm7s"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_a7us1"]
+[ext_resource type="Script" uid="uid://tk3q1tcx5326" path="res://game_data/skill_cards/skill_card_abilities/cold_front_ability.gd" id="1_wgini"]
+
+[sub_resource type="Resource" id="Resource_3dppl"]
+script = ExtResource("1_wgini")
+metadata/_custom_type_script = "uid://tk3q1tcx5326"
+
+[resource]
+script = ExtResource("1_5hm7s")
+mana_cost = 5
+stamina_cost = 3
+card_ability = SubResource("Resource_3dppl")
+ability_desc = "The player gains (2) stacks of frozen and (12) shields. Enemies gain (2) stacks of frozen."
+card_classes = Array[int]([7])
+card_name = "Cold Front"
+card_art = ExtResource("1_a7us1")
+card_id = 6005
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

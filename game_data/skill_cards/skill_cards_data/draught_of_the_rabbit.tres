@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://harljq3wkyjp"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://harljq3wkyjp"]
 
 [ext_resource type="Script" uid="uid://ccvq6hclgvyjw" path="res://game_data/skill_cards/skill_card_abilities/draught_of_the_rabbit_ability.gd" id="1_8psuk"]
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_e01a8"]

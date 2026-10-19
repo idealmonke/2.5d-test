@@ -8,6 +8,8 @@ var idx : int
 var hand: EnemyHand
 var library: EnemyLibrary
 
+var tags: Array[String]
+
 func _ready() -> void:
 	max_mana = base_max_mana
 	max_stamina = base_max_stamina
@@ -61,6 +63,9 @@ func initialize_data(data: EnemyData, cur_idx : int) -> void:
 	_update_stat_bars()
 	
 	base_sprite = data.art
+	
+	tags = data.tags
+	
 	sprite.texture = base_sprite
 	
 	#TODO: make image scaling / position automatic
@@ -71,6 +76,7 @@ func initialize_data(data: EnemyData, cur_idx : int) -> void:
 		sprite.position.y -= 100
 	
 	sprite.scale = Vector2(TEMP_SIZE,TEMP_SIZE) / base_sprite.get_size()
+	sprite.scale = sprite.scale * data.art_scaling
 
 func setup_library(lib : Array[EnemyCard]) -> void:
 	hand = EnemyHand.new()

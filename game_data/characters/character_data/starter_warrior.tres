@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://dv2psvsmt7aw0"]
+
+[ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_cddgy"]
+
+[resource]
+script = ExtResource("1_cddgy")
+id = 5
+art = null
+hp = 15
+stamina = 3
+defense = Dictionary[int, int]({
+0: 5
+})
+shield_retention = 0.15
+main_class = 4
+multi_class = 8
+hand_size = 2
+deck_slots = 5
+metadata/_custom_type_script = "uid://i8uqwg5kes5"
