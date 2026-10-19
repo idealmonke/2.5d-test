@@ -38,7 +38,8 @@ func display(id : int, mode: MODE) -> void:
 	else:
 		card_art.texture = cur_data.card_art
 	
-	card_art.scale = Vector2(100,100)/card_art.texture.get_size()
+	if not card_art:
+		card_art.scale = Vector2(100,100)/card_art.texture.get_size()
 	
 	var p_list : Array[Dictionary] = cur_data.get_property_list()
 	for prop in p_list:

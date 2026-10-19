@@ -27,7 +27,7 @@ func _on_end_turn_pressed() -> void:
 	BattleController._end_turn()
 
 func _init_player_cards() -> void:
-	var party: Party = BATTLE_CONFIG.party
+	var party: PartyData = BATTLE_CONFIG.party
 	var cards: Array[int] = party.card_ids
 	
 	for card in cards:

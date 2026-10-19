@@ -7,7 +7,7 @@ var shuffle_func: Callable
 func _ready() -> void:
 	shuffle_func = _unweighted_shuffle
 
-func load_cards_from_party(party: Party) -> void:
+func load_cards_from_party(party: PartyData) -> void:
 	for i in range(party.card_ids):
 		var data := SkillCardRegistry.get_card_data(party.card_ids[i])
 		var card := SkillCard.new()

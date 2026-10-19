@@ -1,4 +1,4 @@
-class_name Party
+class_name PartyData
 extends Resource
 
 @export var party_id: int
