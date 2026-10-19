@@ -4,4 +4,4 @@ extends EnemyCardAbility
 func execute() -> void:
 	for enem in BattleController.data.enemies:
 		if enem.tags.has("Kobold") || enem.tags.has("Dragon"):
-			enem.gain_shield(4)
+			enem.gain_shield(3)

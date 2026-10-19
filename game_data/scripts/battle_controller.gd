@@ -24,6 +24,9 @@ var devlog: PanelContainer
 
 var banner: AnimatedBanner
 
+# Data Tracking for card abilities
+var cards_drawn_for_turn: int = 0
+
 @warning_ignore("unused_signal")
 signal display_signal
 
@@ -85,6 +88,7 @@ func draw_card() -> void:
 		return
 	# Some Stuff
 	current_draw_card.call()
+	cards_drawn_for_turn += 1
 	# Some More Stuff
 	
 func discard_card(card: SkillCard) -> void:
@@ -223,7 +227,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
-			pass
+			cards_drawn_for_turn = 0
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:

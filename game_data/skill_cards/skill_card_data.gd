@@ -7,7 +7,7 @@ extends CardData
 ## A formatted string using integer string identifiers to insert numbers onto the card where required. 
 @export var ability_desc: String
 ## An Array containing either one or two classes. 
-@export var card_classes: Array[String]
+@export var card_classes: Array[COMMON_ENUMS.CHARACTER_CLASSES]
 @export var target_type: COMMON_ENUMS.TARGET_TYPE
 @export var flag: COMMON_ENUMS.TARGET_FLAG
 ## Store the base numbers for the card's ability here. Numbers should be stored in the order they appear.
