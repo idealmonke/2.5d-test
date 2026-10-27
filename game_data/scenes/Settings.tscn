@@ -180,13 +180,45 @@ offset_top = 25.0
 offset_right = 69.0
 offset_bottom = 65.0
 
-[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container" unique_id=407486563]
+[node name="hbox" type="HBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container" unique_id=1287554943]
 layout_mode = 2
 
-[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/vbox" unique_id=1781862006]
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=407486563]
 layout_mode = 2
 
-[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/vbox" unique_id=167222287]
+[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox" unique_id=1781862006]
+layout_mode = 2
+
+[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox" unique_id=1813736269]
+custom_minimum_size = Vector2(300, 700)
+layout_mode = 2
+
+[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox/card_scroll" unique_id=167222287]
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=385046276]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="add_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=1244041074]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container" unique_id=2014930010]
+layout_mode = 2
+text = "Adding cards:"
+
+[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container" unique_id=1479763139]
+custom_minimum_size = Vector2(300, 700)
+layout_mode = 2
+
+[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll" unique_id=1390288990]
+layout_mode = 2
+
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container" unique_id=2001753211]
+layout_mode = 2
+
+[node name="inner_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container/margin_container" unique_id=211901506]
 layout_mode = 2
 
 [node name="save_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards" unique_id=1147096126]

@@ -16,4 +16,5 @@ card_ability = SubResource("Resource_gwga8")
 ability_desc = "Gain 1 stack of Nature's Recourse. (The next time you take damage, gain shield equal to the damage."
 card_name = "Nature's Recourse"
 card_art = ExtResource("2_a2o3q")
+card_id = 6001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"
