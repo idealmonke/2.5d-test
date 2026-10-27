@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PartyData" format=3 uid="uid://05jd6cj7xht3"]
+
+[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_uqajj"]
+
+[resource]
+script = ExtResource("1_uqajj")
+name = "Starter Deck 1"
+character_ids = Array[int]([1, 2, 3, 4])
+metadata/_custom_type_script = "uid://tj0fltstwh2q"

@@ -17,6 +17,8 @@ func init() -> void:
 	_swap_to(current_tab)
 
 func _swap_to(tab: int) -> void:
+	if(not card_editor):
+		return
 	if tab == 1 or tab==2 or tab == 3:
 		card_editor.visible = true
 		if tab == 1:
