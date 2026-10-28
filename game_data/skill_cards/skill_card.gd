@@ -53,6 +53,8 @@ var z_index_hover: int
 
 var hover : bool
 
+var discard_castable: COMMON_ENUMS.DISCARD_CASTABLE_MODES
+
 # Card State
 var exhausted: bool:
 	set(value):
@@ -142,6 +144,7 @@ func initialize_card(resource_data: SkillCardData) -> void:
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc
 	ability = resource_data.card_ability
+	discard_castable = resource_data.discard_castable
 	# classes = resource_data.card_classes
 	_update_text()
 	
@@ -205,9 +208,6 @@ func _input(event: InputEvent) -> void:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				if BattleController.data.player.get_stamina() >= self.stamina_cost && BattleController.data.player.get_mana() >= self.mana_cost:
-					BattleController.data.player.expend_stamina(stamina_cost)
-					BattleController.data.player.expend_mana(mana_cost)
-					interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
 					BattleController.play_card(self)
 				else:
 					interactable_state = prev_state
@@ -253,6 +253,3 @@ func player_unhighlight_card() -> void:
 	tween_scale = create_tween()
 	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween_scale.tween_property(self, "scale", base_scale, 0.15)
-
-func _play_card() -> void:
-	pass

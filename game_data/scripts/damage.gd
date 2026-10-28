@@ -33,9 +33,7 @@ func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 # Checks if a player status adds to the outgoing damage
 func outgoing_update() -> void:
 	if self.source.current_status_effects.has("Blindness"):
-		print("Checking")
 		if randi() % 2 == 1:
-			print("Blinded!")
 			damages.clear()
 			health_multipliers.clear()
 			shield_multipliers.clear()
@@ -67,18 +65,20 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 		for equation in shield_multipliers:
 			max_calculated_damage = equation.call(max_calculated_damage)
 
-		if max_calculated_damage < 0:
-			max_calculated_damage = 0
+		max_calculated_damage = max(0, max_calculated_damage)
 			
 		if max_calculated_damage + total_damage_applied > shield:
 			var remaining_shield = shield - total_damage_applied
 			var min_damage = _binary_search_min_damage(shield)
 			
+			damages[key] -= min_damage # Mark the used damage
+			
 			for equation in shield_multipliers:
 				min_damage = equation.call(min_damage)
-				
-			damages[key] -= min_damage # Mark the used damage
+			
 			min_damage = max(0, min_damage)
+			min_damage = min(min_damage, remaining_shield)
+			
 			total_damage_applied += min_damage # Add to running total
 			damage_number_ui_values[key] = min_damage
 			
@@ -88,6 +88,9 @@ func damage_shield(shield: int, defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, in
 			total_damage_applied += max_calculated_damage
 			damage_number_ui_values[key] = max_calculated_damage
 			damages.erase(key)
+			
+	if total_damage_applied > shield:
+		total_damage_applied = shield
 	
 	return [total_damage_applied, damage_number_ui_values]
 	

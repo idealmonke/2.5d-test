@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://bcqbfxtjaog6p"]
+
+[ext_resource type="Script" uid="uid://dxg30nsj8h3i8" path="res://game_data/skill_cards/skill_card_abilities/arcane_ward_ability.gd" id="1_26jiw"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_vx3iu"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_dc6hk"]
+
+[sub_resource type="Resource" id="Resource_6iy56"]
+script = ExtResource("1_26jiw")
+metadata/_custom_type_script = "uid://dxg30nsj8h3i8"
+
+[resource]
+script = ExtResource("1_vx3iu")
+mana_cost = 3
+stamina_cost = 3
+card_ability = SubResource("Resource_6iy56")
+ability_desc = "Gain (15) shield"
+card_classes = Array[int]([5])
+card_name = "Arcane Ward"
+card_art = ExtResource("2_dc6hk")
+card_id = 4003
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

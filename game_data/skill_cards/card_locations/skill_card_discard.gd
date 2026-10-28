@@ -52,6 +52,8 @@ func exhaust_cards() -> void:
 		card.exhausted = true
 
 func _display_discard() -> void:
+	if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
+		return
 	BattleController._change_state(COMMON_ENUMS.BATTLE_STATE.DISPLAYING)
 	display_grid.load_cards(discard, _close_display, "Discard")
 
