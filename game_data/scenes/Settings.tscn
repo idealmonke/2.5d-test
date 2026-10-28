@@ -159,11 +159,21 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters" unique_id=586410908]
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters" unique_id=606955036]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
-text = "hello world"
+offset_bottom = 40.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container" unique_id=581376447]
+layout_mode = 2
+
+[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox" unique_id=1651319080]
+layout_mode = 2
+
+[node name="stats_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox" unique_id=320950304]
+layout_mode = 2
 
 [node name="Cards" type="TabBar" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container" unique_id=1725638215]
 layout_mode = 2
