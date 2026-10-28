@@ -13,6 +13,7 @@ script = ExtResource("1_e7j7o")
 stamina_cost = 4
 card_ability = SubResource("Resource_3dppl")
 ability_desc = "Draw a card, then for each card you have drawn since the start of your turn other than your starting hand, strike for (3) physical damage."
+card_classes = Array[int]([1])
 target_type = 1
 card_name = "Charge!"
 card_art = ExtResource("2_ee5ou")

@@ -59,6 +59,10 @@ func _instantiate_button_helper(registry: Variant, to_mode: MODE, filter: String
 		else:
 			data = registry.get_card_data(id)
 		
+		if(not data):
+			#print("BAD DATA AT ID: "+str(id)+" / MODE: "+str(to_mode))
+			continue
+		
 		var cur_name : String = "placeholder"
 		if(to_mode == MODE.ENEMY):
 			cur_name = data.enemy_name

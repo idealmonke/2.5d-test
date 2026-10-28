@@ -12,6 +12,7 @@ script = ExtResource("2_shnvm")
 stamina_cost = 2
 card_ability = SubResource("Resource_in72b")
 ability_desc = "Gain two stacks of bloodthirsty and 5 shields."
+card_classes = Array[int]([5])
 card_name = "Battle Cry"
 card_id = 5001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

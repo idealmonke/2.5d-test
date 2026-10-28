@@ -76,31 +76,21 @@ func _init_enemies() -> void:
 		enemy_instance.position = BattleController.data.enemy_locations[idx]
 
 func _init_player_stats(character_ids: Array[int]) -> void:
-	var max_health: int = 0
-	var max_mana: int = 0
-	var mana_regen: int = 0
-	var max_stamina: int = 0
-	var shield_retention: float = 0
-	var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]
-	var handsize: int = 0
+	
 	
 	var characters: Array[CharacterData] = []
 	for id in character_ids:
 		characters.append(CharacterDataRegistry.get_character_data(id))
 	
-	for character in characters:
-		max_health += character.hp
-		max_mana += character.max_mana
-		mana_regen += character.mana_regen
-		max_stamina += character.stamina
-		shield_retention += character.shield_retention
-		handsize += character.hand_size
-		
-		for key in character.defense:
-			if defense.has(key):
-				defense[key] += character.defense[key]
-			else:
-				defense.set(key, character.defense[key])
+	var stats = CharacterDataRegistry.calculate_stats(characters)
+	
+	var max_health: int = stats.max_health
+	var max_mana: int = stats.max_mana
+	var mana_regen: int = stats.mana_regen
+	var max_stamina: int = stats.max_stamina
+	var shield_retention: float = stats.shield_retention
+	var defense: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int] = stats.defense
+	var handsize: int = stats.handsize
 	
 	var player: BattlePlayerData = BattleController.data.player
 	

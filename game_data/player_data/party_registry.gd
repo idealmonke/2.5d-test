@@ -28,6 +28,13 @@ static func load_party_data() -> void:
 
 	dir.list_dir_end()
 
+static func get_data(name: String) -> PartyData:
+	return PARTY_DB[name]
+
+static func save_data(name: String, data: PartyData) -> void:
+	PARTY_DB[name] = data
+	ResourceSaver.save(data, party_data_path+name)
+
 #static func get_character_data(ID: String) -> CharacterData:
 	#assert(CHARACTER_DB.has(ID), "Character ID (%s) not found in character registry" % ID)
 	#return load(character_data_path+CHARACTER_DB[ID]+".tres")

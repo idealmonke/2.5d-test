@@ -13,6 +13,7 @@ mana_cost = 5
 stamina_cost = 4
 card_ability = SubResource("Resource_5ar1h")
 ability_desc = "Physical strikes deal additional 2 holy damage for 2 turns"
+card_classes = Array[int]([2])
 card_name = "Divine Favor"
 card_id = 2002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

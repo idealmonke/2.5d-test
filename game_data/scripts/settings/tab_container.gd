@@ -8,7 +8,9 @@ var mode_display : Label
 enum MODE {SKILL_CARD, ENEMY_CARD, ENEMY}
 
 func _ready() -> void:
-	pass
+	set_tab_disabled(1, true)
+	set_tab_disabled(2, true)
+	set_tab_disabled(3, true)
 
 func init() -> void:
 	card_editor = get_node(card_editor_path)
@@ -17,6 +19,8 @@ func init() -> void:
 	_swap_to(current_tab)
 
 func _swap_to(tab: int) -> void:
+	if(not card_editor):
+		return
 	if tab == 1 or tab==2 or tab == 3:
 		card_editor.visible = true
 		if tab == 1:
