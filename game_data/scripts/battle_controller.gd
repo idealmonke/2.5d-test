@@ -93,7 +93,10 @@ func draw_card() -> void:
 	
 func discard_card(card: SkillCard) -> void:
 	# Some Stuff
-	current_discard_card.call(card)
+	if card.discard_castable == COMMON_ENUMS.DISCARD_CASTABLE_MODES.FREE || (card.discard_castable == COMMON_ENUMS.DISCARD_CASTABLE_MODES.NORMAL && card.stamina_cost <= data.player.current_stamina && card.mana_cost <= data.player.current_mana):
+		await play_card_discard(card) 
+	else:
+		current_discard_card.call(card)
 	# Some More Stuff
 	
 func dredge_card() -> void:
@@ -130,6 +133,7 @@ func discard_front() -> void:
 	
 func play_card(card: SkillCard) -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING)
+	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
 	data.hand.pop_card(card)
 	card.z_index_modifier = 10
 	
@@ -141,12 +145,35 @@ func play_card(card: SkillCard) -> void:
 	if not targets:
 		data.hand.add_card(card)
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.HAND
-		
-		BattleController.data.player.regen_stamina(card.stamina_cost)
-		BattleController.data.player.regain_mana(card.mana_cost)
+
 	else:
 		DevConsole.add_message("skillcard: "+card.card_name, Color.SKY_BLUE)
+		BattleController.data.player.expend_stamina(card.stamina_cost)
+		BattleController.data.player.expend_mana(card.mana_cost)
+		await card.ability.execute(targets)
+		data.discard.add_card(card)
+	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
+	
+## Always ends in discard
+func play_card_discard(card: SkillCard) -> void:
+	_change_state(COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING)
+	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.PLAYING
+	card.z_index_modifier = 10
+	
+	var targets = null
+	targets = await targeting_manager_instance.select_targets(card)
+	
+	card.z_index_modifier = 0
+	
+	if not targets:
+		data.discard.add_card(card)
+		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 		
+	else:
+		DevConsole.add_message("skillcard: "+card.card_name, Color.SKY_BLUE)
+		if card.discard_castable == COMMON_ENUMS.DISCARD_CASTABLE_MODES.NORMAL:
+			BattleController.data.player.expend_stamina(card.stamina_cost)
+			BattleController.data.player.expend_mana(card.mana_cost)
 		await card.ability.execute(targets)
 		data.discard.add_card(card)
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING)
