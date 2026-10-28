@@ -16,6 +16,7 @@ const CARD_DB: Dictionary = {
 	0010: "natures_recourse",
 	0011: "thorns",
 	0012: "frozen",
+	0013: "heightened_arcana",
 }
 
 static func get_status_effect_data(ID: int) -> StatusEffectData:

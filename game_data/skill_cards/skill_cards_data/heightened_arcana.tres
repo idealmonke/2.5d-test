@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://3pjtw6xwyoys"]
+
+[ext_resource type="Script" uid="uid://cgg0b5rmfqpa0" path="res://game_data/skill_cards/skill_card_abilities/heightened_arcana_ability.gd" id="1_okn0l"]
+[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_1dh88"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_b7rmy"]
+
+[sub_resource type="Resource" id="Resource_1dh88"]
+script = ExtResource("1_okn0l")
+metadata/_custom_type_script = "uid://cgg0b5rmfqpa0"
+
+[resource]
+script = ExtResource("2_b7rmy")
+mana_cost = 4
+stamina_cost = 3
+card_ability = SubResource("Resource_1dh88")
+ability_desc = "For the next (2) turns, deal an extra (2) damage each time you deal magic, fire, lightning or ice damage."
+card_classes = Array[int]([5])
+card_name = "Heightened Arcana"
+card_art = ExtResource("2_1dh88")
+card_id = 4005
+metadata/_custom_type_script = "uid://c3wbojvfgs5lg"
