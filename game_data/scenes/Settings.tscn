@@ -28,11 +28,10 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 5
+current_tab = 0
 script = ExtResource("1_5sndr")
 
 [node name="Welcome" type="TabBar" parent="tab_container" unique_id=1002206843]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -91,6 +90,7 @@ layout_mode = 2
 script = ExtResource("3_l5jsw")
 
 [node name="Party \\ Deck Selector" type="TabBar" parent="tab_container" unique_id=1784532654]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 

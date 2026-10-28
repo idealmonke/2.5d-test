@@ -18,12 +18,23 @@ var cur_party_name : String
 var cur_data : PartyData
 
 var deck_slots : int
+var read_only : bool
 
 #CARD ADDING
 var add_container : VBoxContainer
 var add_buttons : VBoxContainer
 
-#const SKILL_CARD_SCENE = preload("res://game_data/skill_cards/skill_card.tscn")
+const CLASS_COLORS: Dictionary[COMMON_ENUMS.CHARACTER_CLASSES, Color] = {
+	COMMON_ENUMS.CHARACTER_CLASSES.NONE: Color("#777D87"),
+	COMMON_ENUMS.CHARACTER_CLASSES.WARRIOR: Color("#627D98"),
+	COMMON_ENUMS.CHARACTER_CLASSES.CLERIC: Color("#E8D6A3"),
+	COMMON_ENUMS.CHARACTER_CLASSES.KNAVE: Color("#388C83"),
+	COMMON_ENUMS.CHARACTER_CLASSES.MAGE: Color("#9670D5"),
+	COMMON_ENUMS.CHARACTER_CLASSES.BERSERKER: Color("#D44747"),
+	COMMON_ENUMS.CHARACTER_CLASSES.SHAMAN: Color("#65A66B"),
+	COMMON_ENUMS.CHARACTER_CLASSES.ALCHEMIST: Color("#D6A441"),
+	COMMON_ENUMS.CHARACTER_CLASSES.OCCULTIST: Color("#633D78"),
+}
 
 func _ready() -> void:
 	button_container = get_node("card_button_scroll_container/card_button_container/margin_container/inner_container")
@@ -80,7 +91,7 @@ func _create_button(cur_name : String) -> void:
 	button_container.add_child(button)
 	button.pressed.connect(_on_pressed.bind(cur_name))
 
-func _reset_window(window_name: String, read_only: bool) -> void:
+func _reset_window(window_name: String) -> void:
 	for child in card_container.get_children():
 		child.queue_free()
 	for child in add_buttons.get_children():
@@ -101,9 +112,9 @@ func _reset_window(window_name: String, read_only: bool) -> void:
 
 func sort_buttons(container: VBoxContainer) -> void:
 	var buttons = container.get_children()
-
+	
 	buttons.sort_custom(func(a, b):return a.get_meta("id") < b.get_meta("id"))
-
+	
 	for i in range(buttons.size()):
 		container.move_child(buttons[i], i)
 
@@ -112,7 +123,8 @@ func _on_pressed(cur_name: String) -> void:
 	cur_party_name = cur_name;
 	
 	cur_data = PartyRegistry.get_data(cur_name).duplicate(true)
-	_reset_window(cur_name, cur_data.read_only)
+	read_only = cur_data.read_only
+	_reset_window(cur_name)
 	
 	var char_ids : Array[int] = cur_data.character_ids
 	_display_stats(char_ids)
@@ -123,12 +135,25 @@ func _on_pressed(cur_name: String) -> void:
 	
 	_fix_entries()
 
-func create_entry(id: int,is_remove: bool) -> HBoxContainer:
+func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
 	if not card_data:
 		return null
 	
+	var panel = PanelContainer.new()
+	
+	var style = StyleBoxFlat.new()
+	if(card_data.card_classes.size()==0):
+		style.bg_color = Color("#777D87")
+	else:
+		style.bg_color = CLASS_COLORS[card_data.card_classes[0]]
+
+	panel.add_theme_stylebox_override("panel", style)
+	
 	var hbox = HBoxContainer.new()
+	
+	panel.set_meta("id", id)
+	panel.add_child(hbox)
 	
 	var name_label = Label.new()
 	name_label.text = card_data.card_name+" ("+str(card_data.card_id)+")"
@@ -145,16 +170,14 @@ func create_entry(id: int,is_remove: bool) -> HBoxContainer:
 		else:
 			button.text = "Add"
 		button.pressed.connect(
-				_on_card_pressed.bind(card_data.card_id, hbox, is_remove)
+				_on_card_pressed.bind(card_data.card_id, panel, is_remove)
 		)
 		hbox.add_child(button)
 	
 	hbox.mouse_entered.connect(_on_hbox_mouse_entered.bind(card_data))
 	hbox.mouse_exited.connect(_on_hbox_mouse_exited);
 	
-	hbox.set_meta("id", id)
-	
-	return hbox
+	return panel
 
 #Adds all missing cards into possible addition zone
 func add_missing(ids: Array[int]):
@@ -185,17 +208,17 @@ func _fix_entries():
 	sort_buttons(card_container)
 	
 	var cur_size = cur_data.card_ids.size()
-	deck_label.text = window_string+ "("+str(cur_size)+"/"+str(deck_slots)+")";
+	if(not read_only):
+		deck_label.text = window_string+ "("+str(cur_size)+"/"+str(deck_slots)+")";
 	
 	for child in add_buttons.get_children():
-		var button = child.get_child(2)
-		if button is Button:
-			if(cur_size < deck_slots):
-				button.disabled = false
-			else:
-				button.disabled = true
+		var hbox = child.get_child(0) as HBoxContainer
+		for item in hbox.get_children():
+			if item is Button:
+				item.disabled = cur_size >= deck_slots
+				break
 
-func _on_card_pressed(card_id: int, row: HBoxContainer, is_remove: bool):
+func _on_card_pressed(card_id: int, row: PanelContainer, is_remove: bool):
 	if(is_remove):
 		var entry = create_entry(card_id, false)
 		if entry:
@@ -217,6 +240,18 @@ func _on_card_pressed(card_id: int, row: HBoxContainer, is_remove: bool):
 		else:
 			print("ERROR: party_selector.gd, added entry should exist")
 
+func validate_save(data: PartyData) -> String:
+	if(data.card_ids.size() != deck_slots):
+		return "Error: you must have a full deck"
+	
+	
+	return "error"
+
 func _on_save_button_pressed() -> void:
-	PartyRegistry.save_data(cur_party_name, cur_data)
+	var valid = validate_save(cur_data)
 	save_label.visible = true
+	if valid == "valid":
+		PartyRegistry.save_data(cur_party_name, cur_data)
+		save_label.text = "Sucessful save"
+	else:
+		save_label.text = valid
