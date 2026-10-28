@@ -281,6 +281,6 @@ func damage_numbers(damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> void:
 	for key in damages:
 		var number = DAMAGE_NUMBER.instantiate()
 		number.z_index = 25
-		number.global_position = global_position + Vector2(randf_range(-75, 75), -40)
+		number.global_position = global_position + Vector2(randf_range(-125, 125), -randf_range(-50, -30))
 		number.setup(damages[key], key)
 		get_tree().current_scene.add_child(number)
