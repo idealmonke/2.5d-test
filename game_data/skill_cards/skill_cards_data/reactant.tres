@@ -12,6 +12,7 @@ script = ExtResource("2_04qfu")
 stamina_cost = 3
 card_ability = SubResource("Resource_u38iy")
 ability_desc = "Add 1 additional stack to ALL status effects active on target, positive or negative (target can be enemy or player)"
+card_classes = Array[int]([7])
 card_name = "Reactant"
 card_id = 7004
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

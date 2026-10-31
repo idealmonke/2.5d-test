@@ -13,6 +13,7 @@ mana_cost = 5
 stamina_cost = 3
 card_ability = SubResource("Resource_i5ht4")
 ability_desc = "Gain two stacks of haste"
+card_classes = Array[int]([7])
 card_name = "Draught of the Rabbit"
 card_id = 7002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

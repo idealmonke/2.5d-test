@@ -12,6 +12,7 @@ script = ExtResource("2_bugu3")
 stamina_cost = 3
 card_ability = SubResource("Resource_7ios6")
 ability_desc = "Strike 6 physical damage, if you are bloodthirsty apply a stack of daze."
+card_classes = Array[int]([5])
 target_type = 1
 card_name = "Shoulder Check"
 card_id = 5004

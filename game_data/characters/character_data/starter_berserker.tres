@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="character_data" format=3 uid="uid://76ohclq24tog"]
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://76ohclq24tog"]
 
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_qump6"]
 
@@ -12,8 +12,7 @@ defense = Dictionary[int, int]({
 0: 3
 })
 shield_retention = 0.1
-main_class = 2
-multi_class = 8
+main_class = 5
 hand_size = 1
 deck_slots = 4
 metadata/_custom_type_script = "uid://i8uqwg5kes5"

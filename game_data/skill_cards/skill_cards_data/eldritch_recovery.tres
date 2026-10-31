@@ -14,6 +14,7 @@ mana_cost = 2
 stamina_cost = 3
 card_ability = SubResource("Resource_3n6h2")
 ability_desc = "Regain (10) mana, take (5) magic damage ignoring shields."
+card_classes = Array[int]([8])
 card_name = "Eldritch Recovery"
 card_art = ExtResource("1_3vg2b")
 card_id = 8003

@@ -13,6 +13,7 @@ script = ExtResource("1_1hd5p")
 stamina_cost = 3
 card_ability = SubResource("Resource_d87u7")
 ability_desc = "Draw a card, Strike once for physical damage equal to twice the number of cards in your hand. "
+card_classes = Array[int]([1])
 target_type = 1
 card_name = "Longsword"
 card_art = ExtResource("1_in3tp")

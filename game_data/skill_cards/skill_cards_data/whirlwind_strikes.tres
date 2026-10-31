@@ -13,6 +13,7 @@ script = ExtResource("1_7si3p")
 stamina_cost = 5
 card_ability = SubResource("Resource_0ppys")
 ability_desc = "Strike for (3) physical damage a number of times equal to the amount of cards in hand at random targets"
+card_classes = Array[int]([1])
 card_name = "Whirlwind Strikes"
 card_art = ExtResource("2_6urqg")
 card_id = 1002

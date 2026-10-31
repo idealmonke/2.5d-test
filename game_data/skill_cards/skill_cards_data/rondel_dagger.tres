@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://eoxxk234q6b6"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://eoxxk234q6b6"]
 
 [ext_resource type="Script" uid="uid://hdldjeu3h4mh" path="res://game_data/skill_cards/skill_card_abilities/rondel_dagger_ability.gd" id="1_673n0"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_lao5g"]
@@ -13,6 +13,7 @@ script = ExtResource("1_ry726")
 stamina_cost = 3
 card_ability = SubResource("Resource_rgw2o")
 ability_desc = "Strike one target for 2 physical damage per card in discard, twice damage to full HP enemies."
+card_classes = Array[int]([3])
 target_type = 1
 card_name = "Rondel Dagger"
 card_art = ExtResource("1_lao5g")

@@ -18,7 +18,6 @@ static func load_party_data() -> void:
 
 	while file_name != "":
 		if not dir.current_is_dir():
-			print(file_name)
 			if file_name.ends_with(".tres") or file_name.ends_with(".res"):
 				var cur = load(party_data_path + file_name)
 				if cur != null:

@@ -13,6 +13,7 @@ script = ExtResource("2_24xsp")
 stamina_cost = 2
 card_ability = SubResource("Resource_6iy56")
 ability_desc = "Draw (2) cards, regain (5) mana"
+card_classes = Array[int]([4])
 card_name = "Quick Focus"
 card_art = ExtResource("1_b3xgc")
 card_id = 4003

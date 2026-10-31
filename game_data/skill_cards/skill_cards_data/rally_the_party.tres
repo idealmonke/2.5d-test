@@ -13,6 +13,7 @@ script = ExtResource("1_snd8p")
 stamina_cost = 4
 card_ability = SubResource("Resource_qsgnp")
 ability_desc = "Draw cards equal to the number of classes among your party."
+card_classes = Array[int]([1])
 card_name = "Rally the Party"
 card_art = ExtResource("2_qgway")
 card_id = 1004

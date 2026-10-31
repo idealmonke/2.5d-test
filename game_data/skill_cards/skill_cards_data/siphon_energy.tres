@@ -14,6 +14,7 @@ mana_cost = 5
 stamina_cost = 3
 card_ability = SubResource("Resource_xhph4")
 ability_desc = "Strike once for (5) magic damage, dealing double damage to shields. Gain life equal to the amount of shields damaged this way."
+card_classes = Array[int]([8])
 target_type = 1
 card_name = "Siphon Energy"
 card_art = ExtResource("2_6wnd0")

@@ -14,6 +14,7 @@ mana_cost = 6
 stamina_cost = 4
 card_ability = SubResource("Resource_4b0f0")
 ability_desc = "Deal (6) magic damage to each enemy; Gain (3) shield per enemy hit."
+card_classes = Array[int]([6])
 card_name = "Shamanic Wave"
 card_art = ExtResource("2_cxd1h")
 card_id = 6003

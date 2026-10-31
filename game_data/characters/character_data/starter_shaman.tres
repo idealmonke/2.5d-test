@@ -14,8 +14,7 @@ defense = Dictionary[int, int]({
 0: 2
 })
 shield_retention = 0.2
-main_class = 7
-multi_class = 8
+main_class = 6
 hand_size = 1
 deck_slots = 4
 metadata/_custom_type_script = "uid://i8uqwg5kes5"

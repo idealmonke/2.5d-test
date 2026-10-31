@@ -6,6 +6,8 @@ var stats_label : Label
 
 var window_string : String
 
+var character_hbox : HBoxContainer
+
 #For Card editor
 var button_container : VBoxContainer
 var card_container : VBoxContainer
@@ -17,6 +19,7 @@ var save_label : Label
 var cur_party_name : String
 var cur_data : PartyData
 
+var classes : Array[COMMON_ENUMS.CHARACTER_CLASSES]
 var deck_slots : int
 var read_only : bool
 
@@ -27,12 +30,12 @@ var add_buttons : VBoxContainer
 const CLASS_COLORS: Dictionary[COMMON_ENUMS.CHARACTER_CLASSES, Color] = {
 	COMMON_ENUMS.CHARACTER_CLASSES.NONE: Color("#777D87"),
 	COMMON_ENUMS.CHARACTER_CLASSES.WARRIOR: Color("#627D98"),
-	COMMON_ENUMS.CHARACTER_CLASSES.CLERIC: Color("#E8D6A3"),
+	COMMON_ENUMS.CHARACTER_CLASSES.CLERIC: Color("#D6A441"),
 	COMMON_ENUMS.CHARACTER_CLASSES.KNAVE: Color("#388C83"),
-	COMMON_ENUMS.CHARACTER_CLASSES.MAGE: Color("#9670D5"),
+	COMMON_ENUMS.CHARACTER_CLASSES.MAGE: Color("296ef0ff"),
 	COMMON_ENUMS.CHARACTER_CLASSES.BERSERKER: Color("#D44747"),
 	COMMON_ENUMS.CHARACTER_CLASSES.SHAMAN: Color("#65A66B"),
-	COMMON_ENUMS.CHARACTER_CLASSES.ALCHEMIST: Color("#D6A441"),
+	COMMON_ENUMS.CHARACTER_CLASSES.ALCHEMIST: Color("51370fff"),
 	COMMON_ENUMS.CHARACTER_CLASSES.OCCULTIST: Color("#633D78"),
 }
 
@@ -42,6 +45,8 @@ func _ready() -> void:
 	
 	deck_label_2 = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/deck_label")
 	stats_label = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/stats_label")
+	
+	character_hbox = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox")
 	
 	deck_label = get_node("card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox/deck_label")
 	skill_card = get_node("card_panel/margin_container/tab_container/Cards/skill_card")
@@ -69,20 +74,57 @@ func _display_stats(char_ids: Array[int]):
 	
 	var stats = CharacterDataRegistry.calculate_stats(characters)
 	
-	stats_label.text += "Max health: "+str(stats.max_health)+"\n"
-	stats_label.text += "Max mana: "+str(stats.max_mana)+"\n"
-	stats_label.text += "Mana regen: "+str(stats.mana_regen)+"\n"
-	stats_label.text += "Max stamina: "+str(stats.max_stamina)+"\n"
-	stats_label.text += "Shield retension: "+str(stats.shield_retention)+"\n"
-	stats_label.text += "Defense: "+str(stats.defense)+"\n"
-	stats_label.text += "Handsize: "+str(stats.handsize)+"\n"
-	stats_label.text += "Deckslots: "+str(stats.deck_slots)+"\n"
+	stats_label.text += "Max health: "+str(stats.max_health)+" | "
+	stats_label.text += "Max mana: "+str(stats.max_mana)+" | "
+	stats_label.text += "Mana regen: "+str(stats.mana_regen)+" | "
+	stats_label.text += "Max stamina: "+str(stats.max_stamina)+" | "
+	stats_label.text += "Shield retension: "+str(stats.shield_retention)+" | "
+	stats_label.text += "Defense: "+str(stats.defense)+" | "
+	stats_label.text += "Handsize: "+str(stats.handsize)+" | "
+	stats_label.text += "Deckslots: "+str(stats.deck_slots)
 	
 	deck_slots = stats.deck_slots
+	classes = stats.classes
 
-func _display_character(char_id: int):
-	var data : CharacterData = CharacterDataRegistry.get_character_data(char_id)
-	
+
+
+
+func _display_characters(char_ids: Array[int]):
+	var idx : int = 0
+	for panel in character_hbox.get_children():
+		var data : CharacterData = CharacterDataRegistry.get_character_data(char_ids[idx])
+		
+		var cur_vbox : VBoxContainer = panel.get_child(0).get_child(0)
+		
+		cur_vbox.get_node("character_name").text = CharacterDataRegistry.CHARACTER_DB[data.id]
+		
+		var p_list : Array[Dictionary] = data.get_property_list()
+		
+		for child in cur_vbox.get_node("character_stats").get_children():
+			child.queue_free()
+		
+		for prop in p_list:
+			if prop["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE:
+				var cur_name : String = prop["name"]
+				var value : Variant = data.get(cur_name)
+				
+				if typeof(value) != TYPE_INT and typeof(value)!= TYPE_STRING:
+					continue
+				
+				var hbox = HBoxContainer.new()
+				
+				var label : Label = Label.new()
+				label.text = cur_name
+				label.custom_minimum_size.x = 200
+				var label2 : Label = Label.new()
+				label2.text = str(value)
+				
+				hbox.add_child(label)
+				hbox.add_child(label2)
+				
+				cur_vbox.get_node("character_stats").add_child(hbox)
+		
+		idx+=1
 
 #Card Editor
 func _create_button(cur_name : String) -> void:
@@ -128,6 +170,7 @@ func _on_pressed(cur_name: String) -> void:
 	
 	var char_ids : Array[int] = cur_data.character_ids
 	_display_stats(char_ids)
+	_display_characters(char_ids)
 	
 	var ids : Array[int] = cur_data.card_ids
 	add_cards(ids)
@@ -138,6 +181,15 @@ func _on_pressed(cur_name: String) -> void:
 func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
 	if not card_data:
+		return null
+	
+	var good : bool = false
+	for c in classes:
+		if(card_data.card_classes[0]==c):
+			good = true
+			break
+	
+	if not good:
 		return null
 	
 	var panel = PanelContainer.new()
@@ -176,6 +228,7 @@ func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	
 	hbox.mouse_entered.connect(_on_hbox_mouse_entered.bind(card_data))
 	hbox.mouse_exited.connect(_on_hbox_mouse_exited);
+	hbox.custom_minimum_size.x = 300
 	
 	return panel
 
@@ -242,10 +295,23 @@ func _on_card_pressed(card_id: int, row: PanelContainer, is_remove: bool):
 
 func validate_save(data: PartyData) -> String:
 	if(data.card_ids.size() != deck_slots):
+		print(data.card_ids)
+		
 		return "Error: you must have a full deck"
 	
+	for c in classes:
+		if c==COMMON_ENUMS.CHARACTER_CLASSES.NONE:
+			continue
+		
+		var count = 0
+		for id in data.card_ids:
+			var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
+			if(card_data.card_classes[0]==c):
+				count+=1
+		if(count<2):
+			return "Error: you must have at least 2 of each class"
 	
-	return "error"
+	return "valid"
 
 func _on_save_button_pressed() -> void:
 	var valid = validate_save(cur_data)

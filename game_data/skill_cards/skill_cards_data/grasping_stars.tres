@@ -14,6 +14,7 @@ mana_cost = 3
 stamina_cost = 3
 card_ability = SubResource("Resource_4mc75")
 ability_desc = "Strike twice for (3) magic damage, if both strikes hit the same enemy strike that target a third time."
+card_classes = Array[int]([8])
 card_name = "Grasping Stars"
 card_art = ExtResource("2_2r724")
 card_id = 8001

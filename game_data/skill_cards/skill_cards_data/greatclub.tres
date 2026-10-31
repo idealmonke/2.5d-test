@@ -12,6 +12,7 @@ script = ExtResource("2_k3ydw")
 stamina_cost = 5
 card_ability = SubResource("Resource_mja0g")
 ability_desc = "Strike once for 12 physical damage, if you have bloodthirsty stacks gain an additional stack."
+card_classes = Array[int]([5])
 target_type = 1
 card_name = "Greatclub"
 card_id = 5002

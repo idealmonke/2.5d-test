@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="PartyData" format=3 uid="uid://ctumuokw53nhk"]
+[gd_resource type="Resource" script_class="PartyData" format=3]
 
-[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_1unio"]
+[ext_resource type="Script" path="res://game_data/player_data/party_data.gd" id="1_1unio"]
 
 [resource]
 script = ExtResource("1_1unio")
 name = "Starter Deck 1"
-card_ids = Array[int]([1001, 3002, 3003, 3004, 4001, 5001, 5004, 3001, 1004, 5002, 5003, 1005, 2001])
+card_ids = Array[int]([7003, 7004, 3001, 2002, 2003, 2001, 2004, 7002, 3002, 3003, 3004, 5001, 5002, 5003, 5004, 7001])
 character_ids = Array[int]([1, 2, 3, 4])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="character_data" format=3 uid="uid://bm67m5c12w2kk"]
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bm67m5c12w2kk"]
 
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_xm8ei"]
 
@@ -13,8 +13,7 @@ stamina = 2
 defense = Dictionary[int, int]({
 0: 1
 })
-main_class = 3
-multi_class = 8
+main_class = 7
 hand_size = 1
 deck_slots = 4
 metadata/_custom_type_script = "uid://i8uqwg5kes5"
