@@ -8,6 +8,8 @@ var window_string : String
 
 var character_hbox : HBoxContainer
 
+var option_buttons : Array[OptionButton]
+
 #For Card editor
 var button_container : VBoxContainer
 var card_container : VBoxContainer
@@ -63,8 +65,46 @@ func _ready() -> void:
 	
 	for party_name in PartyRegistry.PARTY_DB:
 		_create_button(party_name)
+	
+	option_buttons = []
+	var idx = 0
+	for panel in character_hbox.get_children():
+		var cur_vbox : VBoxContainer = panel.get_child(0).get_child(0)
+		var cur_button : OptionButton = cur_vbox.get_node("character_selector")
+		option_buttons.append(cur_button)
+		cur_button.item_selected.connect(_on_character_selected.bind(idx))
+		idx += 1
 
 #Character display
+func _on_character_selected(idx: int, slot: int):
+	#Slot: slot selectes index idx
+	cur_data.character_ids[slot] = option_buttons[slot].get_item_metadata(idx)
+	_update_dropdowns()
+	_reset()
+
+func _update_dropdowns():
+	for i in range(4):
+		var cur = 	option_buttons[i]
+		cur.clear()
+		
+		for id in CharacterDataRegistry.CHARACTER_DB:
+			var character_name = CharacterDataRegistry.CHARACTER_DB[id]
+			
+			var already_selected = false
+			for j in range(4):
+				if j!=i and cur_data.character_ids[j]==id:
+					already_selected = true
+			
+			if not already_selected:
+				cur.add_item(character_name)
+				cur.set_item_metadata(cur.item_count-1, id)
+		
+		for j in range(cur.item_count):
+			if(cur.get_item_metadata(j)==cur_data.character_ids[i]):
+				cur.select(j)
+		
+		cur.disabled = read_only
+
 func _display_stats(char_ids: Array[int]):
 	stats_label.text = ""
 	
@@ -86,23 +126,28 @@ func _display_stats(char_ids: Array[int]):
 	deck_slots = stats.deck_slots
 	classes = stats.classes
 
-
-
+func set_panel_color(panel: PanelContainer, color: Color):
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	panel.add_theme_stylebox_override("panel", style)
+func mute_color(color: Color, amount: float = 0.3) -> Color:
+	return color.lerp(Color("#303030"), amount)
 
 func _display_characters(char_ids: Array[int]):
 	var idx : int = 0
 	for panel in character_hbox.get_children():
 		var data : CharacterData = CharacterDataRegistry.get_character_data(char_ids[idx])
 		
+		var color = mute_color(CLASS_COLORS[data.main_class], 0.5)
+		set_panel_color(panel, color)
+		
 		var cur_vbox : VBoxContainer = panel.get_child(0).get_child(0)
-		
 		cur_vbox.get_node("character_name").text = CharacterDataRegistry.CHARACTER_DB[data.id]
-		
-		var p_list : Array[Dictionary] = data.get_property_list()
 		
 		for child in cur_vbox.get_node("character_stats").get_children():
 			child.queue_free()
 		
+		var p_list : Array[Dictionary] = data.get_property_list()
 		for prop in p_list:
 			if prop["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE:
 				var cur_name : String = prop["name"]
@@ -115,7 +160,7 @@ func _display_characters(char_ids: Array[int]):
 				
 				var label : Label = Label.new()
 				label.text = cur_name
-				label.custom_minimum_size.x = 200
+				label.custom_minimum_size.x = 100
 				var label2 : Label = Label.new()
 				label2.text = str(value)
 				
@@ -134,11 +179,6 @@ func _create_button(cur_name : String) -> void:
 	button.pressed.connect(_on_pressed.bind(cur_name))
 
 func _reset_window(window_name: String) -> void:
-	for child in card_container.get_children():
-		child.queue_free()
-	for child in add_buttons.get_children():
-		child.queue_free()
-	
 	window_string = "Showing: "+window_name
 	deck_label.text = window_string;
 	deck_label_2.text = window_string;
@@ -168,6 +208,15 @@ func _on_pressed(cur_name: String) -> void:
 	read_only = cur_data.read_only
 	_reset_window(cur_name)
 	
+	_reset()
+	_update_dropdowns()
+
+func _reset():
+	for child in card_container.get_children():
+		child.queue_free()
+	for child in add_buttons.get_children():
+		child.queue_free()
+	
 	var char_ids : Array[int] = cur_data.character_ids
 	_display_stats(char_ids)
 	_display_characters(char_ids)
@@ -183,14 +232,14 @@ func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	if not card_data:
 		return null
 	
-	var good : bool = false
-	for c in classes:
-		if(card_data.card_classes[0]==c):
-			good = true
-			break
-	
-	if not good:
-		return null
+	if not is_remove:
+		var good : bool = false
+		for c in classes:
+			if(card_data.card_classes[0]==c):
+				good = true
+				break
+		if not good:
+			return null
 	
 	var panel = PanelContainer.new()
 	
@@ -198,7 +247,7 @@ func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	if(card_data.card_classes.size()==0):
 		style.bg_color = Color("#777D87")
 	else:
-		style.bg_color = CLASS_COLORS[card_data.card_classes[0]]
+		style.bg_color = mute_color(CLASS_COLORS[card_data.card_classes[0]])
 
 	panel.add_theme_stylebox_override("panel", style)
 	
@@ -276,12 +325,12 @@ func _on_card_pressed(card_id: int, row: PanelContainer, is_remove: bool):
 		var entry = create_entry(card_id, false)
 		if entry:
 			add_buttons.add_child(entry)
-			cur_data.card_ids.erase(card_id)
-			row.queue_free()
-			
-			_fix_entries()
-		else:
-			print("ERROR: party_selector.gd, removed entry should exist")
+		
+		cur_data.card_ids.erase(card_id)
+		row.queue_free()
+		
+		_fix_entries()
+			#print("ERROR: party_selector.gd, removed entry should exist")
 	else:
 		var entry = create_entry(card_id, true)
 		if entry:
@@ -295,9 +344,18 @@ func _on_card_pressed(card_id: int, row: PanelContainer, is_remove: bool):
 
 func validate_save(data: PartyData) -> String:
 	if(data.card_ids.size() != deck_slots):
-		print(data.card_ids)
-		
 		return "Error: you must have a full deck"
+	
+	for id in data.card_ids:
+		var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
+		
+		var valid = false
+		for c in classes:
+			if(card_data.card_classes[0]==c):
+				valid = true
+		
+		if not valid:
+			return "Error: you have a card not in one of your classes: "+card_data.card_name
 	
 	for c in classes:
 		if c==COMMON_ENUMS.CHARACTER_CLASSES.NONE:

@@ -140,7 +140,7 @@ text = "Current Parties:"
 [node name="card_panel" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1391219214]
 offset_left = 338.0
 offset_top = 44.0
-offset_right = 1660.0
+offset_right = 1812.0
 offset_bottom = 948.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5sndr")
 
@@ -247,6 +247,74 @@ text = "Goku"
 layout_mode = 2
 
 [node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin/character_layout" unique_id=232955756]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="character_panel_3" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=2123853891]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3" unique_id=51865969]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin" unique_id=232515143]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=1531397179]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=2070776663]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=398158800]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=2110743583]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="character_panel_4" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=428347185]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4" unique_id=437276409]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin" unique_id=424862320]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=663412905]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=1686723965]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=467592883]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=740845105]
 layout_mode = 2
 item_count = 2
 popup/item_0/text = "item 1"
