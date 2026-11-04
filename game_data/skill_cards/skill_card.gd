@@ -9,7 +9,7 @@ var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
 var ability: SkillCardAbility
-var classes: Array[String]
+var classes: Array[COMMON_ENUMS.CHARACTER_CLASSES]
 
 # Card Sprites
 var card_main_frame: Sprite2D
@@ -154,7 +154,8 @@ func initialize_card(resource_data: SkillCardData) -> void:
 		var texture_size = card_sprite.texture.get_size()
 		card_sprite.scale = target_size / texture_size
 	
-	# classes = resource_data.card_classes
+	classes = resource_data.card_classes
+	
 	_update_text()
 	
 func begin_drag() -> void:
@@ -171,13 +172,21 @@ func set_back() -> void:
 	card_mana_cost_label.hide()
 	card_stamina_cost_label.hide()
 	card_ability_label.hide()
-	
+	$Sprite2D.self_modulate = Color.WHITE
+	$Sprite2D/Symbols.visible = false
+
+func mute_color(color: Color, amount: float = 0.3) -> Color:
+	return color.lerp(Color(255,255,255), amount)
 func set_front() -> void:
 	card_main_frame.texture = load("res://game_data/card_frames/Front_Card.png")
 	card_name_label.show()
 	card_mana_cost_label.show()
 	card_stamina_cost_label.show()
 	card_ability_label.show()
+	$Sprite2D/Symbols.visible = true
+	var cur_class = classes[0]
+	if(cur_class):
+		$Sprite2D.self_modulate = COMMON_ENUMS.CLASS_COLORS[cur_class].lightened(0.25)
 
 func set_exhausted(value: bool) -> void:
 	exhausted = value

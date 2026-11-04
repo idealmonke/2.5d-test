@@ -34,18 +34,6 @@ var add_buttons : VBoxContainer
 #CONFIG
 var battle_config : BattleConfig
 
-const CLASS_COLORS: Dictionary[COMMON_ENUMS.CHARACTER_CLASSES, Color] = {
-	COMMON_ENUMS.CHARACTER_CLASSES.NONE: Color("#777D87"),
-	COMMON_ENUMS.CHARACTER_CLASSES.WARRIOR: Color("#627D98"),
-	COMMON_ENUMS.CHARACTER_CLASSES.CLERIC: Color("#D6A441"),
-	COMMON_ENUMS.CHARACTER_CLASSES.KNAVE: Color("#388C83"),
-	COMMON_ENUMS.CHARACTER_CLASSES.MAGE: Color("296ef0ff"),
-	COMMON_ENUMS.CHARACTER_CLASSES.BERSERKER: Color("#D44747"),
-	COMMON_ENUMS.CHARACTER_CLASSES.SHAMAN: Color("#65A66B"),
-	COMMON_ENUMS.CHARACTER_CLASSES.ALCHEMIST: Color("51370fff"),
-	COMMON_ENUMS.CHARACTER_CLASSES.OCCULTIST: Color("#633D78"),
-}
-
 func _ready() -> void:
 	var tab_container = get_node("card_panel/margin_container/vbox/tab_container")
 	
@@ -154,7 +142,7 @@ func _display_characters(char_ids: Array[int]):
 	for panel in character_hbox.get_children():
 		var data : CharacterData = CharacterDataRegistry.get_character_data(char_ids[idx])
 		
-		var color = mute_color(CLASS_COLORS[data.main_class], 0.5)
+		var color = mute_color(COMMON_ENUMS.CLASS_COLORS[data.main_class], 0.5)
 		set_panel_color(panel, color)
 		
 		var cur_vbox : VBoxContainer = panel.get_child(0).get_child(0)
@@ -290,7 +278,7 @@ func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	if(card_data.card_classes.size()==0):
 		style.bg_color = Color("#777D87")
 	else:
-		style.bg_color = mute_color(CLASS_COLORS[card_data.card_classes[0]])
+		style.bg_color = mute_color(COMMON_ENUMS.CLASS_COLORS[card_data.card_classes[0]])
 
 	panel.add_theme_stylebox_override("panel", style)
 	

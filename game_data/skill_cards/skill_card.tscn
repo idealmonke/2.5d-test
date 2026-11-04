@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="1_qx01e"]
 [ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_frame_art/exhausted_card.gdshader" id="2_nujpf"]
 [ext_resource type="Texture2D" uid="uid://byum0wfyrxtdg" path="res://game_data/card_frames/Front_Card.png" id="3_qx01e"]
+[ext_resource type="Texture2D" uid="uid://k848l0fi3da" path="res://game_data/card_frames/Front_Card_Symbols_nobg.png" id="4_c1cq6"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="4_nujpf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
@@ -36,6 +37,9 @@ script = ExtResource("1_qx01e")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593555912]
 material = SubResource("ShaderMaterial_5ar1h")
 texture = ExtResource("3_qx01e")
+
+[node name="Symbols" type="Sprite2D" parent="Sprite2D" unique_id=491166538]
+texture = ExtResource("4_c1cq6")
 
 [node name="CardArt" type="Sprite2D" parent="Sprite2D" unique_id=1397708594]
 z_index = -1
