@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_ac00o"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_4mpya"]
 [ext_resource type="Script" uid="uid://dt22ymdkxy8hf" path="res://game_data/status_effects/status_effect_abilities/holy_light_ability.gd" id="2_bfkm2"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="3_4ds16"]
+[ext_resource type="Texture2D" uid="uid://b3ngxkrslepke" path="res://game_data/status_effects/status_effect_images/holy_light.png" id="3_4ds16"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_bfkm2"]
 
 [sub_resource type="Resource" id="Resource_4ds16"]
