@@ -20,6 +20,8 @@ var win_screen : PanelContainer
 var targeting_manager_instance : TargetingManager
 var maybe_manager_instance : MaybeManager
 
+var is_finished : bool
+
 #Devlog
 var devlog: PanelContainer
 
@@ -40,6 +42,7 @@ func _ready() -> void:
 	
 	current_draw_card = _default_draw_card
 	current_discard_card = _default_discard_card
+	is_finished = false
 	
 func _input(event: InputEvent) -> void:
 	var scene : Node = get_tree().current_scene
@@ -246,13 +249,17 @@ func _player_playing() -> void:
 func _end_turn() -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
 
-func _process_deaths() -> bool:
+func _process_deaths() -> String:
 	for enem in data.enemies.duplicate():
 		if enem.is_dead():
 			data.enemies.erase(enem)
 			enem.queue_free()
 	
-	return data.enemies.size()==0
+	if data.player.current_health<=0:
+		return "lose"
+	if data.enemies.size()==0:
+		return "win"
+	return "none"
 
 ## Used for managing the actions at start of state like animations etc
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
@@ -272,7 +279,7 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
-		COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN:
+		COMMON_ENUMS.BATTLE_STATE.END_SCREEN:
 			end_turn_button.hide()
 			win_screen.show()
 
@@ -300,8 +307,16 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	var state_to_string = COMMON_ENUMS.BATTLE_STATE.keys()[new_state];
 	
 	DevConsole.add_message("state: "+state_to_string, Color.YELLOW)
-	if current_state != COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN and _process_deaths():
-		_change_state(COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN)
+	
+	var is_dead = _process_deaths()
+	if is_dead!="none" and not is_finished:
+		is_finished = true
+		if(is_dead=="lose"):
+			win_screen.get_node("vbox/label").text = "You died\n\nTry again"
+		if(is_dead=="win"):
+			win_screen.get_node("vbox/label").text = "You defeated all the enemies and won!\n\nUse the settings menu to try new 
+enemies or decks."
+		_change_state(COMMON_ENUMS.BATTLE_STATE.END_SCREEN)
 		return
 	await _on_enter_state(current_state)
 	match current_state:
@@ -324,5 +339,5 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
 			pass
-		COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN:
+		COMMON_ENUMS.BATTLE_STATE.END_SCREEN:
 			pass

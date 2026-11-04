@@ -295,11 +295,11 @@ offset_right = 1568.0
 offset_bottom = 862.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_l4n2p")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="win_panel" unique_id=1700531472]
+[node name="vbox" type="VBoxContainer" parent="win_panel" unique_id=1700531472]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="win_panel/VBoxContainer" unique_id=1291657476]
+[node name="label" type="Label" parent="win_panel/vbox" unique_id=1291657476]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "You defeated all the enemies and won!
@@ -308,11 +308,11 @@ Use the settings menu to try new
 enemies or decks."
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="win_panel/VBoxContainer" unique_id=1724168836]
+[node name="Control" type="Control" parent="win_panel/vbox" unique_id=1724168836]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="exit_button" type="Button" parent="win_panel/VBoxContainer" unique_id=397749773]
+[node name="exit_button" type="Button" parent="win_panel/vbox" unique_id=397749773]
 layout_mode = 2
 size_flags_horizontal = 4
 offset_transform_enabled = true
@@ -320,7 +320,7 @@ theme_override_font_sizes/font_size = 60
 text = "Exit"
 script = ExtResource("10_5ar1h")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=588068581]
+[node name="HBoxContainer2" type="HBoxContainer" parent="win_panel/vbox" unique_id=588068581]
 layout_mode = 2
 alignment = 2
 
@@ -435,4 +435,4 @@ text = "[b][font_size=30] RULES GLOSSARY: [/font_size][/b]"
 [connection signal="pressed" from="maybe_manager/no_button" to="maybe_manager" method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="targeting_manager/cancel_button" to="targeting_manager" method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="targeting_manager/confirm_button" to="targeting_manager" method="_on_confirm_button_pressed"]
-[connection signal="pressed" from="win_panel/VBoxContainer/exit_button" to="win_panel/VBoxContainer/exit_button" method="_on_pressed"]
+[connection signal="pressed" from="win_panel/vbox/exit_button" to="win_panel/vbox/exit_button" method="_on_pressed"]

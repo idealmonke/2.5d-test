@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://dod4ibr2slxv"]
 
 [ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_fqp66"]
 [ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/judgement_bolt.gd" id="1_ure8h"]

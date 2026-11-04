@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://cq30yemmgdryp"]
 
-[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_07k8c"]
-[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/holy_light_ability.gd" id="1_sd5va"]
-[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/2004.png" id="2_awo6t"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_07k8c"]
+[ext_resource type="Script" uid="uid://w7iej5751aln" path="res://game_data/skill_cards/skill_card_abilities/holy_light_ability.gd" id="1_sd5va"]
+[ext_resource type="Texture2D" uid="uid://demxer3gdrji7" path="res://game_data/skill_cards/card_art/2004.png" id="2_awo6t"]
 
 [sub_resource type="Resource" id="Resource_sd5va"]
 script = ExtResource("1_sd5va")

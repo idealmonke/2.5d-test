@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://c85sl2a82tlvc"]
 
 [ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/quick_focus_ability.gd" id="1_24xsp"]
 [ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_24xsp"]
