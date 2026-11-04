@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://cjublm0lilgnk"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_i34c6"]
-[ext_resource type="Script" uid="uid://kkq1usgch8pj" path="res://game_data/skill_cards/skill_card_abilities/pocket_sand_ability.gd" id="1_v44im"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_i34c6"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/pocket_sand_ability.gd" id="1_v44im"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/3003.png" id="2_q16xk"]
 
 [sub_resource type="Resource" id="Resource_i34c6"]
 script = ExtResource("1_v44im")
@@ -15,5 +16,6 @@ ability_desc = "Apply 2 stacks of blindness, Dredge a card"
 card_classes = Array[int]([3])
 target_type = 1
 card_name = "Pocket Sand"
+card_art = ExtResource("2_q16xk")
 card_id = 3003
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

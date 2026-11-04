@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://eoxxk234q6b6"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://hdldjeu3h4mh" path="res://game_data/skill_cards/skill_card_abilities/rondel_dagger_ability.gd" id="1_673n0"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_lao5g"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_ry726"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/rondel_dagger_ability.gd" id="1_673n0"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_ry726"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/3001.png" id="2_673n0"]
 
 [sub_resource type="Resource" id="Resource_rgw2o"]
 script = ExtResource("1_673n0")
@@ -16,6 +16,6 @@ ability_desc = "Strike one target for 2 physical damage per card in discard, twi
 card_classes = Array[int]([3])
 target_type = 1
 card_name = "Rondel Dagger"
-card_art = ExtResource("1_lao5g")
+card_art = ExtResource("2_673n0")
 card_id = 3001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

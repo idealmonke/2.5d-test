@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://d1wqmvv5gqh6q"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://7eglfvnp4c4m" path="res://game_data/skill_cards/skill_card_abilities/regeneration_potion_ability.gd" id="1_g1f65"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_j7pt2"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/regeneration_potion_ability.gd" id="1_g1f65"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_j7pt2"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/7003'.png" id="2_wg46d"]
 
 [sub_resource type="Resource" id="Resource_ikxfx"]
 script = ExtResource("1_g1f65")
@@ -15,5 +16,6 @@ card_ability = SubResource("Resource_ikxfx")
 ability_desc = " Gain three stacks of regeneration"
 card_classes = Array[int]([7])
 card_name = "Regeneration Potion"
+card_art = ExtResource("2_wg46d")
 card_id = 7003
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

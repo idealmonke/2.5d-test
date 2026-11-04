@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://br70skyvlurii"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://dlhhwy1506o3o" path="res://game_data/skill_cards/skill_card_abilities/shoulder_check_abili.gd" id="1_oe5ou"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_bugu3"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/shoulder_check_abili.gd" id="1_oe5ou"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/5004.png" id="2_7ios6"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_bugu3"]
 
 [sub_resource type="Resource" id="Resource_7ios6"]
 script = ExtResource("1_oe5ou")
@@ -15,5 +16,6 @@ ability_desc = "Strike 6 physical damage, if you are bloodthirsty apply a stack 
 card_classes = Array[int]([5])
 target_type = 1
 card_name = "Shoulder Check"
+card_art = ExtResource("2_7ios6")
 card_id = 5004
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"
