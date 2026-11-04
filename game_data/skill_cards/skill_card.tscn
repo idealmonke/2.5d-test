@@ -43,13 +43,8 @@ texture = ExtResource("4_c1cq6")
 
 [node name="CardArt" type="Sprite2D" parent="Sprite2D" unique_id=1397708594]
 z_index = -1
-offset_left = -134.0
-offset_top = -208.0
-offset_right = 134.0
-offset_bottom = 24.0
+position = Vector2(-3.6363635, -89.090904)
 texture = ExtResource("4_nujpf")
-expand_mode = 1
-stretch_mode = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055926202]
 scale = Vector2(0.9, 1)

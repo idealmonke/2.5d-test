@@ -148,6 +148,8 @@ func initialize_card(resource_data: SkillCardData) -> void:
 	ability = resource_data.card_ability
 	discard_castable = resource_data.discard_castable
 	
+	card_art = resource_data.card_art
+	
 	if card_art:
 		card_sprite.texture = card_art
 		var target_size = Vector2(250,250)

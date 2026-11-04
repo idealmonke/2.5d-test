@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://cjc8ln57yncxl"]
+[gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://hyd61myxhau3"]
 
 [ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_d2gtx"]
 [ext_resource type="Script" uid="uid://dpmb6l2ednj1l" path="res://game_data/battle_config.gd" id="2_krdy4"]
@@ -7,12 +7,12 @@
 script = ExtResource("1_d2gtx")
 name = "Random Party"
 file_name = "party_editable.tres"
-card_ids = Array[int]([7001, 1001, 1002, 1003, 1004, 1005, 3001, 3002, 3003, 3004, 6001, 6002, 6003, 6004, 6005, 7002, 7003])
-character_ids = Array[int]([5, 6, 2, 4])
+card_ids = Array[int]([1001, 1002, 1003, 1004, 1005, 2001, 2002, 2003, 2004, 3001, 3002, 3003, 3004, 7001, 7002, 7003, 7004])
+character_ids = Array[int]([2, 3, 5, 4])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"
 
 [resource]
 script = ExtResource("2_krdy4")
-enemyIDs = Array[int]([1, -1, 1])
+enemyIDs = Array[int]([-1, 1, -1])
 party = SubResource("Resource_d2gtx")
 metadata/_custom_type_script = "uid://dpmb6l2ednj1l"

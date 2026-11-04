@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="PartyData" format=3]
+[gd_resource type="Resource" script_class="PartyData" format=3 uid="uid://ciuq846flfj4b"]
 
-[ext_resource type="Script" path="res://game_data/player_data/party_data.gd" id="1_1unio"]
+[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_1unio"]
 
 [resource]
 script = ExtResource("1_1unio")
 name = "Random Party"
 file_name = "party_editable.tres"
-card_ids = Array[int]([7001, 1001, 1002, 1003, 1004, 1005, 3001, 3002, 3003, 3004, 6001, 6002, 6003, 6004, 6005, 7002, 7003])
-character_ids = Array[int]([5, 6, 2, 4])
+card_ids = Array[int]([1001, 1002, 1003, 1004, 1005, 2001, 2002, 2003, 2004, 3001, 3002, 3003, 3004, 7001, 7002, 7003, 7004])
+character_ids = Array[int]([2, 3, 5, 4])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"
