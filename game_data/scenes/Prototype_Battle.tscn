@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="5_h35sd"]
 [ext_resource type="Script" uid="uid://dwo633dwu4swd" path="res://game_data/skill_cards/targeting_manager.gd" id="7_wxjty"]
 [ext_resource type="Script" uid="uid://d0e5ojkqwvb07" path="res://game_data/scripts/maybe_manager.gd" id="8_6iy56"]
-[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="8_l4n2p"]
-[ext_resource type="Texture2D" uid="uid://8pldicdphy16" path="res://game_data/status_effects/status_effect_images/Burning.png" id="9_5ar1h"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 [ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
@@ -294,26 +292,11 @@ alignment = 1
 [node name="Label" type="Label" parent="win_panel/VBoxContainer" unique_id=1291657476]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
-text = "You defeated all the enemies and won!"
+text = "You defeated all the enemies and won!
+
+Use the settings menu to try new 
+enemies or decks."
 horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=1881463621]
-layout_mode = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=2116977307]
-layout_mode = 2
-texture = ExtResource("9_5ar1h")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=562751620]
-layout_mode = 2
-texture = ExtResource("8_l4n2p")
-expand_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=358608751]
-layout_mode = 2
-texture = ExtResource("5_h35sd")
 
 [node name="Control" type="Control" parent="win_panel/VBoxContainer" unique_id=1724168836]
 custom_minimum_size = Vector2(0, 50)
