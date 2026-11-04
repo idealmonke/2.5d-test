@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://dwdxmf51dnsxd"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://dm6dxbfblvn6y" path="res://game_data/skill_cards/skill_card_abilities/shamanic_wave.gd" id="1_4b0f0"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_xwvhp"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_cxd1h"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/shamanic_wave.gd" id="1_4b0f0"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_xwvhp"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/6003.png" id="2_cxd1h"]
 
 [sub_resource type="Resource" id="Resource_4b0f0"]
 script = ExtResource("1_4b0f0")

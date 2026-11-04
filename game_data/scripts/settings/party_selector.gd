@@ -11,6 +11,7 @@ var character_hbox : HBoxContainer
 var option_buttons : Array[OptionButton]
 
 #For Card editor
+const SKILL_CARD_SCENE = preload("res://game_data/skill_cards/skill_card.tscn")
 var button_container : VBoxContainer
 var card_container : VBoxContainer
 var deck_label : Label
@@ -46,7 +47,10 @@ func _ready() -> void:
 	character_hbox = tab_container.get_node("Characters/margin_container/vbox/character_selector/main_vbox/character_hbox")
 	
 	deck_label = tab_container.get_node("Cards/margin_container/hbox/vbox/deck_label")
-	skill_card = tab_container.get_node("Cards/skill_card")
+	skill_card = SKILL_CARD_SCENE.instantiate()
+	#add_child(skill_card)
+	tab_container.get_node("Cards").add_child(skill_card)
+	
 	
 	var save_hbox = get_node("card_panel/margin_container/vbox/save_hbox")
 	save_button = save_hbox.get_node("save_button")
@@ -327,11 +331,27 @@ func add_cards(ids: Array[int]):
 		if entry:
 			card_container.add_child(entry)
 
+func debug_sprite(sprite: Sprite2D):
+	print("\n--- ", sprite.name, " ---")
+	print("Exists: ", is_instance_valid(sprite))
+	print("Visible: ", sprite.visible)
+	print("Visible in tree: ", sprite.is_visible_in_tree())
+	print("Texture: ", sprite.texture)
+	print("Global position: ", sprite.global_position)
+	print("Global scale: ", sprite.global_scale)
+	print("Z index: ", sprite.z_index)
+	print("Frame: ", sprite.frame)
+	print("Parent: ", sprite.get_parent().name)
+
+
 func _on_hbox_mouse_entered(data: SkillCardData):
 	skill_card.visible = true
 	skill_card.set_front()
 	
 	skill_card.initialize_card(data)
+	skill_card.base_z_index = 100
+	#skill_card.get_node("Sprite2D").z_index = 101
+	#skill_card.get_node("Sprite2D/CardArt").z_index = 100
 
 func _on_hbox_mouse_exited():
 	skill_card.visible = false

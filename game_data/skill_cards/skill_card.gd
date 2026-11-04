@@ -184,9 +184,10 @@ func set_front() -> void:
 	card_stamina_cost_label.show()
 	card_ability_label.show()
 	$Sprite2D/Symbols.visible = true
-	var cur_class = classes[0]
-	if(cur_class):
-		$Sprite2D.self_modulate = COMMON_ENUMS.CLASS_COLORS[cur_class].lightened(0.25)
+	if classes:
+		var cur_class = classes[0]
+		if(cur_class):
+			$Sprite2D.self_modulate = COMMON_ENUMS.CLASS_COLORS[cur_class].lightened(0.25)
 
 func set_exhausted(value: bool) -> void:
 	exhausted = value
