@@ -48,7 +48,7 @@ func _ready() -> void:
 	
 	deck_label = tab_container.get_node("Cards/margin_container/hbox/vbox/deck_label")
 	skill_card = SKILL_CARD_SCENE.instantiate()
-	#add_child(skill_card)
+	skill_card.scale = Vector2(1,1)
 	tab_container.get_node("Cards").add_child(skill_card)
 	
 	
@@ -62,6 +62,7 @@ func _ready() -> void:
 	
 	PartyRegistry.load_party_data()
 	
+	skill_card.visible = false
 	skill_card.misc_location = Vector2(800,500)
 	skill_card.interactable_state = COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY
 	
@@ -151,6 +152,8 @@ func _display_characters(char_ids: Array[int]):
 		
 		var cur_vbox : VBoxContainer = panel.get_child(0).get_child(0)
 		cur_vbox.get_node("character_name").text = CharacterDataRegistry.CHARACTER_DB[data.id]
+		
+		cur_vbox.get_node("character_img").texture = data.art
 		
 		for child in cur_vbox.get_node("character_stats").get_children():
 			child.queue_free()
@@ -330,19 +333,6 @@ func add_cards(ids: Array[int]):
 		var entry = create_entry(id, true)
 		if entry:
 			card_container.add_child(entry)
-
-func debug_sprite(sprite: Sprite2D):
-	print("\n--- ", sprite.name, " ---")
-	print("Exists: ", is_instance_valid(sprite))
-	print("Visible: ", sprite.visible)
-	print("Visible in tree: ", sprite.is_visible_in_tree())
-	print("Texture: ", sprite.texture)
-	print("Global position: ", sprite.global_position)
-	print("Global scale: ", sprite.global_scale)
-	print("Z index: ", sprite.z_index)
-	print("Frame: ", sprite.frame)
-	print("Parent: ", sprite.get_parent().name)
-
 
 func _on_hbox_mouse_entered(data: SkillCardData):
 	skill_card.visible = true

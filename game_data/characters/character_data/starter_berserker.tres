@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://76ohclq24tog"]
 
+[ext_resource type="Texture2D" uid="uid://r6uk47hatox7" path="res://game_data/characters/character_art/berserker.png" id="1_dbk4j"]
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_qump6"]
 
 [resource]
 script = ExtResource("1_qump6")
 id = 1
-art = null
+art = ExtResource("1_dbk4j")
 hp = 20
 stamina = 3
 defense = Dictionary[int, int]({

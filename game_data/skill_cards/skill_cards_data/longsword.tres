@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://qok2vm73sb8g"]
 
-[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_1hd5p"]
-[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/longsword_ability.gd" id="1_d87u7"]
-[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/1001.png" id="2_d87u7"]
+[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_1hd5p"]
+[ext_resource type="Script" uid="uid://dvlvlpxdfn5og" path="res://game_data/skill_cards/skill_card_abilities/longsword_ability.gd" id="1_d87u7"]
+[ext_resource type="Texture2D" uid="uid://cyodp1oraxqjf" path="res://game_data/skill_cards/card_art/1001.png" id="2_d87u7"]
 
 [sub_resource type="Resource" id="Resource_d87u7"]
 script = ExtResource("1_d87u7")

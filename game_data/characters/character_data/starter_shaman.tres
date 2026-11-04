@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://6niadli2t2jj"]
 
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_m732b"]
+[ext_resource type="Texture2D" uid="uid://bun2w4r7o1lmj" path="res://game_data/characters/character_art/shaman.png" id="1_n5ktg"]
 
 [resource]
 script = ExtResource("1_m732b")
 id = 6
-art = null
+art = ExtResource("1_n5ktg")
 hp = 12
 max_mana = 7
 mana_regen = 2

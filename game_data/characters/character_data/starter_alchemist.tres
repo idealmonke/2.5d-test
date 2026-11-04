@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bm67m5c12w2kk"]
 
+[ext_resource type="Texture2D" uid="uid://vkvlhtrmcf58" path="res://game_data/characters/character_art/alchemist.png" id="1_1w775"]
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_xm8ei"]
 
 [resource]
 script = ExtResource("1_xm8ei")
 id = 2
-art = null
+art = ExtResource("1_1w775")
 hp = 6
 max_mana = 5
 mana_regen = 1
