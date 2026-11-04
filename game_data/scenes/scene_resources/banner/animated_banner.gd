@@ -8,9 +8,11 @@ extends Control
 func _ready() -> void:
 	banner.position.x = -1000
 	banner.modulate.a = 0
+	banner.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func play_banner(text: String, color: Color, text_color: Color):
+	banner.show()
 	label.text = text
 	label.label_settings.font_color = text_color
 	banner.self_modulate = color
@@ -28,3 +30,4 @@ func play_banner(text: String, color: Color, text_color: Color):
 	tween.tween_callback(func(): banner.position.x = -600)
 	
 	await tween.finished
+	banner.hide()

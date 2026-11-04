@@ -47,14 +47,12 @@ func change_state(state : COMMON_ENUMS.ENEMY_CARD_STATE):
 	interactable_state = state
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.PLAYING):
 		z_index = 100
-		
 		_create_tween(playing_target, 0)
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.HAND):
-		z_index = 10
-		
+		z_index = 90
 		_create_tween(hand_location + location_offset, rotation_offset)
 	if(state==COMMON_ENUMS.ENEMY_CARD_STATE.LIBRARY):
-		z_index = 5
+		z_index = 80
 		
 		_create_tween(library_location, 0)
 

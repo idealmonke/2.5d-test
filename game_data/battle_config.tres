@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://bndfpe4po5sol"]
+[gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://dofbnj3b7an0w"]
 
 [ext_resource type="Resource" uid="uid://djy30r7pqh80c" path="res://game_data/player_data/party_data/party_002.tres" id="1_d2gtx"]
 [ext_resource type="Script" uid="uid://dpmb6l2ednj1l" path="res://game_data/battle_config.gd" id="2_krdy4"]
 
 [resource]
 script = ExtResource("2_krdy4")
-enemyIDs = Array[int]([1, -1, 1])
+enemyIDs = Array[int]([2, -1, 2])
 party = ExtResource("1_d2gtx")
 metadata/_custom_type_script = "uid://dpmb6l2ednj1l"

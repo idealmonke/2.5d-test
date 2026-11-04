@@ -181,6 +181,13 @@ func _update_stat_bars() -> void:
 		
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
+	
+	if mana_bar.hidden && max_mana > 0:
+		mana_bar.show()
+		mana_bar_text.show()
+	if max_mana <= 0:
+		mana_bar.hide()
+		mana_bar_text.hide()
 	mana_bar.max_value = max_mana
 	
 	if health_tween and health_tween.is_running():

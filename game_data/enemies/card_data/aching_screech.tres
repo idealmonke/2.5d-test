@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://damyul745f3fd"]
+[gd_resource type="Resource" script_class="EnemyCardData" format=3 uid="uid://damyul745f3fd"]
 
 [ext_resource type="Script" uid="uid://coo8lqv6i5nff" path="res://game_data/enemies/enemy_card_abilities/aching_screech_ability.gd" id="1_hj5la"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_dph4c"]
