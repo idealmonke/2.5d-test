@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://diedjxo1rv2cs"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://b74ikmgk5cppw"]
 
 [ext_resource type="Script" uid="uid://dl3q5n6l4ik2x" path="res://game_data/skill_cards/skill_card_abilities/bare_knuckles_ability.gd" id="1_xg8da"]
+[ext_resource type="Texture2D" uid="uid://b2kgnnoyfvj3k" path="res://game_data/skill_cards/card_art/5003.png" id="2_cr2db"]
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_rerqq"]
 
 [sub_resource type="Resource" id="Resource_u3tej"]
@@ -15,5 +16,6 @@ ability_desc = "Strike 4 physical damage. Gain two stacks of bloodthirsty. "
 card_classes = Array[int]([5])
 target_type = 1
 card_name = "Bare Knuckles"
+card_art = ExtResource("2_cr2db")
 card_id = 5003
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

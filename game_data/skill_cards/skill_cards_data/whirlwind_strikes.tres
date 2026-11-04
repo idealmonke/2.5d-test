@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://ulu6qpfg7e8x"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_7si3p"]
-[ext_resource type="Script" uid="uid://cjxbs6sxwfpx" path="res://game_data/skill_cards/skill_card_abilities/whirlwind_strike_ability.gd" id="1_r2otk"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_6urqg"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_7si3p"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/whirlwind_strike_ability.gd" id="1_r2otk"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/1002.png" id="2_r2otk"]
 
 [sub_resource type="Resource" id="Resource_0ppys"]
 script = ExtResource("1_r2otk")
@@ -13,7 +13,8 @@ script = ExtResource("1_7si3p")
 stamina_cost = 5
 card_ability = SubResource("Resource_0ppys")
 ability_desc = "Strike for (3) physical damage a number of times equal to the amount of cards in hand at random targets"
+card_classes = Array[int]([1])
 card_name = "Whirlwind Strikes"
-card_art = ExtResource("2_6urqg")
+card_art = ExtResource("2_r2otk")
 card_id = 1002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

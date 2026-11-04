@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="character_data" format=3 uid="uid://d38njtmsgorkj"]
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://d38njtmsgorkj"]
 
+[ext_resource type="Texture2D" uid="uid://c1dh7176j5plp" path="res://game_data/characters/character_art/knave.png" id="1_5aqd1"]
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_efnqs"]
 
 [resource]
 script = ExtResource("1_efnqs")
 id = 4
-art = null
+art = ExtResource("1_5aqd1")
 hp = 9
 max_mana = 3
 mana_regen = 2
@@ -14,8 +15,7 @@ defense = Dictionary[int, int]({
 0: 1
 })
 shield_retention = 0.05
-main_class = 1
-multi_class = 8
+main_class = 3
 hand_size = 2
 deck_slots = 4
 metadata/_custom_type_script = "uid://i8uqwg5kes5"

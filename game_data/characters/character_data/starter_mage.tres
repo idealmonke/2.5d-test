@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://r2i1laess6ny"]
 
+[ext_resource type="Texture2D" uid="uid://b6pm1hbjuqjp5" path="res://game_data/characters/character_art/mage.png" id="1_h55k0"]
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_scit5"]
 
 [resource]
 script = ExtResource("1_scit5")
 id = 8
-art = null
+art = ExtResource("1_h55k0")
 hp = 6
 max_mana = 10
 mana_regen = 3
 stamina = 2
-main_class = 5
-multi_class = 8
+main_class = 4
 hand_size = 1
 deck_slots = 5
 metadata/_custom_type_script = "uid://i8uqwg5kes5"

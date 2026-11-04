@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://bibmods2gjg3d"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_07k8c"]
-[ext_resource type="Script" uid="uid://w7iej5751aln" path="res://game_data/skill_cards/skill_card_abilities/holy_light_ability.gd" id="1_sd5va"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_07k8c"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/holy_light_ability.gd" id="1_sd5va"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/2004.png" id="2_awo6t"]
 
 [sub_resource type="Resource" id="Resource_sd5va"]
 script = ExtResource("1_sd5va")
@@ -13,6 +14,8 @@ mana_cost = 5
 stamina_cost = 2
 card_ability = SubResource("Resource_sd5va")
 ability_desc = "All enemies take 3 holy damage for 2 turns"
+card_classes = Array[int]([2])
 card_name = "Holy Light"
+card_art = ExtResource("2_awo6t")
 card_id = 2004
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

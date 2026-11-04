@@ -298,7 +298,7 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	await _on_exit_state(current_state)
 	current_state = new_state
 	var state_to_string = COMMON_ENUMS.BATTLE_STATE.keys()[new_state];
-	print("should add "+state_to_string);
+	
 	DevConsole.add_message("state: "+state_to_string, Color.YELLOW)
 	if current_state != COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN and _process_deaths():
 		_change_state(COMMON_ENUMS.BATTLE_STATE.WIN_SCREEN)

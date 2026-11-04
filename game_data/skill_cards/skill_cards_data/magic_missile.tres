@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://02u6sua4l3go"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_k0clp"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_nge83"]
-[ext_resource type="Script" uid="uid://c72p7fkox458" path="res://game_data/skill_cards/skill_card_abilities/magic_missile_ability.gd" id="1_uyqj2"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_k0clp"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/magic_missile_ability.gd" id="1_uyqj2"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/4001.png" id="2_uyqj2"]
 
 [sub_resource type="Resource" id="Resource_6iy56"]
 script = ExtResource("1_uyqj2")
@@ -14,9 +14,9 @@ mana_cost = 3
 stamina_cost = 3
 card_ability = SubResource("Resource_6iy56")
 ability_desc = "(3) strikes for (3) magic damage"
-card_classes = Array[int]([5])
+card_classes = Array[int]([4])
 target_type = 2
 card_name = "Magic Missile"
-card_art = ExtResource("1_nge83")
+card_art = ExtResource("2_uyqj2")
 card_id = 4001
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

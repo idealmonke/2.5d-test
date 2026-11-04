@@ -9,7 +9,7 @@ var stamina_cost: int
 var mana_cost: int
 var ability_desc: String
 var ability: SkillCardAbility
-var classes: Array[String]
+var classes: Array[COMMON_ENUMS.CHARACTER_CLASSES]
 
 # Card Sprites
 var card_main_frame: Sprite2D
@@ -20,6 +20,7 @@ var card_name_label: Label
 var card_ability_label: Label
 var card_mana_cost_label: Label
 var card_stamina_cost_label: Label
+var card_sprite : Sprite2D
 
 # Card Control Data
 var interactable_state: COMMON_ENUMS.INTERACT_STATE:
@@ -88,6 +89,7 @@ func _ready() -> void:
 	card_ability_label = $card_ability
 	card_mana_cost_label = $mana_cost
 	card_stamina_cost_label = $stamina_cost
+	card_sprite = $Sprite2D/CardArt
 	_update_text()
 	
 	interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
@@ -145,10 +147,14 @@ func initialize_card(resource_data: SkillCardData) -> void:
 	ability_desc = resource_data.ability_desc
 	ability = resource_data.card_ability
 	discard_castable = resource_data.discard_castable
-	# classes = resource_data.card_classes
-	card_art = resource_data.card_art
 	
+	if card_art:
+		card_sprite.texture = card_art
+		var target_size = Vector2(250,250)
+		var texture_size = card_sprite.texture.get_size()
+		card_sprite.scale = target_size / texture_size
 	
+	classes = resource_data.card_classes
 	
 	_update_text()
 	
@@ -166,13 +172,22 @@ func set_back() -> void:
 	card_mana_cost_label.hide()
 	card_stamina_cost_label.hide()
 	card_ability_label.hide()
-	
+	$Sprite2D.self_modulate = Color.WHITE
+	$Sprite2D/Symbols.visible = false
+
+func mute_color(color: Color, amount: float = 0.3) -> Color:
+	return color.lerp(Color(255,255,255), amount)
 func set_front() -> void:
 	card_main_frame.texture = load("res://game_data/card_frames/Front_Card.png")
 	card_name_label.show()
 	card_mana_cost_label.show()
 	card_stamina_cost_label.show()
 	card_ability_label.show()
+	$Sprite2D/Symbols.visible = true
+	if classes:
+		var cur_class = classes[0]
+		if(cur_class):
+			$Sprite2D.self_modulate = COMMON_ENUMS.CLASS_COLORS[cur_class].lightened(0.25)
 
 func set_exhausted(value: bool) -> void:
 	exhausted = value
@@ -195,6 +210,8 @@ func _update_text() -> void:
 	card_ability_label.text = ability_desc
 	card_stamina_cost_label.text = str(stamina_cost)
 	card_mana_cost_label.text = str(mana_cost)
+	
+	
 	
 ## Handles Mouse Down Presses
 func _on_input_event(_viewport, event, _shape_idx):

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="skill_card_data" format=3 uid="uid://bhtc84lqmnkhe"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://b4m5kco4532t2" path="res://game_data/skill_cards/skill_card_abilities/hand_crossbow.gd" id="1_27csl"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_pbcoo"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/hand_crossbow.gd" id="1_27csl"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_pbcoo"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/3002.png" id="2_skxol"]
 
 [sub_resource type="Resource" id="Resource_27csl"]
 script = ExtResource("1_27csl")
@@ -12,7 +13,9 @@ script = ExtResource("1_pbcoo")
 stamina_cost = 2
 card_ability = SubResource("Resource_27csl")
 ability_desc = "Strike one target for 1 physical damage per card in discard, ignoring shield"
+card_classes = Array[int]([3])
 target_type = 1
 card_name = "Hand Crossbow"
+card_art = ExtResource("2_skxol")
 card_id = 3002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

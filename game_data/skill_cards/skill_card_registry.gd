@@ -2,6 +2,7 @@ class_name SkillCardRegistry
 extends RefCounted
 
 static var skill_card_data_path: String = "res://game_data/skill_cards/skill_cards_data/"
+static var skill_card_art_path : String = "res://game_data/skill_cards/card_art/"
 
 const CARD_DB: Dictionary = {
 	1001: "longsword",
@@ -41,6 +42,34 @@ const CARD_DB: Dictionary = {
 	8004: "graveslam",
 	8005: "siphon_energy",
 }
+
+static func load_card_art():
+	var dir_path = skill_card_art_path
+	var dir = DirAccess.open(dir_path)
+
+	if dir == null:
+		printerr("Could not open card art directory")
+		return
+
+	dir.list_dir_begin()
+
+	var file_name = dir.get_next()
+
+	while file_name != "":
+		if not dir.current_is_dir():
+			var card_id = file_name.get_basename().to_int()
+
+			if CARD_DB.has(card_id):
+				var texture = load(dir_path + file_name) as Texture2D
+
+				if texture:
+					var card_data = get_card_data(card_id)
+					card_data.card_art = texture
+					save_data(card_data)
+
+		file_name = dir.get_next()
+
+	dir.list_dir_end()
 
 static func get_card_data(ID: int) -> SkillCardData:
 	assert(CARD_DB.has(ID), "Card ID (%s) not found in registry" % ID)

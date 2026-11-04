@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/card_data_editor.gd" id="3_sqjrh"]
 [ext_resource type="Script" uid="uid://dr28ar5e1u7lo" path="res://game_data/scripts/settings/party_selector.gd" id="4_g8tyr"]
 [ext_resource type="Script" uid="uid://ec8wy6rx0hv1" path="res://game_data/scripts/settings/exit_button.gd" id="4_wrmvb"]
+[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="5_64hno"]
 [ext_resource type="PackedScene" uid="uid://cyfbc1ti6fbjv" path="res://game_data/skill_cards/skill_card.tscn" id="5_p8j2l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8tyr"]
@@ -28,10 +29,11 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 5
 script = ExtResource("1_5sndr")
 
 [node name="Welcome" type="TabBar" parent="tab_container" unique_id=1002206843]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -90,7 +92,6 @@ layout_mode = 2
 script = ExtResource("3_l5jsw")
 
 [node name="Party \\ Deck Selector" type="TabBar" parent="tab_container" unique_id=1784532654]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
@@ -103,12 +104,14 @@ offset_top = 22.0
 offset_right = 129.0
 offset_bottom = 53.0
 placeholder_text = "ID"
+editable = false
 
 [node name="add_party_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1833585300]
 offset_left = 146.0
 offset_top = 22.0
 offset_right = 290.0
 offset_bottom = 53.0
+disabled = true
 text = "Create New Party"
 
 [node name="card_button_scroll_container" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1820509940]
@@ -134,12 +137,13 @@ offset_left = 28.0
 offset_top = 65.0
 offset_right = 151.0
 offset_bottom = 88.0
-text = "Current Parties:"
+text = "Current Parties (blue is selected):"
 
 [node name="card_panel" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1391219214]
+visible = false
 offset_left = 338.0
 offset_top = 44.0
-offset_right = 1486.0
+offset_right = 1812.0
 offset_bottom = 948.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5sndr")
 
@@ -150,102 +154,252 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="tab_container" type="TabContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container" unique_id=1066588192]
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container" unique_id=1621007187]
 layout_mode = 2
+
+[node name="tab_container" type="TabContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox" unique_id=1066588192]
+layout_mode = 2
+size_flags_vertical = 3
 current_tab = 1
 
-[node name="Characters" type="TabBar" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container" unique_id=1101428795]
+[node name="Characters" type="TabBar" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container" unique_id=1101428795]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters" unique_id=606955036]
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters" unique_id=606955036]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 
-[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container" unique_id=581376447]
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container" unique_id=581376447]
 layout_mode = 2
 
-[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox" unique_id=1651319080]
+[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox" unique_id=1651319080]
 layout_mode = 2
 
-[node name="stats_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Characters/margin_container/vbox" unique_id=320950304]
+[node name="stats_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox" unique_id=320950304]
 layout_mode = 2
 
-[node name="Cards" type="TabBar" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container" unique_id=1725638215]
+[node name="character_selector" type="Control" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox" unique_id=590254043]
+layout_mode = 2
+
+[node name="main_vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector" unique_id=1872697850]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="character_hbox" type="HBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox" unique_id=1045145743]
+layout_mode = 2
+
+[node name="character_panel_1" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=1593561523]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1" unique_id=447663783]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1/margin" unique_id=1354526813]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1/margin/character_layout" unique_id=1537756650]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1/margin/character_layout" unique_id=310498316]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1/margin/character_layout" unique_id=1954787858]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_1/margin/character_layout" unique_id=108912473]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="character_panel_2" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=25298799]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2" unique_id=147213151]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin" unique_id=1501565937]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin/character_layout" unique_id=1568905675]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin/character_layout" unique_id=704714921]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin/character_layout" unique_id=83033542]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_2/margin/character_layout" unique_id=232955756]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="character_panel_3" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=2123853891]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3" unique_id=51865969]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin" unique_id=232515143]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=1531397179]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=2070776663]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=398158800]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_3/margin/character_layout" unique_id=2110743583]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="character_panel_4" type="PanelContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox" unique_id=428347185]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4" unique_id=437276409]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_layout" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin" unique_id=424862320]
+layout_mode = 2
+
+[node name="character_img" type="TextureRect" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=663412905]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+texture = ExtResource("5_64hno")
+expand_mode = 1
+
+[node name="character_name" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=1686723965]
+layout_mode = 2
+text = "Goku"
+
+[node name="character_stats" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=467592883]
+layout_mode = 2
+
+[node name="character_selector" type="OptionButton" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox/character_panel_4/margin/character_layout" unique_id=740845105]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="Cards" type="TabBar" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container" unique_id=1725638215]
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="skill_card" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards" unique_id=1995512998 instance=ExtResource("5_p8j2l")]
+[node name="skill_card" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards" unique_id=1995512998 instance=ExtResource("5_p8j2l")]
 visible = false
+z_index = 100
 position = Vector2(930, 409)
 
-[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards" unique_id=700101243]
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards" unique_id=700101243]
 layout_mode = 0
 offset_left = 29.0
 offset_top = 25.0
 offset_right = 69.0
 offset_bottom = 65.0
 
-[node name="hbox" type="HBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container" unique_id=1287554943]
+[node name="hbox" type="HBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container" unique_id=1287554943]
 layout_mode = 2
 
-[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=407486563]
+[node name="vbox" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox" unique_id=407486563]
 layout_mode = 2
 
-[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox" unique_id=1781862006]
+[node name="deck_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/vbox" unique_id=1781862006]
 layout_mode = 2
 
-[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox" unique_id=1813736269]
-custom_minimum_size = Vector2(300, 700)
+[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/vbox" unique_id=1813736269]
+custom_minimum_size = Vector2(400, 700)
 layout_mode = 2
 
-[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox/card_scroll" unique_id=167222287]
+[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/vbox/card_scroll" unique_id=167222287]
 layout_mode = 2
 
-[node name="spacer" type="Control" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=385046276]
-custom_minimum_size = Vector2(400, 0)
+[node name="spacer" type="Control" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox" unique_id=385046276]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="add_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox" unique_id=1244041074]
+[node name="add_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox" unique_id=1244041074]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container" unique_id=2014930010]
+[node name="Label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/add_container" unique_id=2014930010]
 layout_mode = 2
 text = "Adding cards:"
 
-[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container" unique_id=1479763139]
-custom_minimum_size = Vector2(300, 700)
+[node name="card_scroll" type="ScrollContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/add_container" unique_id=1479763139]
+custom_minimum_size = Vector2(400, 700)
 layout_mode = 2
 
-[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll" unique_id=1390288990]
+[node name="card_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/add_container/card_scroll" unique_id=1390288990]
 layout_mode = 2
 
-[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container" unique_id=2001753211]
+[node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container" unique_id=2001753211]
 layout_mode = 2
 
-[node name="inner_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container/margin_container" unique_id=211901506]
+[node name="inner_container" type="VBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards/margin_container/hbox/add_container/card_scroll/card_container/margin_container" unique_id=211901506]
 layout_mode = 2
 
-[node name="save_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards" unique_id=1147096126]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 781.0
-offset_right = 169.51613
-offset_bottom = 821.0
-text = "Save changes"
+[node name="save_hbox" type="HBoxContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox" unique_id=642504808]
+layout_mode = 2
 
-[node name="save_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards" unique_id=933856840]
-visible = false
-layout_mode = 0
-offset_left = 180.0
-offset_top = 791.0
-offset_right = 291.0
-offset_bottom = 814.0
+[node name="save_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox" unique_id=1402842912]
+layout_mode = 2
+text = "Save Changes"
+
+[node name="select_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox" unique_id=1175648987]
+layout_mode = 2
+text = "Select Party"
+
+[node name="save_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox" unique_id=524958480]
+layout_mode = 2
 text = "save sucessful"
 
 [node name="card_editor" type="Control" parent="." unique_id=708963454]
@@ -347,7 +501,8 @@ text = "Exit"
 script = ExtResource("4_wrmvb")
 
 [connection signal="tab_changed" from="tab_container" to="tab_container" method="_on_tab_changed"]
-[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/tab_container/Cards/save_button" to="tab_container/Party \\ Deck Selector/party_selector" method="_on_save_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox/save_button" to="tab_container/Party \\ Deck Selector/party_selector" method="_on_save_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox/select_button" to="tab_container/Party \\ Deck Selector/party_selector" method="_on_select_button_pressed"]
 [connection signal="pressed" from="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/save_button" to="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/card_data_editor" method="_on_save_button_pressed"]
 [connection signal="text_changed" from="card_editor/filter" to="card_editor/card_button_scroll_container/card_button_container" method="_on_filter_text_changed"]
 [connection signal="pressed" from="Control/Exit Button" to="Control/Exit Button" method="_on_pressed"]

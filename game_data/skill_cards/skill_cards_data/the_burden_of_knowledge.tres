@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://cvqvcndm6jnp"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_mky11"]
-[ext_resource type="Script" uid="uid://bhxt3nrrq2q2b" path="res://game_data/skill_cards/skill_card_abilities/the_burden_of_knowledge_ability.gd" id="1_nl3l1"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_dfrv0"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_mky11"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/the_burden_of_knowledge_ability.gd" id="1_nl3l1"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/8002.png" id="2_nl3l1"]
 
 [sub_resource type="Resource" id="Resource_0b011"]
 script = ExtResource("1_nl3l1")
@@ -14,8 +14,8 @@ mana_cost = 8
 stamina_cost = 4
 card_ability = SubResource("Resource_0b011")
 ability_desc = "Discard your hand, draw that many cards"
-card_classes = Array[int]([6])
+card_classes = Array[int]([8])
 card_name = "The Burden of Knowledge"
-card_art = ExtResource("2_dfrv0")
+card_art = ExtResource("2_nl3l1")
 card_id = 8002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://ncui70xywg3v"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://yjhobu4lhdlo" path="res://game_data/skill_cards/skill_card_abilities/reactant_ability.gd" id="1_3t5ms"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_04qfu"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/reactant_ability.gd" id="1_3t5ms"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_04qfu"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/7004.png" id="2_u38iy"]
 
 [sub_resource type="Resource" id="Resource_u38iy"]
 script = ExtResource("1_3t5ms")
@@ -12,6 +13,8 @@ script = ExtResource("2_04qfu")
 stamina_cost = 3
 card_ability = SubResource("Resource_u38iy")
 ability_desc = "Add 1 additional stack to ALL status effects active on target, positive or negative (target can be enemy or player)"
+card_classes = Array[int]([7])
 card_name = "Reactant"
+card_art = ExtResource("2_u38iy")
 card_id = 7004
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

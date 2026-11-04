@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://d1as11lfyhtkp"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_pc43m"]
-[ext_resource type="Script" uid="uid://b4t0ymv6ktl8r" path="res://game_data/skill_cards/skill_card_abilities/fireball_ability.gd" id="1_uqorv"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_al4vu"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_pc43m"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/fireball_ability.gd" id="1_uqorv"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/4002.png" id="2_uqorv"]
 
 [sub_resource type="Resource" id="Resource_1bbdy"]
 script = ExtResource("1_uqorv")
@@ -14,8 +14,8 @@ mana_cost = 8
 stamina_cost = 5
 card_ability = SubResource("Resource_1bbdy")
 ability_desc = "(10) fire damage to each enemy, applies (2) stacks of burning"
-card_classes = Array[int]([5])
+card_classes = Array[int]([4])
 card_name = "Fireball"
-card_art = ExtResource("2_al4vu")
+card_art = ExtResource("2_uqorv")
 card_id = 4002
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

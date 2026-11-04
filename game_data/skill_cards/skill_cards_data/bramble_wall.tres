@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://df8hf208sgcgs"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_fg1eo"]
-[ext_resource type="Script" uid="uid://b08sedvp2nc1o" path="res://game_data/skill_cards/skill_card_abilities/bramble_wall_ability.gd" id="1_j4fl7"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_vbq5h"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_fg1eo"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/bramble_wall_ability.gd" id="1_j4fl7"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/6004.png" id="2_j4fl7"]
 
 [sub_resource type="Resource" id="Resource_qqhxv"]
 script = ExtResource("1_j4fl7")
@@ -16,6 +16,6 @@ card_ability = SubResource("Resource_qqhxv")
 ability_desc = "Gain (10) shield and thorns status effect for two turns"
 card_classes = Array[int]([6])
 card_name = "Bramble Wall"
-card_art = ExtResource("1_vbq5h")
+card_art = ExtResource("2_j4fl7")
 card_id = 6004
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

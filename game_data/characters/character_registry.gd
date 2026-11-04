@@ -33,7 +33,8 @@ static func calculate_stats(characters: Array[CharacterData]) -> Dictionary:
 		"shield_retention": 0.0,
 		"handsize": 0,
 		"defense": {} as Dictionary[int, int],
-		"deck_slots": 0
+		"deck_slots": 0,
+		"classes": [] as Array[COMMON_ENUMS.CHARACTER_CLASSES]
 	}
 
 	for character in characters:
@@ -44,7 +45,12 @@ static func calculate_stats(characters: Array[CharacterData]) -> Dictionary:
 		stats.shield_retention += character.shield_retention
 		stats.handsize += character.hand_size
 		stats.deck_slots += character.deck_slots
-
+		
+		if(not stats.classes.has(character.main_class)):
+			stats.classes.append(character.main_class)
+		if(not stats.classes.has(character.multi_class)):
+			stats.classes.append(character.multi_class)
+		
 		for key in character.defense:
 			if stats.defense.has(key):
 				stats.defense[key] += character.defense[key]

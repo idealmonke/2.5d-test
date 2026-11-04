@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://517gjbggryx0"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://bv0g80nsrgq8q" path="res://game_data/skill_cards/skill_card_abilities/eldritch_recovery_ability.gd" id="1_1s0w1"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_3vg2b"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_1s0w1"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/eldritch_recovery_ability.gd" id="1_1s0w1"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_1s0w1"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/8003.png" id="2_cj543"]
 
 [sub_resource type="Resource" id="Resource_3n6h2"]
 script = ExtResource("1_1s0w1")
@@ -14,7 +14,8 @@ mana_cost = 2
 stamina_cost = 3
 card_ability = SubResource("Resource_3n6h2")
 ability_desc = "Regain (10) mana, take (5) magic damage ignoring shields."
+card_classes = Array[int]([8])
 card_name = "Eldritch Recovery"
-card_art = ExtResource("1_3vg2b")
+card_art = ExtResource("2_cj543")
 card_id = 8003
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

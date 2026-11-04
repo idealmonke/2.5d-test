@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://dfo83n5f0a5m4"]
 
+[ext_resource type="Texture2D" uid="uid://d67a8lvjcnp0" path="res://game_data/characters/character_art/occultist.png" id="1_1lqg6"]
 [ext_resource type="Script" uid="uid://i8uqwg5kes5" path="res://game_data/characters/character_data.gd" id="1_ym3ge"]
 
 [resource]
 script = ExtResource("1_ym3ge")
 id = 7
-art = null
+art = ExtResource("1_1lqg6")
 hp = 9
 max_mana = 8
 mana_regen = 3
@@ -14,8 +15,7 @@ defense = Dictionary[int, int]({
 0: 1
 })
 shield_retention = 0.05
-main_class = 6
-multi_class = 8
+main_class = 8
 hand_size = 2
 deck_slots = 5
 metadata/_custom_type_script = "uid://i8uqwg5kes5"

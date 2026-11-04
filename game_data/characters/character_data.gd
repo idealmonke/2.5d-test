@@ -2,7 +2,7 @@ class_name CharacterData
 extends Resource
 
 @export var id: int
-@export var art: Variant
+@export var art: Texture2D
 
 @export var hp: int
 @export var max_mana: int

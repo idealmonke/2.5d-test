@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6du7daod73cu"
-path="res://.godot/imported/Card_Back.png-a3535a5a4db955f170926f5cc0ab67d7.ctex"
+uid="uid://d67a8lvjcnp0"
+path="res://.godot/imported/occultist.png-358adc220f08e1659fae0586cdf61005.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_data/skill_cards/card_art/Card_Back.png"
-dest_files=["res://.godot/imported/Card_Back.png-a3535a5a4db955f170926f5cc0ab67d7.ctex"]
+source_file="res://game_data/characters/character_art/occultist.png"
+dest_files=["res://.godot/imported/occultist.png-358adc220f08e1659fae0586cdf61005.ctex"]
 
 [params]
 
