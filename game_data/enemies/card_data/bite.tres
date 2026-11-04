@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://n0f0xfnw00os"]
+[gd_resource type="Resource" script_class="EnemyCardData" format=3 uid="uid://n0f0xfnw00os"]
 
 [ext_resource type="Script" uid="uid://dkt7p0jgp2uag" path="res://game_data/enemies/enemy_card_data.gd" id="1_1r737"]
 [ext_resource type="Script" uid="uid://35y3b81yqphf" path="res://game_data/enemies/enemy_card_abilities/bite_ability.gd" id="1_pxxg8"]
@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://35y3b81yqphf"
 script = ExtResource("1_1r737")
 stamina_cost = 3
 card_ability = SubResource("Resource_sav3h")
-ability_desc = "Strike once for 15 physical damage."
+ability_desc = "Strike once for 12 physical damage."
 card_name = "bite"
 card_art = ExtResource("1_sav3h")
 card_id = 1

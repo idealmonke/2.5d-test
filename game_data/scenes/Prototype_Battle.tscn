@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="5_h35sd"]
 [ext_resource type="Script" uid="uid://dwo633dwu4swd" path="res://game_data/skill_cards/targeting_manager.gd" id="7_wxjty"]
 [ext_resource type="Script" uid="uid://d0e5ojkqwvb07" path="res://game_data/scripts/maybe_manager.gd" id="8_6iy56"]
-[ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="8_l4n2p"]
-[ext_resource type="Texture2D" uid="uid://8pldicdphy16" path="res://game_data/status_effects/status_effect_images/Burning.png" id="9_5ar1h"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 [ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
@@ -27,7 +25,7 @@ blend_mode = 2
 [sub_resource type="LabelSettings" id="LabelSettings_h35sd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g3yw"]
-size = Vector2(518.5, 158)
+size = Vector2(399.25, 181)
 
 [sub_resource type="Gradient" id="Gradient_wxjty"]
 colors = PackedColorArray(0.18717596, 0.1871762, 0.18717608, 1, 0.60122615, 0.6012221, 0.6012204, 1)
@@ -203,6 +201,7 @@ text = "Confirm Targets"
 position = Vector2(289, 577)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="targeting_manager/player_select" unique_id=1167311740]
+position = Vector2(-59.625, 11.5)
 shape = SubResource("RectangleShape2D_5g3yw")
 
 [node name="click" type="Label" parent="targeting_manager/player_select" unique_id=473898251]
@@ -212,10 +211,10 @@ offset_bottom = 23.0
 text = "CLICK HERE TO SELECT PLAYER"
 
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
+z_index = 5
 position = Vector2(-30, 480)
 
 [node name="health_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1190676496]
-z_index = 150
 offset_left = 80.0
 offset_top = 40.0
 offset_right = 280.0
@@ -234,7 +233,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="mana_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1617729946]
-z_index = 150
 offset_left = 80.0
 offset_top = 90.0
 offset_right = 280.0
@@ -253,7 +251,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stamina_bar" type="TextureProgressBar" parent="player_stat_bars" unique_id=1752691136]
-z_index = 150
 offset_left = 80.0
 offset_top = 140.0
 offset_right = 280.0
@@ -295,26 +292,11 @@ alignment = 1
 [node name="Label" type="Label" parent="win_panel/VBoxContainer" unique_id=1291657476]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
-text = "You defeated all the enemies and won!"
+text = "You defeated all the enemies and won!
+
+Use the settings menu to try new 
+enemies or decks."
 horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="win_panel/VBoxContainer" unique_id=1881463621]
-layout_mode = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=2116977307]
-layout_mode = 2
-texture = ExtResource("9_5ar1h")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=562751620]
-layout_mode = 2
-texture = ExtResource("8_l4n2p")
-expand_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="win_panel/VBoxContainer/HBoxContainer" unique_id=358608751]
-layout_mode = 2
-texture = ExtResource("5_h35sd")
 
 [node name="Control" type="Control" parent="win_panel/VBoxContainer" unique_id=1724168836]
 custom_minimum_size = Vector2(0, 50)

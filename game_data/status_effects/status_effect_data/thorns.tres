@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="StatusEffectData" format=3 uid="uid://dxclxdkfeo5i3"]
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_0mjgm"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_45gj6"]
 [ext_resource type="Script" uid="uid://bkfs73np1kv8x" path="res://game_data/status_effects/status_effect_abilities/thorns_ability.gd" id="2_hbaaq"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_nu4w1"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_45gj6"]
+[ext_resource type="Texture2D" uid="uid://culfo3fil8spv" path="res://game_data/status_effects/status_effect_images/thorns.png" id="3_hbaaq"]
 
 [sub_resource type="Resource" id="Resource_3dppl"]
 script = ExtResource("2_hbaaq")
@@ -15,7 +15,7 @@ script = ExtResource("2_nu4w1")
 name = "Thorns"
 desc = "Deal physical damage equal to twice the number of thorns stacks to attackers when hit by a strike."
 id = 11
-display_image = ExtResource("2_45gj6")
+display_image = ExtResource("3_hbaaq")
 abilities = Dictionary[int, ExtResource("1_0mjgm")]({
 3: SubResource("Resource_3dppl")
 })

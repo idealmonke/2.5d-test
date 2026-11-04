@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://hs7h4gfppcvi"]
+
+[ext_resource type="Texture2D" uid="uid://rla72a30w2si" path="res://game_data/tutorial_images/BattleOverview.png" id="1_5a61g"]
+[ext_resource type="Texture2D" uid="uid://cnuq8syj15uv8" path="res://game_data/tutorial_images/PlayerStats.png" id="2_bi816"]
+[ext_resource type="Texture2D" uid="uid://da1u5vd0s3836" path="res://game_data/tutorial_images/HandCard.png" id="3_sd0x1"]
+[ext_resource type="Texture2D" uid="uid://bdtgd6o0l0cq2" path="res://game_data/tutorial_images/EnemiesDev.png" id="4_40w0p"]
+[ext_resource type="Script" uid="uid://by02gol8gnkce" path="res://game_data/scripts/ToMainMenu.gd" id="5_40w0p"]
+
+[node name="Control" type="Control" unique_id=890045023]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=178652263]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+current_tab = 0
+
+[node name="Battle Overview" type="TabBar" parent="TabContainer" unique_id=115074841]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SlideImage" type="TextureRect" parent="TabContainer/Battle Overview" unique_id=216193181]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_5a61g")
+
+[node name="Player Stats, Deck, and Discard" type="TabBar" parent="TabContainer" unique_id=31501599]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="SlideImage" type="TextureRect" parent="TabContainer/Player Stats, Deck, and Discard" unique_id=645119483]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_bi816")
+
+[node name="Hand & Card Components" type="TabBar" parent="TabContainer" unique_id=288982445]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="SlideImage" type="TextureRect" parent="TabContainer/Hand & Card Components" unique_id=988477788]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("3_sd0x1")
+
+[node name="Enemies and Devlog" type="TabBar" parent="TabContainer" unique_id=1625242173]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="SlideImage" type="TextureRect" parent="TabContainer/Enemies and Devlog" unique_id=723321924]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("4_40w0p")
+
+[node name="Button" type="Button" parent="." unique_id=1214993047]
+layout_mode = 0
+offset_left = 1579.0
+offset_top = 52.0
+offset_right = 1877.0
+offset_bottom = 145.0
+text = "EXIT TO MENU"
+script = ExtResource("5_40w0p")

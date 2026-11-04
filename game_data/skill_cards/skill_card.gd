@@ -13,6 +13,7 @@ var classes: Array[COMMON_ENUMS.CHARACTER_CLASSES]
 
 # Card Sprites
 var card_main_frame: Sprite2D
+@export var art_size: int = 150
 
 # Child Node References
 var card_name_label: Label
@@ -95,8 +96,8 @@ func _ready() -> void:
 	set_back()
 
 func set_locs(library: Node2D, discard: Area2D):
-	library_location = library.get_node("base_sprite").position+Vector2(10,10)
-	discard_location = discard.position+Vector2(10,10)
+	library_location = library.get_node("base_sprite").position+Vector2(0,0)
+	discard_location = discard.position+Vector2(0,0)
 	
 func _process(delta: float) -> void:
 	z_index = base_z_index + z_index_modifier + z_index_hover
@@ -141,7 +142,6 @@ func _process(delta: float) -> void:
 func initialize_card(resource_data: SkillCardData) -> void:
 	card_name = resource_data.card_name
 	card_id = resource_data.card_id
-	card_art = resource_data.card_art
 	stamina_cost = resource_data.stamina_cost
 	mana_cost = resource_data.mana_cost
 	ability_desc = resource_data.ability_desc

@@ -54,6 +54,10 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_SLASH:
 			devlog.visible = !devlog.visible
 	
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_T:
+			print(get_viewport().gui_get_hovered_control())
+	
 	#testing purposes
 	return;
 	
