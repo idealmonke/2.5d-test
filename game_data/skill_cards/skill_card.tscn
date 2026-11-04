@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyfbc1ti6fbjv"]
 
 [ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="1_qx01e"]
-[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_art/exhausted_card.gdshader" id="2_nujpf"]
+[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_frame_art/exhausted_card.gdshader" id="2_nujpf"]
 [ext_resource type="Texture2D" uid="uid://byum0wfyrxtdg" path="res://game_data/card_frames/Front_Card.png" id="3_qx01e"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="4_nujpf"]
 

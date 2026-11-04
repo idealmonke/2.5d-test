@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://daok1jcuodv31"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://b7xwcj76pc1jg"]
 
 [ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_fqp66"]
 [ext_resource type="Script" uid="uid://u12ox1mc7ufv" path="res://game_data/skill_cards/skill_card_abilities/judgement_bolt.gd" id="1_ure8h"]
+[ext_resource type="Texture2D" uid="uid://x8vg6jnxa6bi" path="res://game_data/skill_cards/card_art/2003.png" id="2_ek2u7"]
 
 [sub_resource type="Resource" id="Resource_fqp66"]
 script = ExtResource("1_ure8h")
@@ -16,5 +17,6 @@ ability_desc = "Deals 6 holy damage to single target, enemy gains two stacks of 
 card_classes = Array[int]([2])
 target_type = 1
 card_name = "Judgement Bolt"
+card_art = ExtResource("2_ek2u7")
 card_id = 2003
 metadata/_custom_type_script = "uid://c3wbojvfgs5lg"

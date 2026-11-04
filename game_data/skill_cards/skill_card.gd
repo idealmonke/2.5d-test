@@ -19,6 +19,7 @@ var card_name_label: Label
 var card_ability_label: Label
 var card_mana_cost_label: Label
 var card_stamina_cost_label: Label
+var card_sprite : Sprite2D
 
 # Card Control Data
 var interactable_state: COMMON_ENUMS.INTERACT_STATE:
@@ -87,6 +88,7 @@ func _ready() -> void:
 	card_ability_label = $card_ability
 	card_mana_cost_label = $mana_cost
 	card_stamina_cost_label = $stamina_cost
+	card_sprite = $Sprite2D/CardArt
 	_update_text()
 	
 	interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
@@ -145,6 +147,13 @@ func initialize_card(resource_data: SkillCardData) -> void:
 	ability_desc = resource_data.ability_desc
 	ability = resource_data.card_ability
 	discard_castable = resource_data.discard_castable
+	
+	if card_art:
+		card_sprite.texture = card_art
+		var target_size = Vector2(250,250)
+		var texture_size = card_sprite.texture.get_size()
+		card_sprite.scale = target_size / texture_size
+	
 	# classes = resource_data.card_classes
 	_update_text()
 	
@@ -191,6 +200,8 @@ func _update_text() -> void:
 	card_ability_label.text = ability_desc
 	card_stamina_cost_label.text = str(stamina_cost)
 	card_mana_cost_label.text = str(mana_cost)
+	
+	
 	
 ## Handles Mouse Down Presses
 func _on_input_event(_viewport, event, _shape_idx):
