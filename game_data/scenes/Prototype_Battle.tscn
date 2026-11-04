@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dxa8pniujnbnr" path="res://game_data/skill_cards/card_locations/skill_card_library.gd" id="4_h35sd"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="5_h35sd"]
 [ext_resource type="Script" uid="uid://dwo633dwu4swd" path="res://game_data/skill_cards/targeting_manager.gd" id="7_wxjty"]
+[ext_resource type="Script" uid="uid://by02gol8gnkce" path="res://game_data/scripts/ToMainMenu.gd" id="8_3dppl"]
 [ext_resource type="Script" uid="uid://d0e5ojkqwvb07" path="res://game_data/scripts/maybe_manager.gd" id="8_6iy56"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cv6l6xdwhg7we" path="res://game_data/scenes/scene_resources/banner/animated_banner.gd" id="15_3dppl"]
 [ext_resource type="Texture2D" uid="uid://c6diyt1j7dixc" path="res://game_data/scenes/scene_resources/banner/Banner.png" id="16_6iy56"]
 [ext_resource type="FontFile" uid="uid://dw81biysx307i" path="res://game_data/scenes/scene_resources/damage_numbers/IMPACTED.ttf" id="17_3n6h2"]
+[ext_resource type="Script" uid="uid://d3n3y21x5c2tc" path="res://game_data/scripts/toggle_object.gd" id="18_6iy56"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_in72b"]
 blend_mode = 2
@@ -142,6 +144,14 @@ offset_top = 948.0
 offset_right = 1870.0
 offset_bottom = 1048.0
 text = "END TURN"
+
+[node name="Main Menu" type="Button" parent="." unique_id=1685149170]
+offset_left = 1745.0
+offset_top = 21.0
+offset_right = 1895.0
+offset_bottom = 82.0
+text = "MAIN MENU"
+script = ExtResource("8_3dppl")
 
 [node name="Label" type="Label" parent="." unique_id=763715797]
 offset_left = 1640.0
@@ -367,6 +377,56 @@ text = "Player Turn"
 label_settings = SubResource("LabelSettings_iinrh")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=1716740161 node_paths=PackedStringArray("target")]
+z_index = 1
+offset_left = 1690.0
+offset_top = 231.0
+offset_right = 1822.0
+offset_bottom = 262.0
+button_pressed = true
+text = "Hide/Show"
+script = ExtResource("18_6iy56")
+target = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CheckButton" unique_id=802306794]
+layout_mode = 0
+offset_left = -67.0
+offset_top = 136.0
+offset_right = 226.0
+offset_bottom = 558.0
+bbcode_enabled = true
+text = "[font_size=20]
+ - Replenish: Put a card from your discard into your library, then shuffle
+
+ - Dredge: Put a card from the top of your library into your discard
+
+ - Burning: Deals fire damage to the affected target at the start of their turn, dealing 2 damage for each turn it has been active.
+
+ - Dazed: Hand size reduced by 1
+
+ - Vulnerable: Take 25% more damage
+
+ - Blinded: 50% chance for strikes to miss
+
+ - Haste: Max stamina increased by 2
+
+ - Regeneration: Gain 5 life at the start of turn
+
+ - Bloodthirsty: Deal an additional damage from physical strikes and receive additional damage from physical strikes for each stack
+
+ - Frozen: Take an additional 2 physical damage whenever you take physical damage
+
+ - Thorns: Return 20% of damage from strikes to the attacker"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CheckButton" unique_id=541162472]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 40.0
+offset_right = 213.0
+offset_bottom = 171.0
+bbcode_enabled = true
+text = "[b][font_size=30] RULES GLOSSARY: [/font_size][/b]"
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="maybe_manager/yes_button" to="maybe_manager" method="_on_yes_button_pressed"]

@@ -99,8 +99,8 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 	for character in characters:
 		if character.main_class not in player.character_classes:
 			player.character_classes.push_back(character.main_class)
-		if character.multi_class not in player.character_classes:
-			player.character_classes.push_back(character.main_class)
+		if character.multi_class != COMMON_ENUMS.CHARACTER_CLASSES.NONE && character.multi_class not in player.character_classes:
+			player.character_classes.push_back(character.multi_class)
 	
 	player.base_max_health = max_health
 	player.max_health = max_health

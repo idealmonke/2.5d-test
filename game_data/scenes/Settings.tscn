@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://btoh4lub52f5f"]
 
 [ext_resource type="Script" uid="uid://dtbodi28467ug" path="res://game_data/scripts/settings/tab_container.gd" id="1_5sndr"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_sqjrh"]
 [ext_resource type="Script" uid="uid://caq0ylurqj6un" path="res://game_data/scripts/settings/card_button_container.gd" id="2_uqg7b"]
 [ext_resource type="Script" uid="uid://btsaxc8lj6ukt" path="res://game_data/scripts/settings/selector.gd" id="3_l5jsw"]
 [ext_resource type="Script" uid="uid://bchn3wfu5v86s" path="res://game_data/scripts/settings/card_data_editor.gd" id="3_sqjrh"]
@@ -29,28 +28,54 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 5
+current_tab = 0
 script = ExtResource("1_5sndr")
 
 [node name="Welcome" type="TabBar" parent="tab_container" unique_id=1002206843]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
-
-[node name="goku" type="Sprite2D" parent="tab_container/Welcome" unique_id=1871555000]
-position = Vector2(909, 703)
-scale = Vector2(3.4701433, 3.4701433)
-texture = ExtResource("1_sqjrh")
 
 [node name="Label" type="Label" parent="tab_container/Welcome" unique_id=55782034]
 layout_mode = 0
 offset_left = 135.0
-offset_top = 235.0
-offset_right = 1781.0
-offset_bottom = 372.0
+offset_top = 115.0
+offset_right = 1819.0
+offset_bottom = 252.0
 theme_override_font_sizes/font_size = 100
 text = "Welcome to the Dev Settings Menu"
 horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="tab_container/Welcome" unique_id=2093407424]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 382.0
+offset_right = 1036.0
+offset_bottom = 907.0
+bbcode_enabled = true
+text = "[b][font_size=40] Enemy Selector: [/font_size][/b] 
+[font_size=30] - Choose your opponents [/font_size]
+[b][font_size=40] Party/Deck Selector: [/font_size][/b] 
+[font_size=30] - Select your current deck, known as a party. There are two read-only presets and one editable deck for you to play with. [/font_size]
+[font_size=30] - When in the deck selector, the blue highlighted deck is the currently active deck. [/font_size]
+[font_size=30] - If you change the characters in a deck, be sure to clear the cards out and re-enter them to fix them to your new characters. [/font_size]
+[font_size=30] - When making any changes, make sure to save, you cannot select a party until you have saved! [/font_size]
+
+"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="tab_container/Welcome" unique_id=1164688196]
+layout_mode = 0
+offset_left = 1074.0
+offset_top = 368.0
+offset_right = 1620.0
+offset_bottom = 950.0
+bbcode_enabled = true
+text = "[b][font_size=40] What Makes a Party?: [/font_size][/b] 
+[font_size=30] - Parties have 4 characters, whose stats are added together to sum the decks total stats. [/font_size]
+[font_size=30] - Different characters provide differing amounts of slots for cards, which are filled by skill cards. [/font_size]
+[font_size=30] - Skill cards make up the cards in your deck, which are played during a battle. [/font_size]
+[font_size=30] - This playtest only includes one character of each class, each with one set of cards. [/font_size]
+
+"
 
 [node name="Skill Card Editor" type="TabBar" parent="tab_container" unique_id=1951619949]
 visible = false
@@ -91,7 +116,21 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 script = ExtResource("3_l5jsw")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="tab_container/Enemy Selector" unique_id=1105631145]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 438.0
+offset_right = 1036.0
+offset_bottom = 963.0
+bbcode_enabled = true
+text = "[b][font_size=40] Harpy Assault (Tutorial Battle): [/font_size][/b] 
+[font_size=30] - Two Harpies, in the left and right slots. [/font_size]
+[b][font_size=40] Kobold Ambush: [/font_size][/b] 
+[font_size=30] - Three Kobolds. [/font_size]
+"
+
 [node name="Party \\ Deck Selector" type="TabBar" parent="tab_container" unique_id=1784532654]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
