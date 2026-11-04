@@ -181,6 +181,13 @@ func _update_stat_bars() -> void:
 		
 	health_bar.max_value = max_health
 	stamina_bar.max_value = max_stamina
+	
+	if mana_bar.hidden && max_mana > 0:
+		mana_bar.show()
+		mana_bar_text.show()
+	if max_mana <= 0:
+		mana_bar.hide()
+		mana_bar_text.hide()
 	mana_bar.max_value = max_mana
 	
 	if health_tween and health_tween.is_running():
@@ -281,6 +288,6 @@ func damage_numbers(damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> void:
 	for key in damages:
 		var number = DAMAGE_NUMBER.instantiate()
 		number.z_index = 25
-		number.global_position = global_position + Vector2(randf_range(-75, 75), -40)
+		number.global_position = global_position + Vector2(randf_range(-125, 125), -randf_range(-50, -30))
 		number.setup(damages[key], key)
 		get_tree().current_scene.add_child(number)

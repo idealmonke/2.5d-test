@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="enemy_card_data" format=3 uid="uid://q4w0avk8bbjc"]
+[gd_resource type="Resource" script_class="EnemyCardData" format=3 uid="uid://q4w0avk8bbjc"]
 
 [ext_resource type="Script" uid="uid://cbd40cj0edxrr" path="res://game_data/enemies/enemy_card_abilities/claws_ability.gd" id="1_lu7il"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_lixsf"]

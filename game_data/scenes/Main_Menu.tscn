@@ -4,10 +4,14 @@
 [ext_resource type="FontFile" uid="uid://bh7aeluipo1m5" path="res://game_data/scenes/scene_resources/battle_demo_scene_resources/RoughenCornerRegular-7RjV.ttf" id="2_ipwea"]
 [ext_resource type="Script" uid="uid://djas34mrbinks" path="res://game_data/scripts/main_menu/play_button.gd" id="2_vrr0r"]
 [ext_resource type="Script" uid="uid://chvttn1knhgcb" path="res://game_data/scripts/main_menu/settings_button.gd" id="3_kslts"]
+[ext_resource type="Script" uid="uid://c564bif2o3ih3" path="res://game_data/scripts/toTutorial.gd" id="5_ipwea"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iinrh"]
 font = ExtResource("2_ipwea")
 font_size = 175
+
+[sub_resource type="LabelSettings" id="LabelSettings_b8fha"]
+font_size = 40
 
 [node name="Node2D" type="Node2D" unique_id=1508738771]
 
@@ -27,22 +31,68 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="play_button" type="Button" parent="." unique_id=1173965733]
-offset_left = 670.0
-offset_top = 459.0
-offset_right = 1193.0
-offset_bottom = 658.0
+offset_left = 760.0
+offset_top = 419.0
+offset_right = 1160.0
+offset_bottom = 569.0
 theme_override_font_sizes/font_size = 50
 text = "Play"
 script = ExtResource("2_vrr0r")
 
 [node name="settings_button" type="Button" parent="." unique_id=1040364496]
-offset_left = 677.0
-offset_top = 735.0
-offset_right = 1200.0
-offset_bottom = 934.0
+offset_left = 760.0
+offset_top = 635.0
+offset_right = 1160.0
+offset_bottom = 785.0
 theme_override_font_sizes/font_size = 50
 text = "Settings"
 script = ExtResource("3_kslts")
 
+[node name="tutorial_button" type="Button" parent="." unique_id=1426519938]
+offset_left = 760.0
+offset_top = 859.0
+offset_right = 1160.0
+offset_bottom = 1009.0
+theme_override_font_sizes/font_size = 50
+text = "Tutorial"
+script = ExtResource("5_ipwea")
+
+[node name="Label" type="Label" parent="." unique_id=1734439430]
+offset_left = 220.0
+offset_top = 656.0
+offset_right = 713.2634
+offset_bottom = 882.79297
+rotation = -0.20769419
+text = "Select your deck and enemies here! ---->"
+label_settings = SubResource("LabelSettings_b8fha")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="." unique_id=1634318325]
+offset_left = 1270.0
+offset_top = 347.0
+offset_right = 1478.0428
+offset_bottom = 632.0
+rotation = 0.13788101
+text = "Battle enemies here! <----"
+label_settings = SubResource("LabelSettings_b8fha")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="." unique_id=742240601]
+offset_left = 1210.0001
+offset_top = 801.99994
+offset_right = 1418.043
+offset_bottom = 1086.9999
+rotation = 0.13788101
+text = "Learn to play here! <----"
+label_settings = SubResource("LabelSettings_b8fha")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [connection signal="pressed" from="play_button" to="play_button" method="_on_pressed"]
 [connection signal="pressed" from="settings_button" to="settings_button" method="_on_pressed"]
+[connection signal="pressed" from="tutorial_button" to="tutorial_button" method="_on_pressed"]

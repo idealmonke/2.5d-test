@@ -6,6 +6,7 @@ var data: StatusEffectData
 var stacks: int
 var magnitude: float
 var duration_active: int
+var source: Entity
 
 func _init(status_data: StatusEffectData) -> void:
 	data = status_data

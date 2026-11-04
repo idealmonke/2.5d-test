@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr4vcfio37kt8" path="res://game_data/status_effects/status_effect_ability.gd" id="1_wbijj"]
 [ext_resource type="Script" uid="uid://ckat7g3sy3t70" path="res://game_data/status_effects/status_effect_data.gd" id="2_5hk0j"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="2_qpujm"]
+[ext_resource type="Texture2D" uid="uid://ccdqdjhxx67ko" path="res://game_data/status_effects/status_effect_images/frozen.png" id="2_dl8k1"]
 [ext_resource type="Script" uid="uid://t2nh4qwidy8w" path="res://game_data/status_effects/status_effect_calculation.gd" id="3_qpujm"]
 [ext_resource type="Script" uid="uid://dhp1usk8injgc" path="res://game_data/status_effects/status_effect_calculations/frozen_calculation.gd" id="5_dl8k1"]
 
@@ -15,7 +15,7 @@ script = ExtResource("2_5hk0j")
 name = "Frozen"
 desc = "Strikes deal an additional flat +2 physical damage to the frozen target."
 id = 12
-display_image = ExtResource("2_qpujm")
+display_image = ExtResource("2_dl8k1")
 status_type = 1
 stats_calculations = Dictionary[int, ExtResource("3_qpujm")]({
 7: SubResource("Resource_3dppl")

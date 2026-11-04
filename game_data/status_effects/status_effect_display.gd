@@ -25,8 +25,6 @@ func _add_effect(effect : StatusEffect):
 	var image := TextureRect.new()
 	image.texture = data.display_image
 	image.mouse_filter = Control.MOUSE_FILTER_PASS
-	#image.mouse_entered.connect(_on_effect_hovered.bind(image))
-	#image.mouse_exited.connect(_on_effect_unhovered.bind(image))
 	image.set_meta("status", effect) 
 	image.tooltip_text = effect.data.desc
 	image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -43,9 +41,3 @@ func _add_effect(effect : StatusEffect):
 func _reset_children():
 	for child in get_children():
 		child.queue_free()
-
-#func _on_effect_hovered(icon: TextureRect) -> void:
-#	print("Hovered!")
-#	
-#func _on_effect_unhovered(icon: TextureRect) -> void:
-#	print("Unhovered!")

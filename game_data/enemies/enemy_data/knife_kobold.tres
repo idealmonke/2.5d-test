@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://drbadn5ht480r"]
 
 [ext_resource type="Script" uid="uid://cms41786xgnrv" path="res://game_data/enemies/enemy_data.gd" id="1_dt8eg"]
-[ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="1_v3emo"]
+[ext_resource type="Texture2D" uid="uid://cwub0dmbtnu8c" path="res://game_data/enemies/enemy_art/Kobold_Temp.png" id="1_v3emo"]
 
 [resource]
 script = ExtResource("1_dt8eg")

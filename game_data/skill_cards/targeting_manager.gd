@@ -58,9 +58,11 @@ func _create_arrow():
 	add_child(_cur_arrow)
 	_cur_arrow.width = 8
 	_cur_arrow.default_color = _get_color()
+	_cur_arrow.z_index = 999
 	
 	_arrow_head = Sprite2D.new()
 	_arrow_head.texture = arrow_head_texture
+	_arrow_head.z_index = 999
 	add_child(_arrow_head)
 	
 	check_targets()
