@@ -21,6 +21,8 @@ static func load_party_data() -> void:
 			if file_name.ends_with(".tres") or file_name.ends_with(".res"):
 				var cur = load(party_data_path + file_name)
 				if cur != null:
+					cur.file_name = file_name
+					save_data(file_name, cur)
 					PARTY_DB[file_name] = cur
 
 		file_name = dir.get_next()

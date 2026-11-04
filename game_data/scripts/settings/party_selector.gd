@@ -15,8 +15,10 @@ var button_container : VBoxContainer
 var card_container : VBoxContainer
 var deck_label : Label
 var skill_card : SkillCard
+
 var save_button: Button
 var save_label : Label
+var select_button : Button
 
 var cur_party_name : String
 var cur_data : PartyData
@@ -28,6 +30,9 @@ var read_only : bool
 #CARD ADDING
 var add_container : VBoxContainer
 var add_buttons : VBoxContainer
+
+#CONFIG
+var battle_config : BattleConfig
 
 const CLASS_COLORS: Dictionary[COMMON_ENUMS.CHARACTER_CLASSES, Color] = {
 	COMMON_ENUMS.CHARACTER_CLASSES.NONE: Color("#777D87"),
@@ -42,20 +47,25 @@ const CLASS_COLORS: Dictionary[COMMON_ENUMS.CHARACTER_CLASSES, Color] = {
 }
 
 func _ready() -> void:
+	var tab_container = get_node("card_panel/margin_container/vbox/tab_container")
+	
 	button_container = get_node("card_button_scroll_container/card_button_container/margin_container/inner_container")
-	card_container = get_node("card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox/card_scroll/card_container")
+	card_container = tab_container.get_node("Cards/margin_container/hbox/vbox/card_scroll/card_container")
 	
-	deck_label_2 = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/deck_label")
-	stats_label = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/stats_label")
+	deck_label_2 = tab_container.get_node("Characters/margin_container/vbox/deck_label")
+	stats_label = tab_container.get_node("Characters/margin_container/vbox/stats_label")
 	
-	character_hbox = get_node("card_panel/margin_container/tab_container/Characters/margin_container/vbox/character_selector/main_vbox/character_hbox")
+	character_hbox = tab_container.get_node("Characters/margin_container/vbox/character_selector/main_vbox/character_hbox")
 	
-	deck_label = get_node("card_panel/margin_container/tab_container/Cards/margin_container/hbox/vbox/deck_label")
-	skill_card = get_node("card_panel/margin_container/tab_container/Cards/skill_card")
-	save_button = get_node("card_panel/margin_container/tab_container/Cards/save_button")
-	save_label = get_node("card_panel/margin_container/tab_container/Cards/save_label")
+	deck_label = tab_container.get_node("Cards/margin_container/hbox/vbox/deck_label")
+	skill_card = tab_container.get_node("Cards/skill_card")
 	
-	add_container = get_node("card_panel/margin_container/tab_container/Cards/margin_container/hbox/add_container")
+	var save_hbox = get_node("card_panel/margin_container/vbox/save_hbox")
+	save_button = save_hbox.get_node("save_button")
+	save_label = save_hbox.get_node("save_label")
+	select_button = save_hbox.get_node("select_button")
+	
+	add_container = tab_container.get_node("Cards/margin_container/hbox/add_container")
 	add_buttons = add_container.get_node("card_scroll/card_container/margin_container/inner_container")
 	
 	PartyRegistry.load_party_data()
@@ -63,8 +73,12 @@ func _ready() -> void:
 	skill_card.misc_location = Vector2(800,500)
 	skill_card.interactable_state = COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY
 	
+	battle_config = load("res://game_data/battle_config.tres")
+	
 	for party_name in PartyRegistry.PARTY_DB:
 		_create_button(party_name)
+	
+	_update_party_buttons()
 	
 	option_buttons = []
 	var idx = 0
@@ -81,6 +95,8 @@ func _on_character_selected(idx: int, slot: int):
 	cur_data.character_ids[slot] = option_buttons[slot].get_item_metadata(idx)
 	_update_dropdowns()
 	_reset()
+	
+	select_button.disabled = true
 
 func _update_dropdowns():
 	for i in range(4):
@@ -172,6 +188,29 @@ func _display_characters(char_ids: Array[int]):
 		idx+=1
 
 #Card Editor
+func _update_party_buttons() -> void:
+	for button in button_container.get_children():
+		if(button.text==cur_party_name):
+			button.modulate = Color(0.5, 0.8, 1.0)
+		else:
+			button.modulate = Color.WHITE
+		
+		if(button.text==battle_config.party.file_name):
+			var style = StyleBoxFlat.new()
+			style.bg_color = Color(0.2, 0.5, 0.8)
+
+			style.border_width_left = 3
+			style.border_width_right = 3
+			style.border_width_top = 3
+			style.border_width_bottom = 3
+			style.border_color = Color(0.4, 0.8, 1.0)
+
+			button.add_theme_stylebox_override("normal", style)
+			button.add_theme_stylebox_override("hover", style)
+		else:
+			button.remove_theme_stylebox_override("normal")
+			button.remove_theme_stylebox_override("hover")
+
 func _create_button(cur_name : String) -> void:
 	var button: Button = Button.new()
 	button.text = cur_name
@@ -182,12 +221,13 @@ func _reset_window(window_name: String) -> void:
 	window_string = "Showing: "+window_name
 	deck_label.text = window_string;
 	deck_label_2.text = window_string;
-	save_button.visible = true
+	save_button.disabled = false
 	add_container.visible = true
 	
 	if(read_only):
 		deck_label.text += " (READ_ONLY)"
-		save_button.visible = false
+		deck_label_2.text += " (READ_ONLY)"
+		save_button.disabled = true
 		add_container.visible = false
 		
 	save_label.visible = false
@@ -210,6 +250,9 @@ func _on_pressed(cur_name: String) -> void:
 	
 	_reset()
 	_update_dropdowns()
+	
+	_update_party_buttons()
+	select_button.disabled = false
 
 func _reset():
 	for child in card_container.get_children():
@@ -321,6 +364,7 @@ func _fix_entries():
 				break
 
 func _on_card_pressed(card_id: int, row: PanelContainer, is_remove: bool):
+	select_button.disabled = true
 	if(is_remove):
 		var entry = create_entry(card_id, false)
 		if entry:
@@ -377,5 +421,16 @@ func _on_save_button_pressed() -> void:
 	if valid == "valid":
 		PartyRegistry.save_data(cur_party_name, cur_data)
 		save_label.text = "Sucessful save"
+		
+		select_button.disabled = false
 	else:
 		save_label.text = valid
+
+
+func _on_select_button_pressed() -> void:
+	battle_config.party = cur_data
+	ResourceSaver.save(battle_config, "res://game_data/battle_config.tres")
+	_update_party_buttons()
+	
+	save_label.visible = true
+	save_label.text = "Party selected"
