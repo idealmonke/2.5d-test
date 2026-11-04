@@ -17,5 +17,5 @@ shield_retention = 0.2
 main_class = 7
 multi_class = 8
 hand_size = 1
-deck_slots = 4
+deck_slots = 5
 metadata/_custom_type_script = "uid://i8uqwg5kes5"
