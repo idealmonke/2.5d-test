@@ -12,4 +12,4 @@ func execute(targets : TargetingInfo) -> void:
 		damage.is_strike = true
 		damage.source = BattleController.data.player
 		damage.add_damage(3, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
-		targets.single_target().take_damage(damage)
+		await targets.single_target().take_damage(damage)

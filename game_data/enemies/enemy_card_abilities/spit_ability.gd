@@ -6,4 +6,4 @@ func execute() -> void:
 	damage.add_damage(8, COMMON_ENUMS.DAMAGE_TYPE.FIRE)
 	damage.is_strike = true
 	damage.source = BattleController.active_turn
-	BattleController.data.player.take_damage(damage)
+	await BattleController.data.player.take_damage(damage)

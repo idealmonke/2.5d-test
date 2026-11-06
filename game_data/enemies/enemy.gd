@@ -105,8 +105,12 @@ func process_turn() -> void:
 	hand.replenish_hand()
 	
 func damage_animation(health_array, shield_array):
-	damage_flash()
-	shake()
+	var flash := damage_flash(sprite)
+	var shake := shake(sprite)
 	if shield_array != null && !shield_array.is_empty():
 		damage_numbers(shield_array[1])
 	damage_numbers(health_array[1])
+	if flash and flash.is_running():
+		await flash.finished
+	if shake and shake.is_running():
+		await shake.finished

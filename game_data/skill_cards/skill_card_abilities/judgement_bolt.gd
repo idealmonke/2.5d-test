@@ -14,5 +14,5 @@ func execute(targets : TargetingInfo) -> void:
 	damage.is_strike = true
 	
 	var status = StatusEffect.new(status_data)
-	targets.single_target().take_damage(damage)
+	await targets.single_target().take_damage(damage)
 	targets.single_target().add_status_stacks(status, 2, 1.0)

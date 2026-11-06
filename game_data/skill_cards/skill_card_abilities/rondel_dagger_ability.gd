@@ -17,4 +17,4 @@ func execute( targets : TargetingInfo) -> void:
 	if targets.single_target().current_health == targets.single_target().max_health:
 		damage.modify_all_damage(doubling_func)
 	
-	targets.single_target().take_damage(damage)
+	await targets.single_target().take_damage(damage)
