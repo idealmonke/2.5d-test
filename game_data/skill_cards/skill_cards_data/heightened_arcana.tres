@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://bxhn5iyjqsdad"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://cgg0b5rmfqpa0" path="res://game_data/skill_cards/skill_card_abilities/heightened_arcana_ability.gd" id="1_okn0l"]
-[ext_resource type="Texture2D" uid="uid://cdxggv1yukpua" path="res://game_data/skill_cards/card_art/4005.png" id="2_1dh88"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="2_b7rmy"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/heightened_arcana_ability.gd" id="1_okn0l"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/4005.png" id="2_1dh88"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="2_b7rmy"]
 
 [sub_resource type="Resource" id="Resource_1dh88"]
 script = ExtResource("1_okn0l")
