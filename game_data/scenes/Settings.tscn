@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ec8wy6rx0hv1" path="res://game_data/scripts/settings/exit_button.gd" id="4_wrmvb"]
 [ext_resource type="Texture2D" uid="uid://cem1g003uokh2" path="res://game_data/goku/goku.png" id="5_64hno"]
 [ext_resource type="PackedScene" uid="uid://cyfbc1ti6fbjv" path="res://game_data/skill_cards/skill_card.tscn" id="5_p8j2l"]
+[ext_resource type="Script" uid="uid://d0e5ojkqwvb07" path="res://game_data/scripts/maybe_manager.gd" id="6_64hno"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8tyr"]
 bg_color = Color(0.23537049, 0.23537055, 0.23537043, 1)
@@ -441,6 +442,31 @@ text = "Select Party"
 layout_mode = 2
 text = "save sucessful"
 
+[node name="maybe_manager" type="Node2D" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1450409391]
+visible = false
+script = ExtResource("6_64hno")
+
+[node name="query_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" unique_id=1225449133]
+offset_left = 837.0
+offset_top = 670.0
+offset_right = 896.0
+offset_bottom = 693.0
+text = "Query ?"
+
+[node name="yes_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" unique_id=968403116]
+offset_left = 826.0
+offset_top = 700.0
+offset_right = 926.0
+offset_bottom = 731.0
+text = "Yes"
+
+[node name="no_button" type="Button" parent="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" unique_id=274064259]
+offset_left = 949.0
+offset_top = 700.0
+offset_right = 1049.0
+offset_bottom = 731.0
+text = "No"
+
 [node name="card_editor" type="Control" parent="." unique_id=708963454]
 visible = false
 layout_mode = 3
@@ -528,7 +554,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Exit Button" type="Button" parent="Control" unique_id=1486699008]
+[node name="Exit Button" type="Button" parent="Control" unique_id=1486699008 node_paths=PackedStringArray("party_selector")]
 layout_mode = 0
 offset_left = 1671.0
 offset_top = 885.0
@@ -538,10 +564,15 @@ scale = Vector2(1.0428505, 1.0428505)
 theme_override_font_sizes/font_size = 100
 text = "Exit"
 script = ExtResource("4_wrmvb")
+party_selector = NodePath("../../tab_container/Party \\ Deck Selector/party_selector")
 
 [connection signal="tab_changed" from="tab_container" to="tab_container" method="_on_tab_changed"]
 [connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox/save_button" to="tab_container/Party \\ Deck Selector/party_selector" method="_on_save_button_pressed"]
 [connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/save_hbox/select_button" to="tab_container/Party \\ Deck Selector/party_selector" method="_on_select_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/maybe_manager/yes_button" to="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/maybe_manager/yes_button" to="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/maybe_manager/no_button" to="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" method="_on_no_button_pressed"]
+[connection signal="pressed" from="tab_container/Party \\ Deck Selector/party_selector/maybe_manager/no_button" to="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/save_button" to="card_editor/card_data_editor_panel/margin_container/card_data_editor_container/card_data_editor" method="_on_save_button_pressed"]
 [connection signal="text_changed" from="card_editor/filter" to="card_editor/card_button_scroll_container/card_button_container" method="_on_filter_text_changed"]
 [connection signal="pressed" from="Control/Exit Button" to="Control/Exit Button" method="_on_pressed"]
