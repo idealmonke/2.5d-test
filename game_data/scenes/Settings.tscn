@@ -29,10 +29,11 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 5
 script = ExtResource("1_5sndr")
 
 [node name="Welcome" type="TabBar" parent="tab_container" unique_id=1002206843]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -131,7 +132,6 @@ text = "[b][font_size=40] Harpy Assault (Tutorial Battle): [/font_size][/b]
 "
 
 [node name="Party \\ Deck Selector" type="TabBar" parent="tab_container" unique_id=1784532654]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
@@ -444,6 +444,7 @@ text = "save sucessful"
 
 [node name="maybe_manager" type="Node2D" parent="tab_container/Party \\ Deck Selector/party_selector" unique_id=1450409391]
 visible = false
+position = Vector2(306, 293)
 script = ExtResource("6_64hno")
 
 [node name="query_label" type="Label" parent="tab_container/Party \\ Deck Selector/party_selector/maybe_manager" unique_id=1225449133]

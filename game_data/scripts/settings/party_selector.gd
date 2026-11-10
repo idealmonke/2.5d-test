@@ -42,7 +42,6 @@ func _ready() -> void:
 	var tab_container = get_node("card_panel/margin_container/vbox/tab_container")
 	
 	maybe_manager_instance = get_node("maybe_manager")
-	print(maybe_manager_instance)
 	
 	button_container = get_node("card_button_scroll_container/card_button_container/margin_container/inner_container")
 	card_container = tab_container.get_node("Cards/margin_container/hbox/vbox/card_scroll/card_container")
