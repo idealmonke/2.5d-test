@@ -92,6 +92,8 @@ func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, mm: 
 	data.player.status_effect_bar = effect_bar
 	data.player.shield_node = shield_node
 	self.banner = banner
+	
+	is_finished = false
 
 # Immutable Game Actions (These are what we call elsewhere)
 func draw_card() -> void:
@@ -222,7 +224,7 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 	old_cards.append_array(data.discard.pop_exhausted())
 	
 	data.discard.exhaust_cards()
-	
+		
 	for card in old_cards:
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
 		card.exhausted = false
@@ -231,8 +233,11 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 	return COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS
 
 func _enemy_turns() -> COMMON_ENUMS.BATTLE_STATE:
-	for enem in data.enemies:
+	for enem in data.enemies.duplicate():
 		await enem.process_turn()
+		var test = process_deaths()
+		if(test!="none"):
+			return COMMON_ENUMS.BATTLE_STATE.END_SCREEN
 	
 	await get_tree().create_timer(1.0).timeout
 	
@@ -251,11 +256,13 @@ func _player_playing() -> void:
 func _end_turn() -> void:
 	_change_state(COMMON_ENUMS.BATTLE_STATE.PLAYER_END)
 
-func _process_deaths() -> String:
+func process_deaths() -> String:
 	for enem in data.enemies.duplicate():
 		if enem.is_dead():
 			data.enemies.erase(enem)
 			enem.queue_free()
+	
+	#DevConsole.add_message("processing death",Color.DARK_GREEN)
 	
 	if data.player.current_health<=0:
 		return "lose"
@@ -267,6 +274,7 @@ func _process_deaths() -> String:
 func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	match state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
+			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
 			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			cards_drawn_for_turn = 0
@@ -295,9 +303,9 @@ func _on_exit_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.hide()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
-			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
+			pass
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
-			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
+			pass
 		COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
 			pass
 		COMMON_ENUMS.BATTLE_STATE.DISPLAYING:
@@ -310,7 +318,7 @@ func _change_state(new_state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	
 	DevConsole.add_message("state: "+state_to_string, Color.YELLOW)
 	
-	var is_dead = _process_deaths()
+	var is_dead = process_deaths()
 	if is_dead!="none" and not is_finished:
 		is_finished = true
 		if(is_dead=="lose"):
@@ -330,6 +338,9 @@ enemies or decks."
 			_player_playing()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
 			var state = await _enemy_turns()
+			
+			
+			#if not is_finished:1
 			_change_state(state)
 		COMMON_ENUMS.BATTLE_STATE.BEGIN_BATTLE:
 			# DO NOTHING HERE, JUST STOPS THE EXIT STATE FROM CALLING INITIALLY

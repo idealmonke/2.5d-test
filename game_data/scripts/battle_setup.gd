@@ -1,11 +1,13 @@
 extends Node
 
 const SKILL_CARD_SCENE = preload("res://game_data/skill_cards/skill_card.tscn")
-const BATTLE_CONFIG = preload("res://game_data/battle_config.tres")
+var BATTLE_CONFIG = preload("res://game_data/battle_config.tres")
 const ENEMY_SCENE = preload("res://game_data/enemies/enemy.tscn")
 const ENEMY_CARD_SCENE = preload("res://game_data/enemies/enemy_card.tscn")
 
 func _ready() -> void:
+	BATTLE_CONFIG = load("res://game_data/battle_config.tres")
+	
 	DevConsole.setup($devlog)
 	BattleController.data.player.init_bars(	$player_stat_bars/health_bar, 
 										$player_stat_bars/health_bar/health_label,

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://cqr5jdat7sy88"]
 
-[ext_resource type="Script" uid="uid://tj0fltstwh2q" path="res://game_data/player_data/party_data.gd" id="1_d2gtx"]
-[ext_resource type="Script" uid="uid://dpmb6l2ednj1l" path="res://game_data/battle_config.gd" id="2_krdy4"]
+[ext_resource type="Script" path="res://game_data/player_data/party_data.gd" id="1_d2gtx"]
+[ext_resource type="Script" path="res://game_data/battle_config.gd" id="2_krdy4"]
 
 [sub_resource type="Resource" id="Resource_d2gtx"]
 script = ExtResource("1_d2gtx")

@@ -35,8 +35,13 @@ var add_buttons : VBoxContainer
 #CONFIG
 var battle_config : BattleConfig
 
+#Maybe Manager
+var maybe_manager_instance : MaybeManager
+
 func _ready() -> void:
 	var tab_container = get_node("card_panel/margin_container/vbox/tab_container")
+	
+	maybe_manager_instance = get_node("maybe_manager")
 	
 	button_container = get_node("card_button_scroll_container/card_button_container/margin_container/inner_container")
 	card_container = tab_container.get_node("Cards/margin_container/hbox/vbox/card_scroll/card_container")
@@ -86,6 +91,7 @@ func _ready() -> void:
 func _on_character_selected(idx: int, slot: int):
 	#Slot: slot selectes index idx
 	cur_data.character_ids[slot] = option_buttons[slot].get_item_metadata(idx)
+	
 	_update_dropdowns()
 	_reset()
 	
@@ -259,11 +265,26 @@ func _reset():
 	_display_stats(char_ids)
 	_display_characters(char_ids)
 	
+	verify_ids()
+	
 	var ids : Array[int] = cur_data.card_ids
+	
 	add_cards(ids)
 	add_missing(ids)
 	
 	_fix_entries()
+
+func verify_ids():
+	for id in cur_data.card_ids.duplicate():
+		var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
+		
+		var valid = false
+		for char_id in cur_data.character_ids:
+			var data : CharacterData = CharacterDataRegistry.get_character_data(char_id)
+			if card_data.card_classes[0]==data.main_class:
+				valid = true
+		if not valid:
+			cur_data.card_ids.erase(id)
 
 func create_entry(id: int,is_remove: bool) -> PanelContainer:
 	var card_data : SkillCardData = SkillCardRegistry.get_card_data(id)
@@ -336,10 +357,11 @@ func add_cards(ids: Array[int]):
 
 func _on_hbox_mouse_entered(data: SkillCardData):
 	skill_card.visible = true
-	skill_card.set_front()
+	
 	
 	skill_card.initialize_card(data)
 	skill_card.base_z_index = 100
+	skill_card.set_front()
 	#skill_card.get_node("Sprite2D").z_index = 101
 	#skill_card.get_node("Sprite2D/CardArt").z_index = 100
 
@@ -424,7 +446,6 @@ func _on_save_button_pressed() -> void:
 	else:
 		save_label.text = valid
 
-
 func _on_select_button_pressed() -> void:
 	battle_config.party = cur_data
 	ResourceSaver.save(battle_config, "res://game_data/battle_config.tres")
@@ -432,3 +453,6 @@ func _on_select_button_pressed() -> void:
 	
 	save_label.visible = true
 	save_label.text = "Party selected"
+
+func unsaved_changes() -> bool:
+	return select_button.disabled
