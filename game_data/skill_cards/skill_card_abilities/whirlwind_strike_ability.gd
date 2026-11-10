@@ -12,5 +12,6 @@ func execute(targets : TargetingInfo) -> void:
 		damage.is_strike = true
 		damage.add_damage(3, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
 		damage.source = BattleController.data.player
+		#AudioManager.play_package_audio('slash')
 		await valid_enemies[randi()%valid_enemies.size()].take_damage(damage)
 		valid_enemies.filter(func(enem: Enemy): return enem.current_health > 0)

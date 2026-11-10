@@ -18,6 +18,8 @@ func _ready() -> void:
 	
 	BattleController.setup($discard, $hand, $library, $targeting_manager, $maybe_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog, $banner)
 	
+	AudioManager.setup($audioSources)
+	
 	_init_player_cards()
 	_init_enemies()
 	_init_player_stats(BATTLE_CONFIG.party.character_ids)
