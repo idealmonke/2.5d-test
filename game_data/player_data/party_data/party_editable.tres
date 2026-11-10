@@ -6,6 +6,6 @@
 script = ExtResource("1_1unio")
 name = "Random Party"
 file_name = "party_editable.tres"
-card_ids = Array[int]([2001, 2002, 2003, 2004, 3001, 3002, 3003, 6001, 6003, 6004, 6005, 7001, 7002, 7003, 6002, 7004, 3004])
-character_ids = Array[int]([2, 4, 3, 6])
+card_ids = Array[int]([3001, 3002, 3003, 7001, 7002, 7003, 7004, 3004, 1001, 1002, 1003, 1004, 1005, 5001, 5002, 5003, 5004])
+character_ids = Array[int]([2, 4, 1, 5])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"
