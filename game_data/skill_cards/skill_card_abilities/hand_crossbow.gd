@@ -12,4 +12,4 @@ func execute( targets : TargetingInfo) -> void:
 	damage.is_strike = true
 	damage.ignore_shield = true
 		
-	targets.single_target().take_damage(damage)
+	await targets.single_target().take_damage(damage)

@@ -12,7 +12,7 @@ func execute( targets : TargetingInfo) -> void:
 	damage.is_strike = true
 		
 	damage.shield_multipliers.push_front(func(value: int): return value*2)
-	targets.single_target().take_damage(damage)
+	await targets.single_target().take_damage(damage)
 	
 	var dealt: int = targets.single_target().get_meta('previous_damage')
 	BattleController.data.player.gain_shield(dealt)

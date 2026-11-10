@@ -23,7 +23,7 @@ func execute(targets : TargetingInfo) -> void:
 		damage.add_damage(8, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
 	else:
 		damage.add_damage(4, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
-	targets.single_target().take_damage(damage)
+	await targets.single_target().take_damage(damage)
 	
 
 func return_card(card: SkillCard) -> void:

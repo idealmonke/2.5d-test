@@ -9,7 +9,8 @@ func execute(targets : TargetingInfo) -> void:
 	damage.add_damage(4, COMMON_ENUMS.DAMAGE_TYPE.PHYSICAL)
 	damage.source = BattleController.data.player
 	damage.is_strike = true
-	targets.single_target().take_damage(damage)
+	#AudioManager.play_audio('hit_impact')
+	await targets.single_target().take_damage(damage)
 	
 	var data: StatusEffectData = StatusEffectRegistry.get_status_effect_data(2)
 	var status: StatusEffect = StatusEffect.new(data)

@@ -131,7 +131,7 @@ func take_damage(damage: Damage) -> void:
 	if (damage.is_strike):
 		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
-	damage_animation(health_array, shield_array)
+	await damage_animation(health_array, shield_array)
 	
 	_update_stat_bars()
 	_update_status()
@@ -264,21 +264,24 @@ func _bar_tween(target: TextureProgressBar, value: int, duration: float) -> Twee
 	tween.set_ease(Tween.EASE_OUT)
 	return tween
 	
-func shake(intensity: float = 10.0, duration: float = 0.3, shakes: int = 8) -> void:
-	var origin: Vector2 = sprite.position
-	var tween: Tween = create_tween()
+func shake(target: Variant, intensity: float = 10.0, duration: float = 0.3, shakes: int = 8) -> Tween:
+	var origin: Vector2 = target.position
+	var tween: Tween = target.create_tween()
 	for i in shakes:
 		var falloff: float = 1.0 - float(i) / shakes
 		var offset: Vector2 = Vector2(
 			randf_range(-intensity, intensity),
 			randf_range(-intensity, intensity)
 		) * falloff
-		tween.tween_property(sprite, "position", origin + offset, duration / shakes)
-	tween.tween_property(sprite, "position", origin, 0.02)
+		tween.tween_property(target, "position", origin + offset, duration / shakes)
+	tween.tween_property(target, "position", origin, 0.02)
+	return tween
 
-func damage_flash() -> void:
-	sprite.modulate = Color(1, 0.3, 0.3)
-	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.25)
+func damage_flash(target: Variant) -> Tween:
+	target.modulate = Color(1, 0.3, 0.3)
+	var tween: Tween = target.create_tween()
+	tween.tween_property(target, "modulate", Color.WHITE, 0.25)
+	return tween
 	
 func heal_flash() -> void:
 	sprite.modulate = Color(0.3, 1, 0.3)
@@ -291,3 +294,4 @@ func damage_numbers(damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> void:
 		number.global_position = global_position + Vector2(randf_range(-125, 125), -randf_range(-50, -30))
 		number.setup(damages[key], key)
 		get_tree().current_scene.add_child(number)
+		

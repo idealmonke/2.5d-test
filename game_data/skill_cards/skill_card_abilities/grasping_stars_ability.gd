@@ -16,4 +16,4 @@ func execute(targets : TargetingInfo) -> void:
 		damage.add_damage(3, COMMON_ENUMS.DAMAGE_TYPE.MAGIC)
 		damage.source = BattleController.data.player
 		damage.is_strike = true
-		target.take_damage(damage)
+		await target.take_damage(damage)

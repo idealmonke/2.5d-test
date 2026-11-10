@@ -15,6 +15,8 @@ var display_grid: SkillCardDisplayGrid
 # Necessary UI Stuff
 var end_turn_button: Button
 var win_screen : PanelContainer
+var screen_effects: CanvasLayer
+var camera: Camera2D
 
 #Targeting / Maybe Manager
 var targeting_manager_instance : TargetingManager

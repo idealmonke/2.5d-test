@@ -16,8 +16,11 @@ func _ready() -> void:
 										$player_stat_bars/stamina_bar,
 										$player_stat_bars/stamina_bar/stamina_label,
 										$player_stat_bars/status_effect_display)
+	BattleController.data.player.animation_setup($Camera, $TopLayer/ColorFlash)
 	
 	BattleController.setup($discard, $hand, $library, $targeting_manager, $maybe_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog, $banner)
+	
+	AudioManager.setup($audioSources)
 	
 	_init_player_cards()
 	_init_enemies()
@@ -99,7 +102,7 @@ func _init_player_stats(character_ids: Array[int]) -> void:
 	var player: BattlePlayerData = BattleController.data.player
 	
 	for character in characters:
-		if character.main_class not in player.character_classes:
+		if character.main_class != COMMON_ENUMS.CHARACTER_CLASSES.NONE && character.main_class not in player.character_classes:
 			player.character_classes.push_back(character.main_class)
 		if character.multi_class != COMMON_ENUMS.CHARACTER_CLASSES.NONE && character.multi_class not in player.character_classes:
 			player.character_classes.push_back(character.multi_class)

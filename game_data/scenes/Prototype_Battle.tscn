@@ -88,12 +88,16 @@ font_color = Color(0, 0, 0, 1)
 [node name="PrototypeBattle" type="Node2D" unique_id=1303829405]
 script = ExtResource("1_lpuuh")
 
+[node name="Camera" type="Camera2D" parent="." unique_id=784549419]
+offset = Vector2(960, 540)
+
 [node name="LacqueredCherryWoodDiff4k" type="Sprite2D" parent="." unique_id=766423573]
 modulate = Color(1, 1, 1, 0.8117647)
 z_index = -999
 position = Vector2(947, 521)
 scale = Vector2(0.555, 0.555)
 texture = ExtResource("14_md5fw")
+metadata/_edit_lock_ = true
 
 [node name="skill_card_display_grid" type="Node2D" parent="." unique_id=47632237]
 script = ExtResource("2_l4n2p")
@@ -427,6 +431,18 @@ offset_right = 213.0
 offset_bottom = 171.0
 bbcode_enabled = true
 text = "[b][font_size=30] RULES GLOSSARY: [/font_size][/b]"
+
+[node name="TopLayer" type="CanvasLayer" parent="." unique_id=994628856]
+layer = 2
+
+[node name="ColorFlash" type="ColorRect" parent="TopLayer" unique_id=468425924]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="audioSources" type="Node2D" parent="." unique_id=1560012287]
 
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="maybe_manager/yes_button" to="maybe_manager" method="_on_yes_button_pressed"]

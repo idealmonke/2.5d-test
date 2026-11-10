@@ -48,12 +48,14 @@ var screen_size: Vector2
 var exhaust_material: ShaderMaterial
 var tween_scale: Tween
 var base_scale: Vector2
+var pos_tween: Tween
 
 var base_z_index : int
 var z_index_modifier: int
 var z_index_hover: int
 
 var hover : bool
+var audio_played: bool = false
 
 var discard_castable: COMMON_ENUMS.DISCARD_CASTABLE_MODES
 
@@ -68,7 +70,6 @@ var select_subscribers: Dictionary
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
-	
 	base_scale = scale
 	
 	# TEMPORARY VARIABLES
@@ -85,10 +86,11 @@ func _ready() -> void:
 	exhaust_material.shader = load("res://game_data/skill_cards/card_art/exhausted_card.gdshader")
 	card_main_frame.material = exhaust_material
 	
-	card_name_label = $card_name
-	card_ability_label = $card_ability
-	card_mana_cost_label = $mana_cost
-	card_stamina_cost_label = $stamina_cost
+	card_name_label = $Sprite2D/card_name
+	card_ability_label = $Sprite2D/card_ability
+	card_mana_cost_label = $Sprite2D/mana_cost
+	card_stamina_cost_label = $Sprite2D/stamina_cost
+	
 	card_sprite = $Sprite2D/CardArt
 	_update_text()
 	
@@ -179,6 +181,7 @@ func set_back() -> void:
 
 func mute_color(color: Color, amount: float = 0.3) -> Color:
 	return color.lerp(Color(255,255,255), amount)
+	
 func set_front() -> void:
 	card_main_frame.texture = load("res://game_data/card_frames/Front_Card.png")
 	card_name_label.show()
@@ -244,12 +247,16 @@ func _input(event: InputEvent) -> void:
 	
 
 func _on_mouse_entered() -> void:
-	player_highlight_card()
+	if self.interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.PLAYING:
+		AudioManager.play_audio('Click')
+	if !hover:
+		player_highlight_card()
 	hover = true
 	
 	
 func _on_mouse_exited() -> void:
-	player_unhighlight_card()
+	if hover:
+		player_unhighlight_card()
 	hover = false
 	
 
@@ -261,14 +268,17 @@ func _update_pickable() -> void:
 
 func player_highlight_card() -> void:
 	z_index_hover = 5
-	hover_offset = Vector2(0,-50)
 	if tween_scale:
 		tween_scale.kill()
 	tween_scale = create_tween()
 	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween_scale.tween_property(self, "scale", base_scale * 1.2, 0.15)
+	pos_tween = $Sprite2D.create_tween()
+	pos_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	pos_tween.tween_property($Sprite2D, "position", Vector2(0,-50), 0.15)
 
 func player_unhighlight_card() -> void:
+	audio_played = false
 	z_index_hover = -5
 	hover_offset = Vector2(0,0)
 	if tween_scale:
@@ -276,3 +286,6 @@ func player_unhighlight_card() -> void:
 	tween_scale = create_tween()
 	tween_scale.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween_scale.tween_property(self, "scale", base_scale, 0.15)
+	pos_tween = $Sprite2D.create_tween()
+	pos_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	pos_tween.tween_property($Sprite2D, "position", Vector2(0,0), 0.15)
