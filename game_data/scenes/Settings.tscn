@@ -378,6 +378,10 @@ metadata/_tab_index = 1
 visible = false
 z_index = 100
 position = Vector2(930, 409)
+art_size = null
+quick_lerp = null
+slow_lerp = null
+rotate_lerp = null
 
 [node name="margin_container" type="MarginContainer" parent="tab_container/Party \\ Deck Selector/party_selector/card_panel/margin_container/vbox/tab_container/Cards" unique_id=700101243]
 layout_mode = 0
