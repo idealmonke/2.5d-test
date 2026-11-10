@@ -1,15 +1,14 @@
-[gd_resource type="Resource" script_class="BattleConfig" format=3 uid="uid://cqr5jdat7sy88"]
+[gd_resource type="Resource" script_class="BattleConfig" format=3]
 
 [ext_resource type="Script" path="res://game_data/player_data/party_data.gd" id="1_d2gtx"]
 [ext_resource type="Script" path="res://game_data/battle_config.gd" id="2_krdy4"]
 
 [sub_resource type="Resource" id="Resource_d2gtx"]
 script = ExtResource("1_d2gtx")
-name = "Starter Deck 1"
-file_name = "party_001.tres"
-card_ids = Array[int]([2001, 2002, 2003, 2004, 3001, 3002, 3003, 3004, 5001, 5002, 5003, 5004, 7001, 7002, 7003, 7004])
-character_ids = Array[int]([1, 2, 3, 4])
-read_only = true
+name = "Random Party"
+file_name = "party_editable.tres"
+card_ids = Array[int]([3001, 3002, 3003, 7001, 7002, 7003, 7004, 3004, 1003, 1004, 1005, 5001, 5002, 5003, 5004, 1001, 1002])
+character_ids = Array[int]([2, 4, 1, 5])
 metadata/_custom_type_script = "uid://tj0fltstwh2q"
 
 [resource]

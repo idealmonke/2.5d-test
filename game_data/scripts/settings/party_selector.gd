@@ -443,16 +443,21 @@ func _on_save_button_pressed() -> void:
 		save_label.text = "Sucessful save"
 		
 		select_button.disabled = false
+		
+		select_party()
 	else:
 		save_label.text = valid
 
-func _on_select_button_pressed() -> void:
+func select_party() -> void:
 	battle_config.party = cur_data
 	ResourceSaver.save(battle_config, "res://game_data/battle_config.tres")
 	_update_party_buttons()
 	
 	save_label.visible = true
 	save_label.text = "Party selected"
+
+func _on_select_button_pressed() -> void:
+	select_party()
 
 func unsaved_changes() -> bool:
 	return select_button.disabled
