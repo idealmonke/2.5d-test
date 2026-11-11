@@ -198,6 +198,7 @@ offset_bottom = 731.0
 text = "No"
 
 [node name="targeting_manager" type="Node2D" parent="." unique_id=1590630605]
+visible = false
 script = ExtResource("7_wxjty")
 
 [node name="cancel_button" type="Button" parent="targeting_manager" unique_id=1911464007]
