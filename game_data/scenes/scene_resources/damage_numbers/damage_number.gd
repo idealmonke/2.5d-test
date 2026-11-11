@@ -29,3 +29,6 @@ func setup(damage: int, color: COMMON_ENUMS.DAMAGE_TYPE) -> void:
 	modulate = color_map[color]
 	pivot_offset = size/2.0
 	
+func setup_text(text: String, color: Color):
+	self.text = text
+	self.modulate = color

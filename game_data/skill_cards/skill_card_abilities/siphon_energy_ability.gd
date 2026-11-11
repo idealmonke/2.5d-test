@@ -15,4 +15,4 @@ func execute( targets : TargetingInfo) -> void:
 	await targets.single_target().take_damage(damage)
 	
 	var dealt: int = targets.single_target().get_meta('previous_damage')
-	BattleController.data.player.gain_shield(dealt)
+	BattleController.data.player.heal(dealt)

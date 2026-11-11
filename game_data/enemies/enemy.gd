@@ -88,13 +88,17 @@ func process_turn() -> void:
 	current_shield = int(current_shield * shield_retention)
 	_update_stat_bars()
 	
-	_process_active_status(COMMON_ENUMS.TIMING.START)
+	await _process_active_status(COMMON_ENUMS.TIMING.START)
 	update_passive_effects()
 	_process_status_stacks()
+	
+	await self.get_tree().create_timer(0.5).timeout
 	
 	# Upkeep
 	_upkeep_regen_mana()
 	_upkeep_regen_stamina()
+	
+	await self.get_tree().create_timer(0.5).timeout
 	
 	if(current_health<=0):
 		return
@@ -104,8 +108,8 @@ func process_turn() -> void:
 	await hand.play_hand()
 	hand.replenish_hand()
 	
-func damage_animation(health_array, shield_array):
-	var flash := damage_flash(sprite)
+func damage_animation(health_array, shield_array, missed = false):
+	var flash := damage_flash(Color(1, 0.3, 0.3), sprite)
 	var shake := shake(sprite)
 	if shield_array != null && !shield_array.is_empty():
 		damage_numbers(shield_array[1])

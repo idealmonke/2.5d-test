@@ -1,14 +1,29 @@
 [gd_scene format=3 uid="uid://cyfbc1ti6fbjv"]
 
 [ext_resource type="Script" uid="uid://cscx462ge7hl4" path="res://game_data/skill_cards/skill_card.gd" id="1_qx01e"]
-[ext_resource type="Shader" uid="uid://b01vpgxcjaa8c" path="res://game_data/skill_cards/card_frame_art/exhausted_card.gdshader" id="2_nujpf"]
 [ext_resource type="Texture2D" uid="uid://byum0wfyrxtdg" path="res://game_data/card_frames/Front_Card.png" id="3_qx01e"]
 [ext_resource type="Texture2D" uid="uid://k848l0fi3da" path="res://game_data/card_frames/Front_Card_Symbols_nobg.png" id="4_c1cq6"]
 [ext_resource type="Texture2D" uid="uid://2jcqtthsd6ij" path="res://icon.svg" id="4_nujpf"]
 
+[sub_resource type="Shader" id="Shader_hcqxf"]
+code = "shader_type canvas_item;
+
+uniform float exhausted_strength : hint_range(0.0, 1.0) = 0.0;
+uniform float darken_amount : hint_range(0.0, 1.0) = 0.75;
+uniform float desaturate_amount : hint_range(0.0, 1.0) = 0.75;
+
+void fragment() {
+	// COLOR already = texture * modulate
+	float gray = dot(COLOR.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 desaturated = mix(COLOR.rgb, vec3(gray), desaturate_amount * exhausted_strength);
+	vec3 darkened = desaturated * mix(1.0, darken_amount, exhausted_strength);
+
+	COLOR.rgb = darkened;   // alpha is left untouched
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ar1h"]
-shader = ExtResource("2_nujpf")
-shader_parameter/is_exhausted = false
+shader = SubResource("Shader_hcqxf")
+shader_parameter/exhausted_strength = 0.0
 shader_parameter/darken_amount = 0.800000038
 shader_parameter/desaturate_amount = 0.30000001425
 
