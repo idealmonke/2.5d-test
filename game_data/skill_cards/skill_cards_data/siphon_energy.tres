@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="SkillCardData" format=3 uid="uid://cp0pcqpikowa2"]
+[gd_resource type="Resource" script_class="SkillCardData" format=3]
 
-[ext_resource type="Script" uid="uid://csva7yew3hill" path="res://game_data/skill_cards/skill_card_abilities/siphon_energy_ability.gd" id="1_7gybh"]
-[ext_resource type="Script" uid="uid://c3wbojvfgs5lg" path="res://game_data/skill_cards/skill_card_data.gd" id="1_h6g2o"]
-[ext_resource type="Texture2D" uid="uid://5071vdj4v8ib" path="res://game_data/skill_cards/card_art/8005.png" id="2_7gybh"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_abilities/siphon_energy_ability.gd" id="1_7gybh"]
+[ext_resource type="Script" path="res://game_data/skill_cards/skill_card_data.gd" id="1_h6g2o"]
+[ext_resource type="Texture2D" path="res://game_data/skill_cards/card_art/8005.png" id="2_7gybh"]
 
 [sub_resource type="Resource" id="Resource_xhph4"]
 script = ExtResource("1_7gybh")
