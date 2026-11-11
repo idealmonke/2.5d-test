@@ -50,9 +50,9 @@ var tween_scale: Tween
 var base_scale: Vector2
 var pos_tween: Tween
 
-var base_z_index : int
-var z_index_modifier: int
-var z_index_hover: int
+var base_z_index : int = 0
+var z_index_modifier: int = 0
+var z_index_hover: int = 0
 
 var hover : bool
 var audio_played: bool = false
@@ -274,7 +274,7 @@ func _update_pickable() -> void:
 		set_input_pickable(false)
 
 func player_highlight_card() -> void:
-	z_index_hover = 5
+	z_index_hover = 100
 	if tween_scale:
 		tween_scale.kill()
 	tween_scale = create_tween()
@@ -286,7 +286,7 @@ func player_highlight_card() -> void:
 
 func player_unhighlight_card() -> void:
 	audio_played = false
-	z_index_hover = -5
+	z_index_hover = 0
 	hover_offset = Vector2(0,0)
 	if tween_scale:
 		tween_scale.kill()

@@ -11,13 +11,29 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#print(cur_card.card_name)
+	var name = "null"
+	if cur_card:
+		name = cur_card.card_name
+	#DevConsole.add_message("Hovering: "+name,Color.TEAL)
+	pass
+
+func unhover():
+	pass
+
+func hover():
 	pass
 
 func hover_card(card: SkillCard):
+	if not card:
+		return
+	if cur_card:
+		unhover()
+	
 	cur_card = card
-	DevConsole.add_message("Hovering: "+cur_card.card_name,Color.LIGHT_CORAL)
-	print("Hovering: ",cur_card.card_name)
-func unhover_card(card: SkillCard):
-	if cur_card==card:
-		print("Unhovering: ", cur_card.card_name)
-		DevConsole.add_message("Unhovering: "+cur_card.card_name,Color.LIGHT_CORAL)
+	hover()
+func unhover_card():
+	if not cur_card:
+		return
+	
+	unhover()
+	cur_card = null

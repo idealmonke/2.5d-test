@@ -47,14 +47,18 @@ func is_empty() -> bool:
 
 func _resolve_hover() -> void:
 	if hovering.size()==0:
+		BattleController.tooltip_manager_instance.unhover_card()
 		cur_card=null
 		return
-	hovering.sort_custom(func(a, b): return hand.find(a) > hand.find(b))
+	
 	var winner = hovering[0]
+	
+	if winner.interactable_state != COMMON_ENUMS.INTERACT_STATE.HAND and winner.interactable_state != COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY and winner.interactable_state != COMMON_ENUMS.INTERACT_STATE.PLAYING:
+		return
 	
 	if(winner!=cur_card):
 		AudioManager.play_audio('Click')
-		
+		BattleController.tooltip_manager_instance.hover_card(winner)
 	
 	cur_card = winner
 	for card in hovering:
@@ -66,11 +70,10 @@ func _resolve_hover() -> void:
 func subscribe(card: SkillCard) -> void:
 	if not hovering.has(card):
 		hovering.append(card)
-		DevConsole.add_message("hovering "+card.card_name, Color.TEAL)
+		hovering.sort_custom(func(a, b): return hand.find(a) > hand.find(b))
 func unsubscribe(card: SkillCard) -> void:
 	card.player_unhighlight_card()
 	hovering.erase(card)
-	DevConsole.add_message("unhovering "+card.card_name, Color.SKY_BLUE)
 
 func register_pickup(card: SkillCard) -> void:
 	call_deferred("_resolve_pickup")
