@@ -45,7 +45,6 @@ var hover_offset: Vector2 = Vector2.ZERO
 var old_position: Vector2
 var old_tilt: float = 0.0
 var screen_size: Vector2
-var exhaust_material: ShaderMaterial
 var tween_scale: Tween
 var base_scale: Vector2
 var pos_tween: Tween
@@ -59,11 +58,11 @@ var audio_played: bool = false
 
 var discard_castable: COMMON_ENUMS.DISCARD_CASTABLE_MODES
 
+var exhaust_tween: Tween
+const EXHAUST_COLOR := Color(0.65, 0.65, 0.7)
+
 # Card State
-var exhausted: bool:
-	set(value):
-		exhausted = value
-		exhaust_material.set_shader_parameter("is_exhausted", exhausted)
+var exhausted: bool = false
 				
 # Subscribers
 var select_subscribers: Dictionary
@@ -82,9 +81,6 @@ func _ready() -> void:
 	$hover_area.connect("mouse_exited", _on_mouse_exited)
 	
 	card_main_frame = $Sprite2D
-	exhaust_material = ShaderMaterial.new() 
-	exhaust_material.shader = load("res://game_data/skill_cards/card_art/exhausted_card.gdshader")
-	card_main_frame.material = exhaust_material
 	
 	card_name_label = $Sprite2D/card_name
 	card_ability_label = $Sprite2D/card_ability
@@ -197,6 +193,15 @@ func set_front() -> void:
 func set_exhausted(value: bool) -> void:
 	exhausted = value
 	
+	if exhaust_tween and exhaust_tween.is_valid():
+		exhaust_tween.kill()
+	
+	exhaust_tween = create_tween()
+	exhaust_tween.tween_property(
+		self, "modulate",
+		EXHAUST_COLOR if value else Color.WHITE, 0.3
+	)
+	
 func set_input_pickable(value: bool) -> void:
 	input_pickable = value
 	
@@ -230,7 +235,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 				return
 
 func _input(event: InputEvent) -> void:
-	if (interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING) && (BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING) && (self.position.y <= screen_size.y/2):
+	if (interactable_state == COMMON_ENUMS.INTERACT_STATE.DRAGGING) && (BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING) && (self.position.y <= screen_size.y/1.5):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				if BattleController.data.player.get_stamina() >= self.stamina_cost && BattleController.data.player.get_mana() >= self.mana_cost:

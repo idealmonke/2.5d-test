@@ -144,6 +144,7 @@ shape = SubResource("RectangleShape2D_wxjty")
 [node name="enemy_storage" type="Node2D" parent="." unique_id=380014281]
 
 [node name="end_turn" type="Button" parent="." unique_id=1149504803]
+visible = false
 offset_left = 1620.0
 offset_top = 948.0
 offset_right = 1870.0

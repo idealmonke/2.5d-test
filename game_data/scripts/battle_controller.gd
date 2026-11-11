@@ -209,7 +209,7 @@ func _default_discard_card(card: SkillCard) -> void:
 	card.interactable_state = COMMON_ENUMS.INTERACT_STATE.DISCARD
 
 func _player_upkeep() -> COMMON_ENUMS.BATTLE_STATE:
-	data.player.process_statuses(COMMON_ENUMS.TIMING.START)
+	await data.player.process_statuses(COMMON_ENUMS.TIMING.START)
 	data.player._upkeep_regen_mana()
 	data.player._upkeep_regen_stamina()
 	
@@ -230,7 +230,7 @@ func _player_endstep() -> COMMON_ENUMS.BATTLE_STATE:
 		
 	for card in old_cards:
 		card.interactable_state = COMMON_ENUMS.INTERACT_STATE.LIBRARY
-		card.exhausted = false
+		card.set_exhausted(false)
 		card.set_back()
 	data.library.push_each(old_cards)
 	return COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS
@@ -278,9 +278,9 @@ func _on_enter_state(state: COMMON_ENUMS.BATTLE_STATE) -> void:
 	match state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
 			await banner.play_banner("PLAYER TURN", Color.DARK_BLUE, Color.AZURE)
-			pass
-		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			cards_drawn_for_turn = 0
+		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
+			pass
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:
 			end_turn_button.show()
 		COMMON_ENUMS.BATTLE_STATE.ENEMY_TURNS:
@@ -334,7 +334,7 @@ enemies or decks."
 	await _on_enter_state(current_state)
 	match current_state:
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_UPKEEP:
-			_change_state(_player_upkeep())
+			_change_state(await _player_upkeep())
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_END:
 			_change_state(_player_endstep())
 		COMMON_ENUMS.BATTLE_STATE.PLAYER_PLAYING:

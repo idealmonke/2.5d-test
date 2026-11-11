@@ -14,6 +14,6 @@ metadata/_custom_type_script = "uid://tj0fltstwh2q"
 
 [resource]
 script = ExtResource("2_krdy4")
-enemyIDs = Array[int]([1, -1, 1])
+enemyIDs = Array[int]([2, -1, 2])
 party = SubResource("Resource_d2gtx")
 metadata/_custom_type_script = "uid://dpmb6l2ednj1l"

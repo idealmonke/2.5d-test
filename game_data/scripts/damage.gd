@@ -11,6 +11,8 @@ var ignore_shield: bool = false
 
 var scaling_constant: int = 12
 
+const DAMAGE_NUMBER = preload("res://game_data/scenes/scene_resources/damage_numbers/damage_number.tscn")
+
 # Pass in Lambda, int parameter and return int.
 var shield_multipliers: Array[Callable] = []
 var health_multipliers: Array[Callable] = []
@@ -31,18 +33,21 @@ func modifiy_damage_type(calculation: Callable, type: COMMON_ENUMS.DAMAGE_TYPE):
 		damages.set(type, calculation.call(damages.get(type)))
 
 # Checks if a player status adds to the outgoing damage
-func outgoing_update() -> void:
+func outgoing_update() -> bool:
 	if self.source.current_status_effects.has("Blindness"):
 		if randi() % 2 == 1:
+			print('Blinded!')
 			damages.clear()
 			health_multipliers.clear()
 			shield_multipliers.clear()
-			return
+			await BattleController.data.player.damage_flash(Color(1.0, 1.0, 1.0, 0.686), BattleController.data.player.screen_flash)
+			return true
 
 	for status_key in self.source.current_status_effects:
 		var status: StatusEffect = self.source.current_status_effects.get(status_key)
 		if status.data.stats_calculations.has(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE):
 			status.data.stats_calculations.get(COMMON_ENUMS.PLAYER_STATS.OUTGOING_DAMAGE).calculate.call(self, status)
+	return false
 			
 func incoming_update(statuses: Dictionary[String, StatusEffect]) -> void:	
 	for status_key in statuses:
