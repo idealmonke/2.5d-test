@@ -2,7 +2,9 @@ class_name SkillCardHand
 extends Node2D
 
 var hand: Array[SkillCard] = []
-var pending_pickup: Array[SkillCard] = []
+#var pending_pickup: Array[SkillCard] = []
+var cur_card: SkillCard
+var hovering : Array[SkillCard] = []
 
 @export var card_width: int = 200
 @export var max_hand_width: int = 550
@@ -44,27 +46,38 @@ func is_empty() -> bool:
 	return hand.is_empty()
 
 func _resolve_hover() -> void:
-	var hovered : SkillCard;
+	if hovering.size()==0:
+		cur_card=null
+		return
+	hovering.sort_custom(func(a, b): return hand.find(a) > hand.find(b))
+	var winner = hovering[0]
 	
-	for card in hand:
-		if(card.hover):
-			hovered = card
-		card.player_unhighlight_card()
+	if(winner!=cur_card):
+		AudioManager.play_audio('Click')
+		
 	
-	if hovered:
-		hovered.player_highlight_card()
+	cur_card = winner
+	for card in hovering:
+		if not card==winner:
+			card.player_unhighlight_card()
+		else:
+			card.player_highlight_card()
+
+func subscribe(card: SkillCard) -> void:
+	if not hovering.has(card):
+		hovering.append(card)
+		DevConsole.add_message("hovering "+card.card_name, Color.TEAL)
+func unsubscribe(card: SkillCard) -> void:
+	card.player_unhighlight_card()
+	hovering.erase(card)
+	DevConsole.add_message("unhovering "+card.card_name, Color.SKY_BLUE)
 
 func register_pickup(card: SkillCard) -> void:
-	pending_pickup.append(card)
 	call_deferred("_resolve_pickup")
 	
 func _resolve_pickup() -> void:
-	if pending_pickup.is_empty():
-		return
-	pending_pickup.sort_custom(func(a, b): return hand.find(a) > hand.find(b))
-	var winner = pending_pickup[0]
-	winner.begin_drag()
-	pending_pickup.clear()
+	if cur_card:
+		cur_card.begin_drag()
 	
 func _reset_offset(card: SkillCard) -> void:
 		card.location_offset = Vector2.ZERO

@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dwo633dwu4swd" path="res://game_data/skill_cards/targeting_manager.gd" id="7_wxjty"]
 [ext_resource type="Script" uid="uid://by02gol8gnkce" path="res://game_data/scripts/ToMainMenu.gd" id="8_3dppl"]
 [ext_resource type="Script" uid="uid://d0e5ojkqwvb07" path="res://game_data/scripts/maybe_manager.gd" id="8_6iy56"]
+[ext_resource type="Script" uid="uid://dvnq8uk0x7d2p" path="res://game_data/scripts/tooltip_manager.gd" id="9_3n6h2"]
 [ext_resource type="Script" uid="uid://bx8sc2n1k2vbh" path="res://game_data/scripts/win_exit_button.gd" id="10_5ar1h"]
 [ext_resource type="Script" uid="uid://t5qbjm3s8snw" path="res://game_data/status_effects/status_effect_display.gd" id="11_lpuuh"]
 [ext_resource type="Texture2D" uid="uid://cn0gksiqvqs4h" path="res://game_data/status_effects/status_effect_images/Shield Simple.png" id="12_in72b"]
@@ -166,6 +167,9 @@ text = "Testing Controls:
 q = draw card
 / = toggle devlog"
 label_settings = SubResource("LabelSettings_h35sd")
+
+[node name="tooltip_manager" type="Node2D" parent="." unique_id=1857172470]
+script = ExtResource("9_3n6h2")
 
 [node name="maybe_manager" type="Node2D" parent="." unique_id=1986139150]
 visible = false

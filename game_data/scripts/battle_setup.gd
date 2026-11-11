@@ -18,7 +18,7 @@ func _ready() -> void:
 										$player_stat_bars/status_effect_display)
 	BattleController.data.player.animation_setup($Camera, $TopLayer/ColorFlash)
 	
-	BattleController.setup($discard, $hand, $library, $targeting_manager, $maybe_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog, $banner)
+	BattleController.setup($discard, $hand, $library, $targeting_manager, $maybe_manager, $end_turn, $skill_card_display_grid, $win_panel, $status_effect_display, $shield, $devlog, $banner, $tooltip_manager)
 	
 	AudioManager.setup($audioSources)
 	
