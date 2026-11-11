@@ -17,6 +17,8 @@ static func load_party_data() -> void:
 	var file_name = dir.get_next()
 
 	while file_name != "":
+		file_name = file_name.trim_suffix(".remap") # Fixes Export resources tracking
+		
 		if not dir.current_is_dir():
 			if file_name.ends_with(".tres") or file_name.ends_with(".res"):
 				var cur = load(party_data_path + file_name)

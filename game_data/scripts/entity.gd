@@ -5,6 +5,7 @@ extends Area2D
 Metadata for Entities:
 	previous_damage: int = The total number of damage from the last take_damage
 	previous_damage_source: Entity = Source of the most recent damage that had a source.
+	previous_shield_damage: int = Resets to 0 on damage which does not damage shield
 """
 
 var max_health: int
@@ -107,9 +108,12 @@ func take_damage(damage: Damage) -> void:
 	var shield_array: Array = []
 	var health_array: Array = []
 	var total_damage: int = 0
+	var missed: bool = false
+	
+	self.set_meta("previous_shield_damage", 0)
 	
 	if damage.source != null:
-		damage.outgoing_update()
+		missed = await damage.outgoing_update()
 		self.set_meta("previous_damage_source", damage.source)
 		
 	damage.incoming_update(self.current_status_effects)
@@ -120,6 +124,7 @@ func take_damage(damage: Damage) -> void:
 		current_shield -= shield_array[0]
 		total_damage += shield_array[0]
 		strOut += " shield: "+str(shield_array[0]);
+		self.set_meta("previous_shield_damage", shield_array[0])
 	health_array = damage.damage_health(defense)
 	current_health -= health_array[0]
 	total_damage += health_array[0]
@@ -129,14 +134,14 @@ func take_damage(damage: Damage) -> void:
 	self.set_meta("previous_damage", total_damage)
 	
 	if (damage.is_strike):
-		_process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
+		await _process_active_status(COMMON_ENUMS.TIMING.DAMAGED)
 	
-	await damage_animation(health_array, shield_array)
+	await damage_animation(health_array, shield_array, missed)
 	
 	_update_stat_bars()
 	_update_status()
 
-func damage_animation(health_array, shield_array):
+func damage_animation(health_array: Array, shield_array: Array, missed: bool = false):
 	pass
 
 func gain_shield(shield : int) -> void:
@@ -255,6 +260,7 @@ func _process_active_status(timing: COMMON_ENUMS.TIMING) -> void:
 		var status: StatusEffect = current_status_effects.get(key)
 		if (status.data.abilities.has(timing)):
 			status.data.abilities[timing].execute(self, status)
+			await Engine.get_main_loop().create_timer(0.5).timeout
 			
 func _bar_tween(target: TextureProgressBar, value: int, duration: float) -> Tween:
 	var tween: Tween
@@ -277,8 +283,8 @@ func shake(target: Variant, intensity: float = 10.0, duration: float = 0.3, shak
 	tween.tween_property(target, "position", origin, 0.02)
 	return tween
 
-func damage_flash(target: Variant) -> Tween:
-	target.modulate = Color(1, 0.3, 0.3)
+func damage_flash(color: Color, target: Variant) -> Tween:
+	target.modulate = color
 	var tween: Tween = target.create_tween()
 	tween.tween_property(target, "modulate", Color.WHITE, 0.25)
 	return tween
@@ -295,3 +301,10 @@ func damage_numbers(damages: Dictionary[COMMON_ENUMS.DAMAGE_TYPE, int]) -> void:
 		number.setup(damages[key], key)
 		get_tree().current_scene.add_child(number)
 		
+func effect_text(text: String, color: Color, scale: int = 30, pos: Vector2 = Vector2(1920/2, 1080/2)):
+	var text_obj: DamageNumber = DAMAGE_NUMBER.instantiate()
+	text_obj.z_index = 25
+	text_obj.global_position = pos
+	text_obj.setup_text(text, color)
+	text_obj.label_settings.font_size = scale
+	Engine.get_main_loop().current_scene.add_child(text_obj)

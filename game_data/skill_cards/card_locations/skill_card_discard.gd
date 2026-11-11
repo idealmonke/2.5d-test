@@ -49,7 +49,7 @@ func pop_exhausted() -> Array[SkillCard]:
 			
 func exhaust_cards() -> void:
 	for card in discard:
-		card.exhausted = true
+		card.set_exhausted(true)
 
 func _display_discard() -> void:
 	if BattleController.current_state == COMMON_ENUMS.BATTLE_STATE.CARD_PLAYING:
