@@ -196,7 +196,6 @@ text = "No"
 script = ExtResource("7_wxjty")
 
 [node name="cancel_button" type="Button" parent="targeting_manager" unique_id=1911464007]
-visible = false
 offset_left = 826.0
 offset_top = 684.0
 offset_right = 890.0
@@ -204,12 +203,11 @@ offset_bottom = 715.0
 text = "Cancel "
 
 [node name="confirm_button" type="Button" parent="targeting_manager" unique_id=1031402798]
-visible = false
 offset_left = 949.0
 offset_top = 685.0
 offset_right = 1082.0
 offset_bottom = 716.0
-text = "Confirm Targets"
+text = "Play Card"
 
 [node name="player_select" type="Area2D" parent="targeting_manager" unique_id=537654760]
 position = Vector2(289, 577)
@@ -223,6 +221,13 @@ visible = false
 offset_right = 246.0
 offset_bottom = 23.0
 text = "CLICK HERE TO SELECT PLAYER"
+
+[node name="info_label" type="Label" parent="targeting_manager" unique_id=1876355826]
+offset_left = 1129.0
+offset_top = 692.0
+offset_right = 1302.0
+offset_bottom = 715.0
+text = "Select your first target"
 
 [node name="player_stat_bars" type="Node2D" parent="." unique_id=1358369466]
 z_index = 5

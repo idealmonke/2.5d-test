@@ -7,6 +7,7 @@ var _cur_arrow : Line2D
 var _arrow_head : Sprite2D
 var cancel_button : Button
 var confirm_button : Button
+var info_label : Label
 
 #card info
 var cur_card : SkillCard
@@ -28,7 +29,8 @@ func _ready() -> void:
 	
 	cancel_button = $cancel_button
 	confirm_button = $confirm_button
-	player_select = $player_select;
+	player_select = $player_select
+	info_label = $info_label
 
 signal targeting_finished(targets: TargetingInfo)
 
@@ -43,7 +45,9 @@ func select_targets(card: SkillCard) -> TargetingInfo:
 	
 	cur_targets = TargetingInfo.new()
 	
-	cancel_button.visible = true
+	visible = true
+	info_label.visible = true
+	confirm_button.disabled = true
 	
 	_create_arrow()
 	
@@ -121,32 +125,36 @@ func _input(event):
 			_create_arrow()
 			OFFSETS[res_idx] += 100
 
+func display_text() -> void:
+	if cur_type==1:
+		info_label.text = "Select your target"
+	else:
+		var out_arr = ["first","second","third","fourth","fifth","sixth","seventh"]
+		info_label.text = "Select your "+out_arr[cur_targets.size()]+" target"
+	
+
 func check_targets():
 	var done = false
 	
-	if(cur_type == COMMON_ENUMS.TARGET_TYPE.NONE):
+	if cur_targets.check_length(cur_type):
 		done = true
-	if(cur_type == COMMON_ENUMS.TARGET_TYPE.SINGLE):
-		if cur_targets.check_length(1):
-			done = true
-	if(cur_type == COMMON_ENUMS.TARGET_TYPE.DOUBLE):
-		if cur_targets.check_length(2):
-			done = true
-	if(cur_type == COMMON_ENUMS.TARGET_TYPE.TRIPLE):
-		if cur_targets.check_length(3):
-			done = true
+	else:
+		display_text()
+	
 	
 	if(done):
-		confirm_button.visible = true
+		confirm_button.disabled = false
+		info_label.visible = false
 		_targeting = false
 
 func _reset():
 	for child in get_children():
-		if(not child is Button and not child==player_select):
+		if(child is Line2D or child is Sprite2D):
 			child.queue_free()
 	
-	cancel_button.visible = false
-	confirm_button.visible = false
+	#cancel_button.visible = false
+	#confirm_button.visible = false
+	visible = false
 	
 	OFFSETS = [0,0,0,0]
 	_num_arrows = 0
