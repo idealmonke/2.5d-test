@@ -49,9 +49,9 @@ var tween_scale: Tween
 var base_scale: Vector2
 var pos_tween: Tween
 
-var base_z_index : int
-var z_index_modifier: int
-var z_index_hover: int
+var base_z_index : int = 0
+var z_index_modifier: int = 0
+var z_index_hover: int = 0
 
 var hover : bool
 var audio_played: bool = false
@@ -249,20 +249,27 @@ func _input(event: InputEvent) -> void:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				interactable_state = prev_state
 				self.target_rotation = old_tilt
-	
+
 
 func _on_mouse_entered() -> void:
-	if self.interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.PLAYING:
-		AudioManager.play_audio('Click')
-	if !hover:
-		player_highlight_card()
-	hover = true
-	
+	BattleController.data.hand.subscribe(self)
+	#if !hover:
+		#if self.interactable_state == COMMON_ENUMS.INTERACT_STATE.HAND || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.GRID_DISPLAY || self.interactable_state == COMMON_ENUMS.INTERACT_STATE.PLAYING:
+			#AudioManager.play_audio('Click')
+			#BattleController.tooltip_manager_instance.hover_card(self)
+#
+		#player_highlight_card()
+	#hover = true
+	pass
 	
 func _on_mouse_exited() -> void:
-	if hover:
-		player_unhighlight_card()
-	hover = false
+	BattleController.data.hand.unsubscribe(self)
+	#
+	#if hover:
+		#player_unhighlight_card()
+		#BattleController.tooltip_manager_instance.unhover_card(self)
+	#hover = false
+	pass
 	
 
 func _update_pickable() -> void:
@@ -272,7 +279,7 @@ func _update_pickable() -> void:
 		set_input_pickable(false)
 
 func player_highlight_card() -> void:
-	z_index_hover = 5
+	z_index_hover = 100
 	if tween_scale:
 		tween_scale.kill()
 	tween_scale = create_tween()
@@ -284,7 +291,7 @@ func player_highlight_card() -> void:
 
 func player_unhighlight_card() -> void:
 	audio_played = false
-	z_index_hover = -5
+	z_index_hover = 0
 	hover_offset = Vector2(0,0)
 	if tween_scale:
 		tween_scale.kill()

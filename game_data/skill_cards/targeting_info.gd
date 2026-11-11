@@ -26,3 +26,5 @@ func get_target(idx : int):
 
 func check_length(target_len : int):
 	return len(targets) == target_len
+func size():
+	return targets.size()

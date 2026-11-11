@@ -18,9 +18,10 @@ var win_screen : PanelContainer
 var screen_effects: CanvasLayer
 var camera: Camera2D
 
-#Targeting / Maybe Manager
+#Targeting / Maybe Manager / Tooltip manager
 var targeting_manager_instance : TargetingManager
 var maybe_manager_instance : MaybeManager
+var tooltip_manager_instance : TooltipManager
 
 var is_finished : bool
 
@@ -76,7 +77,7 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_R:
 			discard_front()
 				
-func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, mm: MaybeManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D, devlog: PanelContainer, banner: AnimatedBanner) -> void:
+func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, mm: MaybeManager, end_turn, display: SkillCardDisplayGrid, win: PanelContainer, effect_bar: StatusEffectDisplay, shield_node : Node2D, devlog: PanelContainer, banner: AnimatedBanner, tooltip: TooltipManager) -> void:
 	data.discard = discard
 	data.hand = hand
 	data.library = library
@@ -86,6 +87,8 @@ func setup(discard: Node, hand: Node, library: Node, tm : TargetingManager, mm: 
 	
 	targeting_manager_instance = tm
 	maybe_manager_instance = mm
+	tooltip_manager_instance = tooltip
+	
 	display_grid = display
 	end_turn_button = end_turn
 	
